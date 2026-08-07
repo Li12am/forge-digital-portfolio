@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torque &amp; Co. Auto Repair — Philadelphia, PA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15171a;
+    --surface:#1c1f23;
+    --surface-2:#23272c;
+    --line:rgba(230,235,240,0.10);
+    --text:#eef1f4;
+    --text-muted:#8b939b;
+    --amber:#ffb703;
+    --amber-soft:rgba(255,183,3,0.14);
+    --teal:#3fb8b0;
+    --danger:#ff5c5c;
+    --radius:6px;
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Rajdhani', sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.01em; margin:0;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:58px 0;} }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber); display:flex; align-items:center; gap:10px;}
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--amber);}
+  .demo-flag{background:var(--amber); color:#15171a; text-align:center; padding:8px 16px; font-family:'IBM Plex Mono',monospace; font-size:0.75rem; letter-spacing:0.04em;}
+
+  header.nav{position:sticky; top:0; z-index:50; background:rgba(21,23,26,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw); margin:0 auto; padding:18px 28px; display:flex; align-items:center; justify-content:space-between;}
+  .brand{font-family:'Rajdhani',sans-serif; font-weight:700; text-transform:uppercase; font-size:1.15rem; letter-spacing:0.03em; display:flex; align-items:center; gap:10px;}
+  .brand .mark{width:12px; height:12px; background:var(--amber); clip-path:polygon(50% 0%, 0% 100%, 100% 100%); transition:transform .3s ease;}
+  .brand:hover .mark{transform:rotate(180deg);}
+  nav.links{display:flex; gap:30px; font-size:0.88rem; color:var(--text-muted);}
+  nav.links a{position:relative; padding-bottom:3px;}
+  nav.links a::after{content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--amber); transition:width .25s ease;}
+  nav.links a:hover{color:var(--text);}
+  nav.links a:hover::after{width:100%;}
+  .nav-cta{font-family:'IBM Plex Mono',monospace; font-size:0.8rem; color:#15171a; background:var(--amber); padding:9px 18px; border-radius:var(--radius); transition:background .2s ease, transform .15s ease;}
+  .nav-cta:hover{background:#ffc843; transform:translateY(-1px);}
+  @media (max-width:860px){ nav.links{display:none;} }
+
+  /* ---------- HERO: GAUGE CLUSTER ---------- */
+  .hero{padding:80px 0 40px;}
+  .hero-top{max-width:680px; margin-bottom:50px;}
+  .hero-top h1{font-size:clamp(2.2rem,4.6vw,3.6rem); line-height:1.05;}
+  .hero-top h1 span{color:var(--amber);}
+  .hero-top p{color:var(--text-muted); font-size:1.06rem; margin-top:18px; max-width:520px;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:28px;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:var(--radius); font-family:'Rajdhani',sans-serif; text-transform:uppercase; letter-spacing:0.03em; font-size:0.9rem; font-weight:600; cursor:pointer; border:1px solid transparent; transition:transform .15s ease, background .2s ease, border-color .2s ease;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-amber{background:var(--amber); color:#15171a;}
+  .btn-amber:hover{background:#ffc843;}
+  .btn-ghost{border-color:var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--amber); color:var(--amber);}
+
+  .cluster{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media (max-width:720px){ .cluster{grid-template-columns:1fr; max-width:280px; margin:0 auto;} }
+  .gauge-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:24px; text-align:center;}
+  .gauge-svg{width:100%; max-width:160px; margin:0 auto;}
+  .needle{transform-origin:100px 100px; transform:rotate(-90deg); animation:sweep 1.6s cubic-bezier(.2,.8,.2,1) forwards;}
+  .gauge-label{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:8px;}
+  .gauge-value{font-family:'Rajdhani',sans-serif; font-size:1.5rem; color:var(--amber); margin-top:2px;}
+  @media (prefers-reduced-motion:reduce){ .needle{animation:none;} }
+
+  .sec-head{max-width:640px; margin-bottom:44px;}
+  .sec-head h2{font-size:clamp(1.9rem,3.2vw,2.6rem); margin-top:14px;}
+  .sec-head p{color:var(--text-muted); margin-top:16px; font-size:1.02rem; text-transform:none; font-family:'Inter',sans-serif;}
+
+  /* ---------- DIAGNOSTIC SCANNER ---------- */
+  .scanner{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .scanner-bar{background:var(--surface-2); padding:12px 20px; display:flex; gap:8px; align-items:center; border-bottom:1px solid var(--line);}
+  .scanner-dot{width:9px; height:9px; border-radius:50%; background:var(--text-muted); opacity:0.5;}
+  .scanner-title{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-muted); margin-left:8px;}
+  .terminal{padding:24px; font-family:'IBM Plex Mono',monospace; font-size:0.9rem; color:var(--teal); min-height:120px;}
+  .terminal .cursor{display:inline-block; width:0.55em; background:var(--teal); animation:blink 0.9s steps(1) infinite;}
+  @keyframes blink{ 50%{opacity:0;} }
+  .code-row{display:flex; flex-wrap:wrap; gap:10px; padding:0 24px 24px;}
+  .code-chip{
+    font-family:'IBM Plex Mono',monospace; font-size:0.85rem; padding:10px 16px; border-radius:4px;
+    border:1px solid var(--line); background:var(--surface-2); cursor:pointer; color:var(--text-muted);
+    transition:all .2s ease;
+  }
+  .code-chip:hover{border-color:var(--amber); color:var(--amber);}
+  .code-chip.active{background:var(--amber); border-color:var(--amber); color:#15171a;}
+  .code-result{margin:0 24px 28px; padding:24px; background:var(--surface-2); border-radius:var(--radius); border-left:3px solid var(--amber); display:none;}
+  .code-result.visible{display:block;}
+  .code-result .cr-code{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--amber);}
+  .code-result h3{font-family:'Rajdhani',sans-serif; font-size:1.3rem; margin:8px 0 8px; text-transform:none;}
+  .code-result p{color:var(--text-muted); font-size:0.94rem; margin-bottom:12px;}
+  .code-result .price{font-family:'IBM Plex Mono',monospace; font-size:1.1rem; color:var(--text);}
+
+  /* ---------- BAY BOARD ---------- */
+  .bay-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:800px){ .bay-grid{grid-template-columns:1fr;} }
+  .bay-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:24px; display:flex; align-items:center; gap:18px;}
+  .bay-icon{width:56px; height:36px; flex-shrink:0;}
+  .bay-info{flex:1;}
+  .bay-info .bnum{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;}
+  .bay-info h3{font-size:1.2rem; margin:4px 0 6px; text-transform:none;}
+  .bay-status{display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:0.82rem;}
+  .dot{width:9px; height:9px; border-radius:50%;}
+  .dot.busy{background:var(--danger); box-shadow:0 0 0 0 rgba(255,92,92,0.6); animation:pulse 1.6s infinite;}
+  .dot.open{background:#4ade80;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,92,92,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(255,92,92,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,92,92,0);}
+  }
+
+  /* ---------- INVOICE TESTIMONIAL ---------- */
+  .invoice{background:#f2f0e9; color:#25231f; max-width:420px; margin:0 auto; border-radius:2px; box-shadow:0 30px 60px -30px rgba(0,0,0,0.5); font-family:'IBM Plex Mono',monospace; font-size:0.85rem;}
+  .invoice-head{background:#25231f; color:#f2f0e9; padding:18px 24px; font-family:'Rajdhani',sans-serif; font-size:1.1rem; text-transform:uppercase; letter-spacing:0.03em;}
+  .invoice-body{padding:24px;}
+  .inv-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #ccc;}
+  .inv-row .strike{text-decoration:line-through; color:#999; margin-right:8px;}
+  .inv-total{display:flex; justify-content:space-between; padding-top:14px; margin-top:6px; border-top:2px solid #25231f; font-weight:700; font-size:1rem;}
+  .inv-quote{margin-top:18px; font-style:italic; color:#4a463f; line-height:1.5;}
+  .inv-foot{text-align:center; margin-top:16px; font-size:0.72rem; color:#8a847a;}
+
+  /* ---------- CONTACT (work order) ---------- */
+  .workorder{position:relative; max-width:640px; margin:0 auto; padding-bottom:10px;}
+  .wo-back{position:absolute; top:8px; left:8px; right:-8px; bottom:-8px; background:#3a3320; border-radius:6px; z-index:0;}
+  .wo-front{position:relative; z-index:1; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:36px;}
+  .wo-title{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:24px; border-bottom:1px solid var(--line); padding-bottom:16px;}
+  .wo-title h2{font-size:1.4rem;}
+  .wo-title span{font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--text-muted);}
+  form{display:flex; flex-direction:column; gap:16px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
+  @media (max-width:560px){ .form-row{grid-template-columns:1fr;} }
+  label{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:var(--text-muted); letter-spacing:0.05em; text-transform:uppercase; margin-bottom:6px; display:block;}
+  input, textarea{width:100%; background:var(--surface-2); border:1px solid var(--line); color:var(--text); padding:12px 14px; border-radius:4px; font-family:'Inter',sans-serif; font-size:0.95rem; transition:border-color .2s ease;}
+  input:hover, textarea:hover{border-color:rgba(255,183,3,0.4);}
+  input:focus, textarea:focus{border-color:var(--amber);}
+  textarea{resize:vertical; min-height:90px;}
+  .wo-meta{display:flex; justify-content:space-between; margin-top:20px; padding-top:16px; border-top:1px dashed var(--line); font-family:'IBM Plex Mono',monospace; font-size:0.8rem; color:var(--text-muted);}
+
+  footer{border-top:1px solid var(--line); padding:40px 0;}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .foot-brand{font-family:'Rajdhani',sans-serif; font-weight:700; text-transform:uppercase;}
+  .foot-links{display:flex; gap:22px; font-size:0.85rem; color:var(--text-muted);}
+  .foot-links a:hover{color:var(--amber);}
+  .foot-fine{color:var(--text-muted); font-size:0.78rem; margin-top:18px; font-family:'IBM Plex Mono',monospace;}
+</style>
+</head>
+<body>
+
+<div class="demo-flag">DEMO CONCEPT — FICTIONAL BUSINESS FOR ILLUSTRATION ONLY</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="mark"></span>Torque &amp; Co.</div>
+    <nav class="links">
+      <a href="#diagnose">Diagnose</a>
+      <a href="#bays">Bays</a>
+      <a href="#contact">Work Order</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Book a Bay</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div class="eyebrow">Kensington, Philadelphia</div>
+      <h1 style="margin-top:14px;">Honest work,<br>read out <span>plain.</span></h1>
+      <p>No upsells, no jargon you didn't ask for. We tell you what's wrong, what it costs, and how long it takes — same as the gauges below.</p>
+      <div class="cta-row">
+        <a href="#diagnose" class="btn btn-amber">Run a Diagnostic</a>
+        <a href="#contact" class="btn btn-ghost">Book a Bay</a>
+      </div>
+    </div>
+
+    <div class="cluster">
+      <div class="gauge-card">
+        <svg class="gauge-svg" viewBox="0 0 200 120">
+          <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#33383e" stroke-width="10"/>
+          <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--amber)" stroke-width="10" stroke-dasharray="220" stroke-dashoffset="30" stroke-linecap="round"/>
+          <line class="needle" x1="100" y1="100" x2="100" y2="30" stroke="#eef1f4" stroke-width="3" style="animation-name:sweep1;" />
+          <circle cx="100" cy="100" r="6" fill="var(--amber)"/>
+        </svg>
+        <div class="gauge-value">14</div>
+        <div class="gauge-label">Years Turning Wrenches</div>
+      </div>
+      <div class="gauge-card">
+        <svg class="gauge-svg" viewBox="0 0 200 120">
+          <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#33383e" stroke-width="10"/>
+          <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--teal)" stroke-width="10" stroke-dasharray="220" stroke-dashoffset="150" stroke-linecap="round"/>
+          <line class="needle" x1="100" y1="100" x2="100" y2="30" stroke="#eef1f4" stroke-width="3" style="animation-name:sweep2;" />
+          <circle cx="100" cy="100" r="6" fill="var(--teal)"/>
+        </svg>
+        <div class="gauge-value">3.2 HRS</div>
+        <div class="gauge-label">Avg. Turnaround</div>
+      </div>
+      <div class="gauge-card">
+        <svg class="gauge-svg" viewBox="0 0 200 120">
+          <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#33383e" stroke-width="10"/>
+          <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#4ade80" stroke-width="10" stroke-dasharray="220" stroke-dashoffset="10" stroke-linecap="round"/>
+          <line class="needle" x1="100" y1="100" x2="100" y2="30" stroke="#eef1f4" stroke-width="3" style="animation-name:sweep3;" />
+          <circle cx="100" cy="100" r="6" fill="#4ade80"/>
+        </svg>
+        <div class="gauge-value">4.9 / 5</div>
+        <div class="gauge-label">Customer Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes sweep1{ from{transform:rotate(-90deg);} to{transform:rotate(78deg);} }
+  @keyframes sweep2{ from{transform:rotate(-90deg);} to{transform:rotate(15deg);} }
+  @keyframes sweep3{ from{transform:rotate(-90deg);} to{transform:rotate(86deg);} }
+</style>
+
+<section id="diagnose">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Run a Diagnostic</div>
+      <h2>Know before you go.</h2>
+      <p>Click a code below to see what it actually means — and what it costs to fix.</p>
+    </div>
+    <div class="scanner">
+      <div class="scanner-bar">
+        <div class="scanner-dot"></div><div class="scanner-dot"></div><div class="scanner-dot"></div>
+        <div class="scanner-title">TORQUE-SCAN v2.1</div>
+      </div>
+      <div class="terminal" id="terminal"></div>
+      <div class="code-row" id="codeRow" style="display:none;">
+        <div class="code-chip" data-code="0">P0300</div>
+        <div class="code-chip" data-code="1">P0420</div>
+        <div class="code-chip" data-code="2">P0128</div>
+        <div class="code-chip" data-code="3">P0171</div>
+        <div class="code-chip" data-code="4">P0442</div>
+        <div class="code-chip" data-code="5">P0562</div>
+      </div>
+      <div class="code-result" id="codeResult">
+        <div class="cr-code" id="crCode">P0300</div>
+        <h3 id="crTitle">Random Misfire Detected</h3>
+        <p id="crDesc">Usually spark plugs, coil packs, or a vacuum leak. We scope it before quoting so you're not paying to guess.</p>
+        <div class="price" id="crPrice">Diagnostic: Free with repair &middot; Typical fix: $120–$400</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bays">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Right Now</div>
+      <h2>Bay status.</h2>
+      <p>Real shops get backed up. Here's exactly where things stand before you drive over.</p>
+    </div>
+    <div class="bay-grid">
+      <div class="bay-card">
+        <svg class="bay-icon" viewBox="0 0 56 36"><rect x="4" y="14" width="48" height="12" rx="3" fill="#33383e"/><circle cx="16" cy="28" r="5" fill="#15171a" stroke="#8b939b" stroke-width="2"/><circle cx="42" cy="28" r="5" fill="#15171a" stroke="#8b939b" stroke-width="2"/><rect x="12" y="6" width="30" height="10" rx="3" fill="#33383e"/></svg>
+        <div class="bay-info">
+          <div class="bnum">BAY 01</div>
+          <h3>Brake Job In Progress</h3>
+          <div class="bay-status"><span class="dot busy"></span>Est. ready 2:45 PM</div>
+        </div>
+      </div>
+      <div class="bay-card">
+        <svg class="bay-icon" viewBox="0 0 56 36"><rect x="4" y="14" width="48" height="12" rx="3" fill="#33383e"/><circle cx="16" cy="28" r="5" fill="#15171a" stroke="#8b939b" stroke-width="2"/><circle cx="42" cy="28" r="5" fill="#15171a" stroke="#8b939b" stroke-width="2"/><rect x="12" y="6" width="30" height="10" rx="3" fill="#33383e"/></svg>
+        <div class="bay-info">
+          <div class="bnum">BAY 02</div>
+          <h3>Open</h3>
+          <div class="bay-status"><span class="dot open"></span>Ready now</div>
+        </div>
+      </div>
+      <div class="bay-card">
+        <svg class="bay-icon" viewBox="0 0 56 36"><rect x="4" y="14" width="48" height="12" rx="3" fill="#33383e"/><circle cx="16" cy="28" r="5" fill="#15171a" stroke="#8b939b" stroke-width="2"/><circle cx="42" cy="28" r="5" fill="#15171a" stroke="#8b939b" stroke-width="2"/><rect x="12" y="6" width="30" height="10" rx="3" fill="#33383e"/></svg>
+        <div class="bay-info">
+          <div class="bnum">BAY 03</div>
+          <h3>Oil Change In Progress</h3>
+          <div class="bay-status"><span class="dot busy"></span>Est. ready 1:15 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center;">From the Files</div>
+    <div class="invoice" style="margin-top:26px;">
+      <div class="invoice-head">Customer Invoice #4471</div>
+      <div class="invoice-body">
+        <div class="inv-row"><span>Diagnostic Fee</span><span><span class="strike">$150</span>$0.00</span></div>
+        <div class="inv-row"><span>Being Talked Down To</span><span><span class="strike">Usually</span>Never</span></div>
+        <div class="inv-row"><span>Parts Marked Up</span><span><span class="strike">Yes</span>No</span></div>
+        <div class="inv-row"><span>Straight Answer</span><span>Included</span></div>
+        <div class="inv-total"><span>Total Trust Earned</span><span>5 / 5 STARS</span></div>
+        <div class="inv-quote">"First mechanic who showed me the worn part instead of just telling me it was worn."</div>
+        <div class="inv-foot">— VERIFIED CUSTOMER, GOOGLE REVIEWS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center; margin:0 auto 30px;">
+      <div class="eyebrow" style="justify-content:center;">Work Order</div>
+      <h2>Tell us what's wrong.</h2>
+    </div>
+    <div class="workorder">
+      <div class="wo-back"></div>
+      <div class="wo-front">
+        <div class="wo-title">
+          <h2>New Work Order</h2>
+          <span id="woDate"></span>
+        </div>
+        <form onsubmit="return handleSubmit(event)">
+          <div class="form-row">
+            <div><label for="year">Year</label><input type="text" id="year" placeholder="2019" required></div>
+            <div><label for="make">Make</label><input type="text" id="make" placeholder="Honda" required></div>
+            <div><label for="model">Model</label><input type="text" id="model" placeholder="Civic" required></div>
+          </div>
+          <div class="form-row" style="grid-template-columns:1fr 1fr;">
+            <div><label for="mileage">Mileage</label><input type="text" id="mileage" placeholder="82,000"></div>
+            <div><label for="phone">Phone</label><input type="tel" id="phone" required></div>
+          </div>
+          <div><label for="issue">What's going on?</label><textarea id="issue" placeholder="Grinding noise when braking, started last week..."></textarea></div>
+          <button type="submit" class="btn btn-amber" style="align-self:flex-start;">Submit Work Order</button>
+          <p id="formNote" class="mono" style="font-size:0.8rem; color:var(--text-muted); display:none;">Received — we'll call to confirm a bay time. (Connect this form to email or a shop management system to go live.)</p>
+        </form>
+        <div class="wo-meta"><span>SHOP: TORQUE &amp; CO.</span><span>STATUS: PENDING REVIEW</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-brand">Torque &amp; Co. Auto Repair</div>
+      <div class="foot-links"><a href="#diagnose">Diagnose</a><a href="#bays">Bays</a><a href="#contact">Work Order</a></div>
+    </div>
+    <p class="foot-fine">2890 Kensington Ave, Philadelphia, PA 19134 · 215-555-0139 · Demo concept, fictional business, 2026.</p>
+  </div>
+</footer>
+
+<script>
+  // Terminal typing sequence
+  const terminal = document.getElementById('terminal');
+  const lines = [
+    "> connecting to bay diagnostics...",
+    "> scanning common trouble codes...",
+    "> 6 codes loaded. select one to decode >"
+  ];
+  let li = 0, ci = 0;
+  function typeLine(){
+    if(li >= lines.length){
+      document.getElementById('codeRow').style.display = 'flex';
+      return;
+    }
+    const line = lines[li];
+    if(ci <= line.length){
+      terminal.innerHTML = lines.slice(0, li).map(l=>l+'<br>').join('') + line.slice(0, ci) + '<span class="cursor">&nbsp;</span>';
+      ci++;
+      setTimeout(typeLine, 22);
+    } else {
+      li++; ci = 0;
+      setTimeout(typeLine, 300);
+    }
+  }
+  typeLine();
+
+  // Diagnostic codes
+  const codes = [
+    {code:"P0300", title:"Random Misfire Detected", desc:"Usually spark plugs, coil packs, or a vacuum leak. We scope it before quoting so you're not paying to guess.", price:"Diagnostic: Free with repair · Typical fix: $120–$400"},
+    {code:"P0420", title:"Catalyst System Below Threshold", desc:"Often points to the catalytic converter, but sometimes it's just an upstream sensor. Worth confirming before replacing the expensive part.", price:"Diagnostic: Free with repair · Typical fix: $300–$1,200"},
+    {code:"P0128", title:"Coolant Thermostat Issue", desc:"Engine's taking too long to reach operating temp — almost always the thermostat itself.", price:"Diagnostic: Free with repair · Typical fix: $150–$300"},
+    {code:"P0171", title:"System Too Lean (Bank 1)", desc:"Too much air, not enough fuel in the mix. Common causes are a vacuum leak or a dirty mass airflow sensor.", price:"Diagnostic: Free with repair · Typical fix: $100–$350"},
+    {code:"P0442", title:"Small EVAP Leak Detected", desc:"Nine times out of ten it's a loose or cracked gas cap. We check that first, free, before anything else.", price:"Diagnostic: Free · Typical fix: $0–$180"},
+    {code:"P0562", title:"System Voltage Low", desc:"Battery, alternator, or a bad connection. We test all three so you don't replace a part that wasn't the problem.", price:"Diagnostic: Free with repair · Typical fix: $150–$550"},
+  ];
+  const chips = document.querySelectorAll('.code-chip');
+  const result = document.getElementById('codeResult');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const d = codes[parseInt(chip.dataset.code)];
+      document.getElementById('crCode').textContent = d.code;
+      document.getElementById('crTitle').textContent = d.title;
+      document.getElementById('crDesc').textContent = d.desc;
+      document.getElementById('crPrice').textContent = d.price;
+      result.classList.add('visible');
+    });
+  });
+
+  // Work order date stamp
+  document.getElementById('woDate').textContent = new Date().toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+
+  function handleSubmit(e){
+    e.preventDefault();
+    document.getElementById('formNote').style.display = 'block';
+    e.target.reset();
+    return false;
+  }
+</script>
+
+</body>
+</html>

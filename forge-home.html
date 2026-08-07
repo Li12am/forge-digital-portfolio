@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{if(localStorage.getItem('forge-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge Digital - Web Design for Local Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root{
+  --bg:#f3f4f6;
+  --surface:#ffffff;
+  --surface-2:#f9fafb;
+  --border:#e2e5eb;
+  --text-heading:#1a2942;
+  --text-body:#4b5768;
+  --text-muted:#5b6b85;
+  --blue:#2563eb;
+  --blue-dark:#1d4ed8;
+  --blue-light:#60a5fa;
+  --blue-tint:rgba(37,99,235,0.06);
+  --footer-bg:#1a2942;
+  --footer-text:rgba(255,255,255,0.75);
+  --shadow:rgba(26,41,66,0.14);
+  --blob-a:rgba(37,99,235,0.42);
+  --blob-b:rgba(26,41,66,0.30);
+  --container-w:1560px;
+}
+[data-theme="dark"]{
+  --bg:#0d1420;
+  --surface:#141d30;
+  --surface-2:#101828;
+  --border:rgba(255,255,255,0.08);
+  --text-heading:#f1f5f9;
+  --text-body:#aab6cc;
+  --text-muted:#7e8bab;
+  --blue:#3b82f6;
+  --blue-dark:#2563eb;
+  --blue-light:#93c5fd;
+  --blue-tint:rgba(59,130,246,0.1);
+  --footer-bg:#080d17;
+  --footer-text:rgba(255,255,255,0.65);
+  --shadow:rgba(0,0,0,0.5);
+  --blob-a:rgba(59,130,246,0.30);
+  --blob-b:rgba(99,102,241,0.22);
+}
+html{ scroll-behavior:smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-body); line-height: 1.6; transition: background-color .4s ease, color .4s ease; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+.container { max-width: var(--container-w); margin: 0 auto; padding: 0 72px; }
+@media (max-width: 860px){ .container{ padding: 0 24px; } }
+
+/* HEADER */
+header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; transition: background-color .4s ease, border-color .4s ease; }
+.header-inner { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; width: 100%; }
+.logo-wrap { display: flex; align-items: center; gap: 14px; }
+.logo-link { display: flex; align-items: center; transition: transform .25s ease; }
+.logo-link:hover { transform: scale(1.03); }
+.logo-img { height: 36px; width: auto; display: block; }
+.logo-img.logo-dark { display: none; }
+[data-theme="dark"] .logo-img.logo-light { display: none; }
+[data-theme="dark"] .logo-img.logo-dark { display: block; }
+.theme-toggle {
+  width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  color: var(--text-muted); background: none; border: 1px solid var(--border); cursor: pointer; flex-shrink: 0;
+  transition: color .25s ease, background-color .25s ease, border-color .25s ease, transform .3s ease;
+}
+.theme-toggle:hover{ color: var(--blue); border-color: var(--blue); background: var(--blue-tint); transform: rotate(-8deg); }
+.icon-sun{ display: none; }
+.icon-moon{ display: block; }
+[data-theme="dark"] .icon-sun{ display: block; }
+[data-theme="dark"] .icon-moon{ display: none; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a:not(.nav-btn) { position: relative; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; transition: color 0.3s ease; }
+.nav-links a:not(.nav-btn)::after { content: ""; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--blue); transition: width .25s ease; }
+.nav-links a:not(.nav-btn):hover::after { width: 100%; }
+.nav-links a:not(.nav-btn):hover { color: var(--text-heading); }
+.nav-links a.current { color: var(--blue); }
+.nav-links a.current::after { width: 100%; }
+.nav-btn { background: var(--blue); color: #ffffff !important; border: none; padding: 10px 22px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.9rem; transition: background .25s ease, transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s ease; text-decoration: none; display: inline-block; }
+.nav-btn:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 10px 22px rgba(37,99,235,0.35); }
+
+/* MOBILE MENU */
+.mobile-toggle {
+  display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+  width: 46px; height: 46px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface);
+  cursor: pointer; flex-shrink: 0; position: relative; z-index: 210;
+  transition: border-color .25s ease;
+}
+.mobile-toggle:hover { border-color: var(--blue); }
+.mobile-toggle span { display: block; width: 24px; height: 3px; border-radius: 2px; background: var(--text-heading); transition: transform .3s ease, opacity .2s ease; }
+.mobile-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.mobile-toggle.open span:nth-child(2) { opacity: 0; }
+.mobile-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.mobile-menu-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 190; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.mobile-menu-backdrop.open { opacity: 1; pointer-events: auto; }
+.mobile-menu {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(84%, 360px); background: var(--surface); z-index: 200;
+  display: flex; flex-direction: column; padding: 100px 32px 40px; transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1); box-shadow: -20px 0 60px rgba(0,0,0,0.3); overflow-y: auto;
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu-close {
+  position: absolute; top: 20px; right: 20px; width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--border); background: none; color: var(--text-heading); font-size: 1.5rem;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color .2s ease, color .2s ease;
+}
+.mobile-menu-close:hover { border-color: var(--blue); color: var(--blue); }
+.mobile-menu-links { display: flex; flex-direction: column; }
+.mobile-menu-links a:not(.mobile-nav-btn) {
+  padding: 18px 4px; font-family: 'Sora', sans-serif; font-size: 1.2rem; font-weight: 700;
+  color: var(--text-heading); border-bottom: 1px solid var(--border); transition: color .2s ease, padding-left .2s ease;
+}
+.mobile-menu-links a:not(.mobile-nav-btn):hover, .mobile-menu-links a:not(.mobile-nav-btn):active { color: var(--blue); padding-left: 10px; }
+.mobile-menu-links a.current { color: var(--blue); }
+.mobile-nav-btn {
+  margin-top: 28px; text-align: center; background: var(--blue); color: #ffffff !important; padding: 16px 0;
+  border-radius: 8px; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.05rem;
+  transition: background-color .2s ease, transform .2s ease;
+}
+.mobile-nav-btn:hover { background: var(--blue-dark); transform: translateY(-2px); }
+body.menu-open { overflow: hidden; }
+
+/* HERO SECTION */
+.hero { position: relative; overflow: hidden; padding: 120px 0 100px; }
+.bg-blob{ position: fixed; border-radius: 50%; filter: blur(50px); pointer-events: none; z-index: -1; }
+.blob-1{ width: 520px; height: 520px; background: radial-gradient(circle, var(--blob-a) 0%, transparent 72%); top: 0; right: 0; animation: blobFloatTR 18s ease-in-out infinite; }
+.blob-2{ width: 420px; height: 420px; background: radial-gradient(circle, var(--blob-b) 0%, transparent 72%); bottom: 0; left: 0; animation: blobFloatBL 18s ease-in-out infinite; animation-delay: -6s; }
+@keyframes blobFloatTR{ 0%,100%{ transform: translate(38%,-38%) scale(1); } 50%{ transform: translate(42%,-34%) scale(1.06); } }
+@keyframes blobFloatBL{ 0%,100%{ transform: translate(-38%,38%) scale(1); } 50%{ transform: translate(-34%,42%) scale(1.06); } }
+@media (prefers-reduced-motion: reduce){ .bg-blob{ animation: none; } }
+.hero-content { position: relative; z-index: 1; }
+.hero-content h1 { font-family: 'Sora', sans-serif; font-size: 3.6rem; font-weight: 800; line-height: 1.15; color: var(--text-heading); margin-bottom: 28px; max-width: 780px; letter-spacing: -1px; transition: color .4s ease; }
+.hero-content h1 .highlight { color: var(--blue); }
+.hero-content p { font-size: 1.125rem; color: var(--text-body); max-width: 620px; margin-bottom: 40px; line-height: 1.8; }
+.hero-btn-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.cta-button { background: var(--blue); color: white; border: none; padding: 18px 40px; border-radius: 8px; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: inline-block; text-decoration: none; }
+.cta-button:hover { background: var(--blue-dark); transform: translateY(-3px); box-shadow: 0 10px 25px var(--shadow); }
+.cta-secondary { background: transparent; color: var(--blue); border: 2px solid var(--blue); padding: 16px 38px; border-radius: 8px; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: inline-block; text-decoration: none; }
+.cta-secondary:hover { background: var(--blue); color: white; transform: translateY(-3px); box-shadow: 0 10px 25px var(--shadow); }
+
+/* STATS */
+.stats { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; margin-top: 100px; padding-top: 80px; border-top: 2px solid var(--border); }
+.stat h3 { font-family: 'Sora', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--blue); margin-bottom: 12px; transition: transform .3s ease; }
+.stat:hover h3{ transform: translateY(-4px); }
+.stat p { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; }
+
+/* REVEAL ANIMATION */
+.reveal{ opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in-view{ opacity: 1; transform: none; }
+.reveal-d1{ transition-delay: .1s; }
+.reveal-d2{ transition-delay: .2s; }
+.reveal-d3{ transition-delay: .3s; }
+@media (prefers-reduced-motion: reduce){ .reveal{ transition: none; opacity: 1; transform: none; } }
+
+/* FOOTER */
+footer { background: var(--footer-bg); color: white; padding: 80px 0 40px; margin-top: 120px; transition: background-color .4s ease; }
+.footer-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 50px; }
+.footer-section h4 { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+.footer-section p { color: var(--footer-text); font-size: 0.95rem; line-height: 1.7; }
+.footer-links { display: flex; flex-direction: column; gap: 14px; }
+.footer-links a { position: relative; display: inline-block; width: fit-content; color: var(--footer-text); font-size: 0.95rem; transition: color 0.3s ease; }
+.footer-links a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1px; background: white; transition: width .25s ease; }
+.footer-links a:hover::after { width: 100%; }
+.footer-links a:hover { color: white; }
+.footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 40px; text-align: center; color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; }
+
+@media (max-width: 768px) {
+  .header-inner { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  .hero-content h1 { font-size: 2.2rem; }
+  .stats { grid-template-columns: 1fr; gap: 40px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 50px; }
+}
+
+/* QUICK EXAMPLE CTA */
+.cta-tertiary { background: none; border: none; padding: 16px 4px; color: var(--text-muted); font-weight: 700; font-family: 'Sora', sans-serif; font-size: 0.95rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: color .25s ease, gap .25s ease; }
+.cta-tertiary:hover { color: var(--blue); gap: 10px; }
+.cta-tertiary .arrow { transition: transform .25s ease; }
+.cta-tertiary:hover .arrow { transform: translateX(2px); }
+
+/* QUICK EXAMPLE MODAL */
+.qe-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 290; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.qe-modal-backdrop.open { opacity: 1; pointer-events: auto; }
+.qe-modal {
+  position: fixed; top: 50%; left: 50%; width: min(92%, 560px); max-height: 88vh; overflow-y: auto;
+  background: var(--surface); border-radius: 16px; box-shadow: 0 30px 80px -20px rgba(0,0,0,0.45);
+  z-index: 300; padding: 44px 40px 40px; transform: translate(-50%, -48%) scale(0.96); opacity: 0; pointer-events: none;
+  transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+}
+.qe-modal.open { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+.qe-modal-close { position: absolute; top: 18px; right: 18px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: none; color: var(--text-heading); font-size: 1.4rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color .2s ease, color .2s ease; }
+.qe-modal-close:hover { border-color: var(--blue); color: var(--blue); }
+.qe-eyebrow { font-family: 'Sora', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+.qe-modal h3 { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); margin-bottom: 14px; }
+.qe-modal-intro { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px; }
+.qe-modal form { display: flex; flex-direction: column; gap: 18px; }
+body.modal-open { overflow: hidden; }
+.qe-modal-confirm { text-align: center; padding: 20px 0 4px; }
+.qe-confirm-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); font-size: 1.6rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.qe-modal-confirm p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 28px; }
+.qe-modal-confirm .submit-btn { display: inline-block; padding-left: 36px; padding-right: 36px; }
+@media (max-width: 560px){ .qe-modal{ padding: 36px 24px 32px; } }
+
+/* FORM (shared with modal) */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+label { font-family: 'Sora', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; display: block; }
+input, textarea, select {
+  width: 100%; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-heading);
+  padding: 13px 16px; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.98rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+input:hover, textarea:hover, select:hover { border-color: var(--blue-light); }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-tint); }
+textarea { resize: vertical; min-height: 100px; }
+.submit-btn {
+  background: var(--blue); color: white; border: none; padding: 16px 0; border-radius: 8px;
+  font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: background 0.3s ease, transform .2s ease; align-self: flex-start; padding-left: 36px; padding-right: 36px;
+}
+.submit-btn:hover { background: var(--blue-dark); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <a href="forge-home.html" class="logo-link" aria-label="Forge Digital home">
+        <img src="forge-logo-light.png" alt="Forge Digital" class="logo-img logo-light">
+        <img src="forge-logo-dark.png" alt="Forge Digital" class="logo-img logo-dark">
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
+    <nav class="nav-links">
+      <a href="forge-home.html" class="current">Home</a>
+      <a href="forge-work.html">Work</a>
+      <a href="forge-services.html">Services</a>
+      <a href="forge-about.html">About</a>
+      <a href="forge-contact.html">Contact</a>
+      <a href="https://calendly.com/liam-coughlin/30min?back=1&month=2026-07" target="_blank" rel="noopener" class="nav-btn">Book a Call</a>
+    </nav>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+  <nav class="mobile-menu-links">
+    <a href="forge-home.html" class="current">Home</a>
+    <a href="forge-work.html">Work</a>
+    <a href="forge-services.html">Services</a>
+    <a href="forge-about.html">About</a>
+    <a href="forge-contact.html">Contact</a>
+    <a href="https://calendly.com/liam-coughlin/30min?back=1&month=2026-07" target="_blank" rel="noopener" class="mobile-nav-btn">Book a Call</a>
+  </nav>
+</div>
+
+<div class="qe-modal-backdrop" id="qeModalBackdrop"></div>
+<div class="qe-modal" id="qeModal" role="dialog" aria-modal="true" aria-labelledby="qeModalTitle">
+  <button class="qe-modal-close" id="qeModalClose" aria-label="Close">&times;</button>
+  <form id="qeForm">
+    <div class="qe-eyebrow">Quick Example</div>
+    <h3 id="qeModalTitle">Request a Quick Example</h3>
+    <p class="qe-modal-intro">We'll create a simple example concept for your business so you can see a possible direction. This is not the final website — just a quick preview so we can get your feedback before building the real thing.</p>
+    <div class="form-row">
+      <div>
+        <label for="qeBusiness">Business Name</label>
+        <input type="text" id="qeBusiness" name="business" required>
+      </div>
+      <div>
+        <label for="qeType">Type of Business</label>
+        <input type="text" id="qeType" name="type" placeholder="e.g. Auto Repair, Contractor" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div>
+        <label for="qeWebsite">Website (if you have one)</label>
+        <input type="text" id="qeWebsite" name="website" placeholder="Optional">
+      </div>
+      <div>
+        <label for="qePhone">Phone Number</label>
+        <input type="tel" id="qePhone" name="phone" required>
+      </div>
+    </div>
+    <div>
+      <label for="qeEmail">Email</label>
+      <input type="email" id="qeEmail" name="email" required>
+    </div>
+    <div>
+      <label for="qeNotes">Anything Specific You Want Us to Know</label>
+      <textarea id="qeNotes" name="notes" placeholder="Optional"></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Request My Example</button>
+  </form>
+  <div class="qe-modal-confirm" id="qeModalConfirm" hidden>
+    <div class="qe-confirm-icon">✓</div>
+    <h3>Request received</h3>
+    <p>Thanks — we'll put together a quick example and follow up with you soon.</p>
+    <button class="submit-btn" id="qeConfirmClose" type="button">Close</button>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="container">
+      <div class="hero-content reveal in-view">
+        <h1>Professional websites that help <span class="highlight">local businesses get more customers</span></h1>
+        <p>We build fast, effective websites for local businesses in Bucks County and the Greater Philadelphia area. No templates, no fluff. Just sites that turn visitors into customers.</p>
+        <div class="hero-btn-row">
+          <a href="forge-work.html" class="cta-button">See My Work →</a>
+          <a href="https://calendly.com/liam-coughlin/30min?back=1&month=2026-07" target="_blank" rel="noopener" class="cta-secondary">Book a Call</a>
+          <button type="button" class="cta-tertiary" data-qe-open>Request a Quick Example <span class="arrow">→</span></button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat reveal in-view">
+          <h3>6+</h3>
+          <p>Portfolio examples built and live</p>
+        </div>
+        <div class="stat reveal in-view reveal-d1">
+          <h3>100%</h3>
+          <p>Interactive and responsive designs</p>
+        </div>
+        <div class="stat reveal in-view reveal-d2">
+          <h3>Fast</h3>
+          <p>Delivered in weeks, not months</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-section">
+        <h4>Forge Digital</h4>
+        <p>We build websites that turn visitors into customers for local businesses across the region.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Get in Touch</h4>
+        <div class="footer-links">
+          <a href="mailto:liam.coughlin1@gmail.com">liam.coughlin1@gmail.com</a>
+          <a href="tel:+12158020007">215-802-0007</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Forge Digital. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    try{ localStorage.setItem('forge-theme', mode); }catch(e){}
+  }
+  toggle.addEventListener('click', function(){
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    setTheme(isDark ? 'light' : 'dark');
+  });
+})();
+(function(){
+  var toggle = document.getElementById('mobileToggle');
+  var menu = document.getElementById('mobileMenu');
+  var backdrop = document.getElementById('mobileMenuBackdrop');
+  var closeBtn = document.getElementById('mobileMenuClose');
+  function openMenu(){
+    menu.classList.add('open');
+    backdrop.classList.add('open');
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+  }
+  function closeMenu(){
+    menu.classList.remove('open');
+    backdrop.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+  }
+  toggle.addEventListener('click', function(){
+    if(menu.classList.contains('open')){ closeMenu(); } else { openMenu(); }
+  });
+  backdrop.addEventListener('click', closeMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', function(){ if(window.innerWidth > 768) closeMenu(); });
+})();
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){ return; }
+  els.forEach(function(el){ el.classList.remove('in-view'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+    });
+  }, {threshold: 0.15});
+  els.forEach(function(el){ io.observe(el); });
+})();
+(function(){
+  var openBtns = document.querySelectorAll('[data-qe-open]');
+  var backdrop = document.getElementById('qeModalBackdrop');
+  var modal = document.getElementById('qeModal');
+  var closeBtn = document.getElementById('qeModalClose');
+  var form = document.getElementById('qeForm');
+  var confirmView = document.getElementById('qeModalConfirm');
+  var confirmCloseBtn = document.getElementById('qeConfirmClose');
+
+  function openModal(e){
+    if(e) e.preventDefault();
+    form.hidden = false;
+    confirmView.hidden = true;
+    backdrop.classList.add('open');
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+  }
+  function closeModal(){
+    backdrop.classList.remove('open');
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  }
+  openBtns.forEach(function(btn){ btn.addEventListener('click', openModal); });
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.hidden = true;
+    confirmView.hidden = false;
+    form.reset();
+  });
+  confirmCloseBtn.addEventListener('click', closeModal);
+})();
+</script>
+
+</body>
+</html>

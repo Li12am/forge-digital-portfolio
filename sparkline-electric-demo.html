@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sparkline Electric Co. | Licensed Electricians — Bucks County & Philadelphia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d13;
+    --bg-alt: #10141c;
+    --panel: #151a23;
+    --panel-2: #1c222d;
+    --ink: #edf1f7;
+    --ink-dim: #97a1b3;
+    --stone: #6d7688;
+    --blue: #3b7ef6;
+    --blue-light: #6ea0ff;
+    --volt: #f2c94c;
+    --volt-light: #ffdd7a;
+    --danger: #ef5350;
+    --safe: #4caf7d;
+    --line: rgba(237,241,247,0.08);
+    --line-strong: rgba(237,241,247,0.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  h1,h2,h3,h4{ font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em; line-height:1.1; }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  ::selection{background:var(--volt);color:#161109;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  nav{position:fixed;top:34px;left:0;right:0;z-index:100;background:rgba(10,13,19,0.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .demo-flag{background:var(--volt); color:#161109; text-align:center; padding:8px 16px; font-family:'JetBrains Mono',monospace; font-size:0.75rem; letter-spacing:0.04em; position:fixed; top:0; left:0; right:0; z-index:101;}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Space Grotesk', sans-serif;font-weight:700;font-size:21px;display:flex;align-items:center;gap:8px;}
+  .logo .bolt{color:var(--volt);}
+  .nav-links{display:flex;gap:32px;align-items:center;}
+  .nav-links a{font-size:14px;font-weight:500;color:var(--ink-dim);position:relative;padding:4px 0;transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{background:var(--volt);color:#161109;padding:11px 22px;border-radius:3px;font-size:13.5px;font-weight:700;transition:background .2s, transform .2s;display:flex;align-items:center;gap:8px;}
+  .nav-cta:hover{background:var(--volt-light);transform:translateY(-1px);}
+  .nav-emergency{
+    display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--safe);
+  }
+  .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--safe);animation:pulseDot 1.8s infinite;}
+  @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(76,175,125,0.5);}50%{box-shadow:0 0 0 6px rgba(76,175,125,0);}}
+
+  /* HERO */
+  .hero{padding:182px 0 90px;position:relative;background:
+    radial-gradient(ellipse 900px 500px at 90% -10%, rgba(59,126,246,0.14), transparent),
+    radial-gradient(ellipse 700px 400px at 5% 20%, rgba(242,201,76,0.06), transparent),
+    var(--bg);}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:start;}
+  .eyebrow{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--volt);margin-bottom:20px;font-weight:500;}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--volt);}
+  .hero h1{font-size:clamp(36px,4.4vw,56px);margin-bottom:20px;}
+  .hero h1 em{font-style:normal;color:var(--blue-light);background:linear-gradient(90deg,var(--blue-light),var(--volt-light));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero p.lead{font-size:17px;color:var(--ink-dim);max-width:460px;margin-bottom:30px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+  .btn-primary{background:var(--volt);color:#161109;padding:15px 26px;border-radius:3px;font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:transform .2s ease, background .2s;}
+  .btn-primary:hover{background:var(--volt-light);transform:translateY(-2px);}
+  .btn-secondary{border:1px solid var(--line-strong);color:var(--ink);padding:15px 26px;border-radius:3px;font-size:14.5px;font-weight:600;transition:all .2s;}
+  .btn-secondary:hover{border-color:var(--blue-light);color:var(--blue-light);}
+  .hero-stats{display:flex;gap:36px;}
+  .hero-stat b{display:block;font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;}
+  .hero-stat span{font-size:12px;color:var(--ink-dim);}
+
+  /* BREAKER PANEL - signature interactive element */
+  .panel-box{background:var(--panel);border:1px solid var(--line-strong);border-radius:6px;padding:26px;position:relative;box-shadow:0 30px 70px -25px rgba(0,0,0,0.6);}
+  .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .panel-head .p-title{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);}
+  .panel-status{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:12px;}
+  .panel-status .dot{width:8px;height:8px;border-radius:50%;background:var(--safe);transition:background .3s;}
+  .panel-status.warning .dot{background:var(--danger);}
+  .panel-shell{background:var(--bg-alt);border-radius:4px;padding:20px;border:1px solid var(--line);margin-bottom:18px;}
+  .breaker-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+  .breaker{
+    position:relative;background:var(--panel-2);border:1px solid var(--line-strong);border-radius:4px;
+    padding:12px 8px;text-align:center;cursor:pointer;transition:transform .15s, border-color .2s;
+    overflow:visible;
+  }
+  .breaker:hover{transform:translateY(-2px);}
+  .breaker-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--stone);margin-bottom:8px;letter-spacing:.03em;}
+  .breaker-switch{
+    width:14px;height:26px;margin:0 auto;background:var(--bg);border-radius:2px;position:relative;border:1px solid var(--line-strong);
+    transition:background .2s;
+  }
+  .breaker-switch::before{
+    content:'';position:absolute;left:2px;right:2px;top:2px;height:10px;background:var(--safe);border-radius:1px;
+    transition:transform .2s ease, background .2s;
+  }
+  .breaker.off .breaker-switch::before{transform:translateY(12px);background:var(--danger);}
+  .breaker.tripped{border-color:var(--danger);}
+  .breaker.tripped .breaker-label{color:var(--danger);}
+  .spark{
+    position:absolute;top:-6px;left:50%;width:4px;height:4px;background:var(--volt-light);border-radius:50%;
+    opacity:0;pointer-events:none;
+  }
+  .breaker.sparking .spark{animation:sparkFly .5s ease-out forwards;}
+  @keyframes sparkFly{
+    0%{opacity:1;transform:translate(-50%,0) scale(1);}
+    100%{opacity:0;transform:translate(calc(-50% + var(--dx,10px)), var(--dy,-24px)) scale(0.3);}
+  }
+  .panel-readout{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--line);}
+  .readout-item span{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+  .readout-item b{font-family:'Space Grotesk',sans-serif;font-size:19px;transition:color .3s;}
+  .panel-hint{font-size:12px;color:var(--stone);text-align:center;margin-top:14px;font-family:'JetBrains Mono',monospace;}
+
+  /* SECTION SCAFFOLDING */
+  section{padding:104px 0;}
+  .section-head{max-width:600px;margin-bottom:56px;}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--volt);margin-bottom:14px;font-weight:500;}
+  .section-head h2{font-size:clamp(27px,3.2vw,40px);margin-bottom:16px;}
+  .section-head p{color:var(--ink-dim);font-size:15.5px;}
+
+  /* SERVICES */
+  .services{background:var(--bg-alt);}
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service-card{background:var(--bg-alt);padding:34px 26px;min-height:270px;position:relative;perspective:1200px;cursor:pointer;}
+  .service-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;min-height:200px;}
+  .service-card.flipped .service-inner{transform:rotateY(180deg);}
+  .service-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;}
+  .service-face.front{justify-content:space-between;}
+  .service-face.back{transform:rotateY(180deg);background:var(--panel-2);padding:22px;border-radius:3px;justify-content:center;}
+  .service-icon{width:38px;height:38px;border-radius:8px;background:rgba(59,126,246,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:18px;}
+  .service-face.front h3{font-size:20px;margin-bottom:9px;}
+  .service-face.front p{color:var(--ink-dim);font-size:13.5px;}
+  .service-flip-hint{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--stone);display:flex;align-items:center;gap:6px;margin-top:18px;}
+  .service-face.back .b-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);margin-bottom:8px;}
+  .service-face.back .b-value{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:14px;font-weight:600;}
+  .service-face.back .b-range{font-size:12.5px;color:var(--stone);}
+
+  /* DIAGNOSTIC QUIZ */
+  .diagnostic{background:var(--panel);}
+  .diagnostic .section-eyebrow{color:var(--blue-light);}
+  .diag-box{display:grid;grid-template-columns:1fr 0.85fr;gap:48px;align-items:center;}
+  .diag-questions label{
+    display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer;font-size:14.5px;
+  }
+  .diag-questions label:last-child{border-bottom:none;}
+  .diag-check{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--line-strong);flex-shrink:0;position:relative;transition:all .2s;}
+  .diag-check.checked{background:var(--volt);border-color:var(--volt);}
+  .diag-check.checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#161109;font-weight:700;}
+
+  .gauge-wrap{background:var(--panel-2);border-radius:6px;padding:32px;text-align:center;border:1px solid var(--line-strong);}
+  .gauge-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);margin-bottom:20px;}
+  .gauge-svg{margin:0 auto 16px;}
+  .gauge-result{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;margin-bottom:8px;transition:color .3s;}
+  .gauge-sub{font-size:13px;color:var(--ink-dim);}
+
+  /* RESPONSE TRACKER */
+  .tracker{}
+  .tracker-box{background:var(--panel);border:1px solid var(--line-strong);border-radius:6px;padding:36px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;}
+  .tracker-info h3{font-size:22px;margin-bottom:8px;}
+  .tracker-info p{color:var(--ink-dim);font-size:14px;margin-bottom:18px;}
+  .tracker-bar{position:relative;height:6px;background:var(--line-strong);border-radius:3px;overflow:hidden;margin-bottom:10px;}
+  .tracker-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--blue),var(--volt));border-radius:3px;width:14%;transition:width 1s cubic-bezier(.4,.1,.2,1);}
+  .tracker-labels{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stone);}
+  .tracker-eta{text-align:center;}
+  .tracker-eta b{display:block;font-family:'Space Grotesk',sans-serif;font-size:40px;color:var(--volt);}
+  .tracker-eta span{font-size:11px;color:var(--stone);font-family:'JetBrains Mono',monospace;text-transform:uppercase;}
+  .tracker-btn{margin-top:16px;background:var(--blue);color:#fff;padding:10px 18px;border-radius:3px;font-size:13px;font-weight:600;display:inline-block;transition:background .2s;}
+  .tracker-btn:hover{background:var(--blue-light);}
+
+  /* GALLERY */
+  .gallery-filters{display:flex;gap:10px;margin-bottom:36px;flex-wrap:wrap;}
+  .filter-btn{padding:9px 18px;border:1px solid var(--line-strong);border-radius:20px;font-size:13px;font-weight:500;color:var(--ink-dim);transition:all .2s;}
+  .filter-btn.active{background:var(--volt);border-color:var(--volt);color:#161109;}
+  .filter-btn:hover:not(.active){border-color:var(--blue-light);color:var(--blue-light);}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .gallery-item{aspect-ratio:4/3.2;border-radius:4px;overflow:hidden;position:relative;cursor:pointer;transition:transform .3s;}
+  .gallery-item:hover{transform:translateY(-4px);}
+  .gallery-item.hidden{display:none;}
+  .gallery-visual{position:absolute;inset:0;}
+  .gallery-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,13,19,0.9) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:18px;}
+  .gallery-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--volt-light);margin-bottom:6px;}
+  .gallery-title{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;}
+
+  /* LIGHTBOX */
+  .lightbox{position:fixed;inset:0;background:rgba(6,8,12,0.92);z-index:1000;display:none;align-items:center;justify-content:center;padding:36px;}
+  .lightbox.open{display:flex;}
+  .lightbox-content{background:var(--panel-2);border:1px solid var(--line-strong);border-radius:6px;max-width:680px;width:100%;overflow:hidden;}
+  .lightbox-visual{height:280px;position:relative;}
+  .lightbox-body{padding:30px;}
+  .lightbox-body .l-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--volt);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+  .lightbox-body h3{font-size:24px;margin-bottom:14px;}
+  .lightbox-meta{display:flex;gap:26px;margin-bottom:16px;flex-wrap:wrap;}
+  .lightbox-meta div span{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--stone);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+  .lightbox-meta div b{font-family:'Space Grotesk',sans-serif;font-size:15px;}
+  .lightbox-body p.desc{color:var(--ink-dim);font-size:14px;}
+  .lightbox-close{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;background:rgba(10,13,19,0.7);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:17px;z-index:2;}
+
+  /* TRUST */
+  .trust{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .trust-item{padding:48px 20px;text-align:center;border-right:1px solid var(--line);}
+  .trust-item:last-child{border-right:none;}
+  .trust-item b{display:block;font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:var(--volt);margin-bottom:8px;}
+  .trust-item span{font-size:12.5px;color:var(--ink-dim);}
+
+  /* PROCESS */
+  .process-list{border-top:1px solid var(--line);}
+  .process-item{border-bottom:1px solid var(--line);padding:26px 0;cursor:pointer;}
+  .process-head{display:flex;align-items:center;gap:22px;}
+  .process-step{font-family:'JetBrains Mono',monospace;color:var(--volt);font-size:13px;flex-shrink:0;width:48px;}
+  .process-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;flex:1;}
+  .process-arrow{font-size:18px;color:var(--ink-dim);transition:transform .3s;flex-shrink:0;}
+  .process-item.open .process-arrow{transform:rotate(45deg);color:var(--volt);}
+  .process-detail{max-height:0;overflow:hidden;transition:max-height .35s ease;padding-left:70px;}
+  .process-item.open .process-detail{max-height:110px;}
+  .process-detail p{color:var(--ink-dim);font-size:14px;padding-top:12px;max-width:620px;}
+
+  /* TESTIMONIALS */
+  .testimonials{background:var(--bg-alt);}
+  .test-carousel{position:relative;max-width:740px;margin:0 auto;}
+  .test-track{overflow:hidden;}
+  .test-slides{display:flex;transition:transform .5s ease;}
+  .test-slide{min-width:100%;padding:0 10px;}
+  .test-quote{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;line-height:1.4;margin-bottom:26px;}
+  .test-author{display:flex;align-items:center;gap:14px;}
+  .test-avatar{width:42px;height:42px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .test-author-name{font-weight:600;font-size:14px;}
+  .test-author-tag{font-size:12px;color:var(--stone);font-family:'JetBrains Mono',monospace;}
+  .test-nav{display:flex;gap:10px;margin-top:32px;justify-content:center;}
+  .test-dot{width:8px;height:8px;border-radius:50%;background:var(--line-strong);transition:background .2s;}
+  .test-dot.active{background:var(--volt);}
+
+  /* CTA */
+  .cta-final{text-align:center;padding:120px 0 96px;}
+  .cta-final h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:18px;}
+  .cta-final p{color:var(--ink-dim);font-size:16.5px;margin-bottom:34px;max-width:460px;margin-left:auto;margin-right:auto;}
+
+  footer{background:var(--panel);color:var(--stone);padding:56px 0 28px;}
+  .footer-grid{display:flex;justify-content:space-between;padding-bottom:38px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:28px;}
+  .footer-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--ink);margin-bottom:12px;}
+  .footer-col span{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+  .footer-col a{display:block;color:var(--ink);font-size:13.5px;margin-bottom:8px;opacity:.85;}
+  .footer-col a:hover{color:var(--volt-light);}
+  .footer-bottom{padding-top:22px;display:flex;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:10px;}
+
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .55s ease, transform .55s ease;}
+  [data-reveal].in{opacity:1;transform:translateY(0);}
+
+  /* Ambient circuit line animation in hero background */
+  .circuit-line{position:absolute;stroke:var(--line-strong);stroke-width:1;fill:none;}
+  .circuit-pulse{stroke:var(--volt);stroke-width:2;fill:none;stroke-dasharray:6 300;animation:travel 4s linear infinite;opacity:0.7;}
+  @keyframes travel{ to{ stroke-dashoffset:-306; } }
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .diag-box{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-item{border-bottom:1px solid var(--line);}
+    .nav-links{display:none;}
+    .tracker-box{grid-template-columns:1fr;text-align:center;}
+  }
+  @media (max-width:560px){
+    .services-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .trust-grid{grid-template-columns:1fr;}
+    .trust-item{border-right:none;}
+    .hero-stats{gap:22px;flex-wrap:wrap;}
+    .wrap{padding:0 20px;}
+    .breaker-grid{grid-template-columns:repeat(4,1fr);}
+  }
+</style>
+</head>
+<body>
+<div class="demo-flag">DEMO CONCEPT — FICTIONAL BUSINESS FOR ILLUSTRATION ONLY</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Sparkline<span class="bolt">⚡</span></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#diagnostic">Panel Check</a>
+      <a href="#work">Our Work</a>
+      <a href="#process">Process</a>
+      <div class="nav-emergency"><span class="pulse-dot"></span>24/7 Emergency</div>
+      <a href="#" class="nav-cta">⚡ Call Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Bucks County &amp; Greater Philadelphia</div>
+      <h1>Licensed electricians who <em>show up on time</em>, every time.</h1>
+      <p class="lead">Panel upgrades, rewiring, EV chargers, and 24/7 emergency calls — done right the first time, with upfront pricing before we touch a single wire.</p>
+      <div class="hero-actions">
+        <a href="#diagnostic" class="btn-primary">⚡ Check My Panel →</a>
+        <a href="#work" class="btn-secondary">See Our Work</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b data-count="18">0</b><span>Years licensed</span></div>
+        <div class="hero-stat"><b data-count="24">0</b><span>Avg. response (min)</span></div>
+        <div class="hero-stat"><b data-count="100" data-suffix="%">0</b><span>Licensed &amp; insured</span></div>
+      </div>
+    </div>
+
+    <div class="panel-box">
+      <div class="panel-head">
+        <div class="p-title">Live Panel Demo</div>
+        <div class="panel-status" id="panelStatus"><div class="dot"></div><span id="panelStatusText">All Systems Normal</span></div>
+      </div>
+      <div class="panel-shell">
+        <div class="breaker-grid" id="breakerGrid">
+          <!-- breakers injected/defined below -->
+          <div class="breaker" data-name="Kitchen"><div class="spark"></div><div class="breaker-label">KITCHEN</div><div class="breaker-switch"></div></div>
+          <div class="breaker" data-name="HVAC"><div class="spark"></div><div class="breaker-label">HVAC</div><div class="breaker-switch"></div></div>
+          <div class="breaker" data-name="Garage"><div class="spark"></div><div class="breaker-label">GARAGE</div><div class="breaker-switch"></div></div>
+          <div class="breaker" data-name="Bedrooms"><div class="spark"></div><div class="breaker-label">BEDROOMS</div><div class="breaker-switch"></div></div>
+          <div class="breaker" data-name="Bathroom"><div class="spark"></div><div class="breaker-label">BATHROOM</div><div class="breaker-switch"></div></div>
+          <div class="breaker" data-name="EV Charger"><div class="spark"></div><div class="breaker-label">EV CHRGR</div><div class="breaker-switch"></div></div>
+          <div class="breaker" data-name="Basement"><div class="spark"></div><div class="breaker-label">BASEMENT</div><div class="breaker-switch"></div></div>
+          <div class="breaker" data-name="Outdoor"><div class="spark"></div><div class="breaker-label">OUTDOOR</div><div class="breaker-switch"></div></div>
+        </div>
+        <div class="panel-readout">
+          <div class="readout-item"><span>Load</span><b id="loadReadout" class="mono">42%</b></div>
+          <div class="readout-item"><span>Active Circuits</span><b id="activeReadout" class="mono">8 / 8</b></div>
+          <div class="readout-item"><span>Panel Age</span><b class="mono">6 yrs</b></div>
+        </div>
+      </div>
+      <div class="panel-hint">Click a breaker to flip it →</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">What We Do</div>
+      <h2>Four services. Zero surprises.</h2>
+      <p>Tap a card to see typical timeline and starting price.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="services-grid">
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">⚡</div><h3>Panel Upgrades</h3><p>100A to 200A service upgrades, code-compliant and permitted.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">1 day</div><div class="b-range">Starting at $2,400</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">🔌</div><h3>Wiring &amp; Rewiring</h3><p>Whole-home rewires, knob-and-tube replacement, new circuits.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">2–5 days</div><div class="b-range">Starting at $3,800</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">🚗</div><h3>EV Charger Install</h3><p>Level 2 home charger installation for any EV make.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">Half day</div><div class="b-range">Starting at $850</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">💡</div><h3>Lighting &amp; Fixtures</h3><p>Recessed lighting, ceiling fans, outdoor and landscape lighting.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">Same day</div><div class="b-range">Starting at $180</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNOSTIC -->
+<section class="diagnostic" id="diagnostic">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Free Diagnostic</div>
+      <h2>Is your panel due for an upgrade?</h2>
+      <p>Check anything that sounds familiar — we'll estimate your panel's risk level.</p>
+    </div>
+
+    <div class="diag-box">
+      <div class="diag-questions" id="diagQuestions">
+        <label data-weight="2"><div class="diag-check"></div>Breakers trip more than once a month</label>
+        <label data-weight="2"><div class="diag-check"></div>Panel is a fuse box, not breakers</label>
+        <label data-weight="1"><div class="diag-check"></div>Lights flicker when appliances turn on</label>
+        <label data-weight="1"><div class="diag-check"></div>Panel is over 20 years old</label>
+        <label data-weight="2"><div class="diag-check"></div>Burning smell or warm outlets/switches</label>
+        <label data-weight="1"><div class="diag-check"></div>Planning an EV charger or hot tub soon</label>
+      </div>
+
+      <div class="gauge-wrap">
+        <div class="gauge-label">Panel Risk Level</div>
+        <svg class="gauge-svg" width="200" height="120" viewBox="0 0 200 120">
+          <path d="M 20 100 A 80 80 0 0 1 180 100" stroke="var(--line-strong)" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <path id="gaugeArc" d="M 20 100 A 80 80 0 0 1 180 100" stroke="var(--safe)" stroke-width="14" fill="none" stroke-linecap="round"
+                stroke-dasharray="251" stroke-dashoffset="251" style="transition: stroke-dashoffset .5s ease, stroke .4s ease;"/>
+          <circle id="gaugeNeedleBase" cx="100" cy="100" r="5" fill="var(--ink)"/>
+          <line id="gaugeNeedle" x1="100" y1="100" x2="100" y2="35" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"
+                style="transform-origin:100px 100px; transition: transform .5s cubic-bezier(.4,.2,.2,1);"/>
+        </svg>
+        <div class="gauge-result" id="gaugeResult">Low Risk</div>
+        <div class="gauge-sub" id="gaugeSub">Your panel sounds like it's in decent shape.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESPONSE TRACKER -->
+<section class="tracker" id="tracker">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">24/7 Emergency Service</div>
+      <h2>See what a real service call looks like.</h2>
+      <p>This is a live simulation of our dispatch — press the button to watch it play out.</p>
+    </div>
+
+    <div class="tracker-box">
+      <div class="tracker-info">
+        <h3 id="trackerTitle">Ready to dispatch</h3>
+        <p id="trackerDesc">Press "Simulate Emergency Call" to see how fast we respond when it matters.</p>
+        <div class="tracker-bar"><div class="tracker-fill" id="trackerFill"></div></div>
+        <div class="tracker-labels"><span>Dispatched</span><span>En Route</span><span>Arrived</span></div>
+        <a href="#" class="tracker-btn" id="trackerBtn">Simulate Emergency Call →</a>
+      </div>
+      <div class="tracker-eta">
+        <b id="trackerEta">--</b>
+        <span>Minutes ETA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Recent Jobs</div>
+      <h2>Work from around the county.</h2>
+      <p>Filter by category, click any project for the full story.</p>
+    </div>
+
+    <div class="gallery-filters" id="galleryFilters">
+      <div class="filter-btn active" data-filter="all">All Jobs</div>
+      <div class="filter-btn" data-filter="panel">Panel Upgrades</div>
+      <div class="filter-btn" data-filter="wiring">Wiring</div>
+      <div class="filter-btn" data-filter="ev">EV Chargers</div>
+      <div class="filter-btn" data-filter="lighting">Lighting</div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item" data-cat="panel" data-lightbox="0">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#1c222d,#3b7ef6);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Panel · Warminster</div><div class="gallery-title">100A → 200A Upgrade</div></div>
+      </div>
+      <div class="gallery-item" data-cat="wiring" data-lightbox="1">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#2b2f1a,#8a8378);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Wiring · Feasterville</div><div class="gallery-title">Full Knob-&amp;-Tube Replacement</div></div>
+      </div>
+      <div class="gallery-item" data-cat="ev" data-lightbox="2">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#101820,#f2c94c);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">EV Charger · Richboro</div><div class="gallery-title">Tesla Wall Connector Install</div></div>
+      </div>
+      <div class="gallery-item" data-cat="lighting" data-lightbox="3">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#1a1e2b,#6ea0ff);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Lighting · Newtown</div><div class="gallery-title">Whole-Home Recessed Retrofit</div></div>
+      </div>
+      <div class="gallery-item" data-cat="panel" data-lightbox="4">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#151a23,#ef5350);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Panel · Churchville</div><div class="gallery-title">Emergency Fuse Box Replacement</div></div>
+      </div>
+      <div class="gallery-item" data-cat="wiring" data-lightbox="5">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#12161f,#4caf7d);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Wiring · Southampton</div><div class="gallery-title">Finished Basement Rough-In</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust" style="padding:0;">
+  <div class="wrap" style="padding:0;">
+    <div class="trust-grid">
+      <div class="trust-item"><b data-count="18">0</b><span>Years Licensed</span></div>
+      <div class="trust-item"><b data-count="1400">0</b><span>Jobs Completed</span></div>
+      <div class="trust-item"><b data-count="100" data-suffix="%">0</b><span>Licensed &amp; Insured</span></div>
+      <div class="trust-item"><b data-count="4" data-decimal=".9">0</b><span>Average Rating</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>From first call to flipped switch.</h2>
+      <p>Every job — big or small — follows the same process.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-item open">
+        <div class="process-head"><div class="process-step">01</div><div class="process-title">Call or Book Online</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>Tell us what's going on. Emergency calls get dispatched immediately — non-urgent work gets scheduled within 48 hours.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">02</div><div class="process-title">Upfront Quote</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>We diagnose the issue and give you a flat price before starting — no hourly surprises.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">03</div><div class="process-title">Licensed Work, Permitted</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>All panel and wiring work is pulled through proper permits and inspected to code.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">04</div><div class="process-title">Walkthrough &amp; Warranty</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>We test everything with you present and back every job with a workmanship warranty.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-eyebrow">Client Stories</div>
+      <h2>What it's like to call Sparkline.</h2>
+    </div>
+    <div class="test-carousel">
+      <div class="test-track">
+        <div class="test-slides" id="testSlides">
+          <div class="test-slide">
+            <p class="test-quote">"Breaker tripped at 11pm on a Sunday. They picked up on the second ring and had someone here in 20 minutes."</p>
+            <div class="test-author"><div class="test-avatar">D</div><div><div class="test-author-name">Dana K.</div><div class="test-author-tag">Emergency Call · Warminster</div></div></div>
+          </div>
+          <div class="test-slide">
+            <p class="test-quote">"Quoted flat rate for the panel upgrade and that's exactly what we paid. No games."</p>
+            <div class="test-author"><div class="test-avatar">J</div><div><div class="test-author-name">Jason M.</div><div class="test-author-tag">Panel Upgrade · Richboro</div></div></div>
+          </div>
+          <div class="test-slide">
+            <p class="test-quote">"Had our EV charger installed same week we called. Clean work, explained everything."</p>
+            <div class="test-author"><div class="test-avatar">P</div><div><div class="test-author-name">Priya S.</div><div class="test-author-tag">EV Charger · Newtown</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="test-nav" id="testNav">
+        <div class="test-dot active"></div><div class="test-dot"></div><div class="test-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Something not working right?</h2>
+    <p>Call now for emergencies, or book a free estimate for anything else — we'll get back to you within the hour.</p>
+    <a href="#" class="btn-primary">⚡ Call Now →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Sparkline<span style="color:var(--volt-light);">⚡</span></div>
+        <p style="max-width:250px;font-size:13px;opacity:.75;">Licensed electricians serving Bucks County &amp; Greater Philadelphia, 24/7.</p>
+      </div>
+      <div class="footer-col">
+        <span>Contact</span>
+        <a href="tel:2158020007">(215) 802-0007</a>
+        <a href="mailto:info@sparklineelectric.com">info@sparklineelectric.com</a>
+      </div>
+      <div class="footer-col">
+        <span>Services</span>
+        <a href="#services">Panel Upgrades</a>
+        <a href="#services">Wiring</a>
+        <a href="#services">EV Chargers</a>
+        <a href="#services">Lighting</a>
+      </div>
+      <div class="footer-col">
+        <span>Company</span>
+        <a href="#work">Our Work</a>
+        <a href="#process">Our Process</a>
+        <a href="#diagnostic">Panel Check</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Sparkline Electric Co. Licensed &amp; Insured — PA Electrical #888888</span>
+      <span>Demo site built by Forge Digital</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <div class="lightbox-visual" id="lbVisual"><div class="lightbox-close" id="lbClose">×</div></div>
+    <div class="lightbox-body">
+      <div class="l-tag" id="lbTag">Panel · Warminster</div>
+      <h3 id="lbTitle">100A → 200A Upgrade</h3>
+      <div class="lightbox-meta">
+        <div><span>Timeline</span><b id="lbTimeline">1 day</b></div>
+        <div><span>Cost</span><b id="lbBudget">$2,600</b></div>
+        <div><span>Scope</span><b id="lbMaterials">Panel, Meter</b></div>
+      </div>
+      <p class="desc" id="lbDesc">Replaced an aging 100A panel with a 200A service to support a new kitchen renovation and future EV charger.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Reveal on scroll
+  const revealTargets = document.querySelectorAll('.section-head, .service-card, .gallery-item, .process-item, .trust-item, .diag-box, .tracker-box, .test-carousel, .panel-box');
+  revealTargets.forEach(el=>el.setAttribute('data-reveal',''));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), (i%3)*80); io.unobserve(e.target); }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+
+  // Counters
+  const counters = document.querySelectorAll('[data-count]');
+  const counterIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-count'));
+        const decimal = el.getAttribute('data-decimal');
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1300; const start = performance.now();
+        function tick(now){
+          const p = Math.min((now-start)/duration,1);
+          const eased = 1-Math.pow(1-p,3);
+          const current = target*eased;
+          el.textContent = (decimal ? current.toFixed(1) : Math.round(current)) + suffix;
+          if(p<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      }
+    });
+  },{threshold:0.4});
+  counters.forEach(c=>counterIO.observe(c));
+
+  // Breaker panel interactivity
+  const breakers = document.querySelectorAll('.breaker');
+  const loadReadout = document.getElementById('loadReadout');
+  const activeReadout = document.getElementById('activeReadout');
+  const panelStatus = document.getElementById('panelStatus');
+  const panelStatusText = document.getElementById('panelStatusText');
+
+  function updatePanelReadout(){
+    const total = breakers.length;
+    const active = document.querySelectorAll('.breaker:not(.off)').length;
+    activeReadout.textContent = active + ' / ' + total;
+    const pct = Math.round((active/total)*58 + (active===total ? 0 : 2));
+    loadReadout.textContent = pct + '%';
+    if(active < total){
+      panelStatus.classList.add('warning');
+      panelStatusText.textContent = (total-active) + ' Circuit' + (total-active>1?'s':'') + ' Down';
+    } else {
+      panelStatus.classList.remove('warning');
+      panelStatusText.textContent = 'All Systems Normal';
+    }
+  }
+
+  breakers.forEach(breaker=>{
+    breaker.addEventListener('click', ()=>{
+      const turningOff = !breaker.classList.contains('off');
+      breaker.classList.toggle('off');
+      // spark effect
+      const spark = breaker.querySelector('.spark');
+      spark.style.setProperty('--dx', (Math.random()*24-12)+'px');
+      spark.style.setProperty('--dy', (-20 - Math.random()*14)+'px');
+      breaker.classList.remove('sparking');
+      void breaker.offsetWidth; // restart animation
+      breaker.classList.add('sparking');
+      if(turningOff){
+        breaker.classList.add('tripped');
+        setTimeout(()=>breaker.classList.remove('tripped'), 900);
+      }
+      updatePanelReadout();
+    });
+  });
+  updatePanelReadout();
+
+  // Service card flip
+  document.querySelectorAll('[data-flip]').forEach(card=>{
+    card.addEventListener('click', ()=>card.classList.toggle('flipped'));
+  });
+
+  // Diagnostic quiz
+  const diagLabels = document.querySelectorAll('#diagQuestions label');
+  const gaugeArc = document.getElementById('gaugeArc');
+  const gaugeNeedle = document.getElementById('gaugeNeedle');
+  const gaugeResult = document.getElementById('gaugeResult');
+  const gaugeSub = document.getElementById('gaugeSub');
+  const ARC_LENGTH = 251;
+  const maxWeight = 9;
+
+  function updateGauge(){
+    let score = 0;
+    diagLabels.forEach(label=>{
+      if(label.querySelector('.diag-check').classList.contains('checked')){
+        score += parseInt(label.getAttribute('data-weight'));
+      }
+    });
+    const pct = Math.min(score/maxWeight, 1);
+    const offset = ARC_LENGTH - (ARC_LENGTH*pct);
+    gaugeArc.style.strokeDashoffset = offset;
+    const angle = -90 + (pct*180);
+    gaugeNeedle.style.transform = `rotate(${angle}deg)`;
+
+    let color, label, sub;
+    if(pct < 0.34){ color='var(--safe)'; label='Low Risk'; sub="Your panel sounds like it's in decent shape."; }
+    else if(pct < 0.67){ color='var(--volt)'; label='Moderate Risk'; sub='Worth a professional inspection soon.'; }
+    else{ color='var(--danger)'; label='High Risk'; sub="This is worth an inspection call this week."; }
+    gaugeArc.style.stroke = color;
+    gaugeNeedle.style.stroke = color;
+    gaugeResult.textContent = label;
+    gaugeResult.style.color = color;
+    gaugeSub.textContent = sub;
+  }
+
+  diagLabels.forEach(label=>{
+    label.addEventListener('click', (e)=>{
+      e.preventDefault();
+      label.querySelector('.diag-check').classList.toggle('checked');
+      updateGauge();
+    });
+  });
+  updateGauge();
+
+  // Emergency response tracker
+  const trackerBtn = document.getElementById('trackerBtn');
+  const trackerFill = document.getElementById('trackerFill');
+  const trackerEta = document.getElementById('trackerEta');
+  const trackerTitle = document.getElementById('trackerTitle');
+  const trackerDesc = document.getElementById('trackerDesc');
+  let trackerRunning = false;
+
+  trackerBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    if(trackerRunning) return;
+    trackerRunning = true;
+    trackerTitle.textContent = 'Call received — dispatching technician';
+    trackerDesc.textContent = 'A licensed electrician has been notified and is preparing to head your way.';
+    trackerFill.style.width = '10%';
+    trackerEta.textContent = '32';
+
+    setTimeout(()=>{
+      trackerFill.style.width = '55%';
+      trackerEta.textContent = '17';
+      trackerTitle.textContent = 'Technician en route';
+      trackerDesc.textContent = 'Mike is on the way — tracking live location and updating your ETA.';
+    }, 1400);
+
+    setTimeout(()=>{
+      trackerFill.style.width = '100%';
+      trackerEta.textContent = '0';
+      trackerTitle.textContent = 'Technician has arrived';
+      trackerDesc.textContent = "That's how fast we move when it's urgent. Real calls average 24 minutes.";
+    }, 3000);
+
+    setTimeout(()=>{ trackerRunning = false; }, 4200);
+  });
+
+  // Gallery filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter');
+      galleryItems.forEach(item=>{
+        if(f==='all' || item.getAttribute('data-cat')===f){ item.classList.remove('hidden'); }
+        else{ item.classList.add('hidden'); }
+      });
+    });
+  });
+
+  // Lightbox
+  const lightboxData = [
+    {tag:'Panel · Warminster', title:'100A → 200A Upgrade', timeline:'1 day', budget:'$2,600', materials:'Panel, Meter', desc:'Replaced an aging 100A panel with a 200A service to support a new kitchen renovation and future EV charger.', bg:'linear-gradient(135deg,#1c222d,#3b7ef6)'},
+    {tag:'Wiring · Feasterville', title:'Full Knob-&amp;-Tube Replacement', timeline:'4 days', budget:'$5,200', materials:'Whole-home rewire', desc:'Removed all remaining knob-and-tube wiring in a 1940s home and replaced with modern copper wiring throughout.', bg:'linear-gradient(135deg,#2b2f1a,#8a8378)'},
+    {tag:'EV Charger · Richboro', title:'Tesla Wall Connector Install', timeline:'Half day', budget:'$950', materials:'240V circuit, charger', desc:'Ran a dedicated 240V circuit to the garage and mounted a Tesla Wall Connector for fast home charging.', bg:'linear-gradient(135deg,#101820,#f2c94c)'},
+    {tag:'Lighting · Newtown', title:'Whole-Home Recessed Retrofit', timeline:'2 days', budget:'$3,100', materials:'22 recessed fixtures', desc:'Replaced dated ceiling fixtures throughout the home with dimmable recessed LED lighting on smart switches.', bg:'linear-gradient(135deg,#1a1e2b,#6ea0ff)'},
+    {tag:'Panel · Churchville', title:'Emergency Fuse Box Replacement', timeline:'Same day', budget:'$2,900', materials:'Panel, breakers', desc:'After-hours emergency call for a failing fuse box with visible scorching — replaced with a modern breaker panel same day.', bg:'linear-gradient(135deg,#151a23,#ef5350)'},
+    {tag:'Wiring · Southampton', title:'Finished Basement Rough-In', timeline:'3 days', budget:'$4,400', materials:'12 new circuits', desc:'Complete electrical rough-in for a finished basement, including new circuits for a home theater and wet bar.', bg:'linear-gradient(135deg,#12161f,#4caf7d)'}
+  ];
+  const lightbox = document.getElementById('lightbox');
+  const lbVisual = document.getElementById('lbVisual');
+  const lbTag = document.getElementById('lbTag');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbTimeline = document.getElementById('lbTimeline');
+  const lbBudget = document.getElementById('lbBudget');
+  const lbMaterials = document.getElementById('lbMaterials');
+  const lbDesc = document.getElementById('lbDesc');
+
+  document.querySelectorAll('[data-lightbox]').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      const d = lightboxData[parseInt(item.getAttribute('data-lightbox'))];
+      lbVisual.style.background = d.bg;
+      lbTag.innerHTML = d.tag; lbTitle.innerHTML = d.title;
+      lbTimeline.textContent = d.timeline; lbBudget.textContent = d.budget; lbMaterials.textContent = d.materials;
+      lbDesc.textContent = d.desc;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', ()=>lightbox.classList.remove('open'));
+  lightbox.addEventListener('click',(e)=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
+
+  // Process accordion
+  document.querySelectorAll('.process-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.process-item').forEach(p=>p.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Testimonial carousel
+  const testSlides = document.getElementById('testSlides');
+  const testDots = document.querySelectorAll('.test-dot');
+  let testIndex = 0;
+  function showTest(i){
+    testIndex = i;
+    testSlides.style.transform = `translateX(-${i*100}%)`;
+    testDots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
+  }
+  testDots.forEach((dot,idx)=>dot.addEventListener('click', ()=>showTest(idx)));
+  setInterval(()=>{ showTest((testIndex+1)%testDots.length); }, 6000);
+</script>
+
+</body>
+</html>

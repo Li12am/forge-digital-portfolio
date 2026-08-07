@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Load Off Junk Removal — Philadelphia, PA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1ef;
+    --surface:#ffffff;
+    --navy:#12262e;
+    --line:rgba(18,38,46,0.12);
+    --text:#12262e;
+    --text-muted:#5c6d70;
+    --lime:#8fd14f;
+    --lime-dark:#6bb233;
+    --coral:#ff5470;
+    --coral-soft:rgba(255,84,112,0.10);
+    --sand:#ffd889;
+    --sky:#6ec6d9;
+    --radius:14px;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Sora', sans-serif; font-weight:800; margin:0; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+  @media (max-width:720px){ .wrap{padding:0 20px;} }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{outline:3px solid var(--coral); outline-offset:2px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--navy); opacity:0.6; display:flex; align-items:center; gap:10px;}
+  .eyebrow::before{content:""; width:20px; height:2px; background:var(--coral);}
+  .demo-flag{background:var(--navy); color:#fff; text-align:center; padding:8px 16px; font-family:'IBM Plex Mono',monospace; font-size:0.75rem; letter-spacing:0.04em;}
+
+  header.nav{position:sticky; top:0; z-index:60; background:rgba(238,241,239,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw); margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between;}
+  .brand{font-family:'Sora',sans-serif; font-weight:800; font-size:1.2rem; display:flex; align-items:center; gap:9px;}
+  .brand .mark{width:14px; height:14px; background:var(--coral); border-radius:3px; transition:transform .3s ease;}
+  .brand:hover .mark{transform:rotate(90deg) scale(1.1);}
+  nav.links{display:flex; gap:28px; font-size:0.9rem; color:var(--text-muted); font-weight:600;}
+  nav.links a:hover{color:var(--text);}
+  .nav-cta{font-family:'Sora',sans-serif; font-weight:700; font-size:0.85rem; color:var(--navy); background:var(--lime); padding:10px 18px; border-radius:99px; transition:background .2s ease, transform .15s ease;}
+  .nav-cta:hover{background:var(--lime-dark); color:#fff; transform:translateY(-1px);}
+  @media (max-width:900px){ nav.links{display:none;} }
+
+  /* ---------- SIDE PROGRESS NAV ---------- */
+  .side-nav{position:fixed; left:24px; top:50%; transform:translateY(-50%); z-index:55; display:flex; flex-direction:column; gap:16px;}
+  @media (max-width:1100px){ .side-nav{display:none;} }
+  .side-dot{width:10px; height:10px; border-radius:50%; background:var(--line); border:none; cursor:pointer; transition:all .3s ease; position:relative;}
+  .side-dot.active{background:var(--coral); transform:scale(1.4);}
+  .side-dot .tip{position:absolute; left:20px; top:50%; transform:translateY(-50%); font-family:'IBM Plex Mono',monospace; font-size:0.7rem; white-space:nowrap; background:var(--navy); color:#fff; padding:4px 8px; border-radius:4px; opacity:0; pointer-events:none; transition:opacity .2s ease;}
+  .side-dot:hover .tip{opacity:1;}
+
+  /* ---------- HERO: SPLIT ASYMMETRIC ---------- */
+  .hero{position:relative; overflow:hidden;}
+  .hero-split{display:grid; grid-template-columns:1fr 1.1fr; min-height:640px;}
+  @media (max-width:960px){ .hero-split{grid-template-columns:1fr;} }
+  .hero-left{
+    background:var(--lime); padding:80px 48px 100px 32px; display:flex; flex-direction:column; justify-content:center;
+    clip-path:polygon(0 0, 100% 0, 88% 100%, 0% 100%);
+  }
+  @media (max-width:960px){ .hero-left{clip-path:none; padding:60px 32px;} }
+  .hero-left h1{font-size:clamp(2.1rem,4.2vw,3.2rem); line-height:1.05; color:var(--navy);}
+  .hero-left p{color:rgba(18,38,46,0.75); font-size:1.05rem; margin:20px 0 28px; max-width:400px;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:15px 26px; border-radius:99px; font-family:'Sora',sans-serif; font-weight:700; font-size:0.92rem; cursor:pointer; border:2px solid transparent; transition:transform .15s ease, background .2s ease, border-color .2s ease;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn-coral{background:var(--coral); color:#fff;}
+  .btn-coral:hover{background:#e6415d;}
+  .btn-navy{border-color:var(--navy); color:var(--navy); background:transparent;}
+  .btn-navy:hover{background:var(--navy); color:#fff;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+
+  .hero-right{background:var(--navy); padding:60px 40px 60px 60px; display:flex; align-items:center;}
+  @media (max-width:960px){ .hero-right{padding:50px 24px;} }
+  .calculator{width:100%;}
+  .calc-title{color:#fff; font-family:'Sora',sans-serif; font-size:1.1rem; margin-bottom:20px;}
+  .item-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:28px;}
+  .item-chip{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px 15px; border-radius:10px; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.05);
+    cursor:pointer; transition:all .2s ease; font-size:0.86rem; color:#dfe6e4;
+  }
+  .item-chip:hover{border-color:var(--lime);}
+  .item-chip.active{background:rgba(143,209,79,0.18); border-color:var(--lime); color:var(--lime);}
+  .item-chip .plus::before{content:"+"; font-family:'IBM Plex Mono',monospace;}
+  .item-chip.active .plus::before{content:"\2713"; color:var(--lime);}
+
+  .truck-readout{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+  .truck-wrap{width:140px; flex-shrink:0;}
+  .load-fill{transition:height .4s ease;}
+  .fill-pct{font-family:'Sora',sans-serif; font-size:2.2rem; color:var(--lime); line-height:1;}
+  .fill-label{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:#9aa6a3; text-transform:uppercase; margin-top:2px;}
+  .fill-price{font-family:'IBM Plex Mono',monospace; font-size:0.95rem; color:#fff; margin-top:8px;}
+  .reset-link{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:#9aa6a3; margin-top:12px; cursor:pointer; border-bottom:1px dashed #9aa6a3; display:inline-block;}
+  .reset-link:hover{color:var(--coral); border-color:var(--coral);}
+
+  /* ---------- DIVERSION: RADIAL ---------- */
+  section{padding:100px 0;}
+  @media (max-width:720px){ section{padding:60px 0;} }
+  .sec-head{max-width:640px; margin-bottom:44px;}
+  .sec-head h2{font-size:clamp(1.9rem,3.4vw,2.7rem); margin-top:12px;}
+  .sec-head p{color:var(--text-muted); margin-top:14px; font-size:1.02rem; font-family:'Inter',sans-serif; font-weight:400;}
+
+  .diversion-grid{display:grid; grid-template-columns:auto 1fr; gap:60px; align-items:center;}
+  @media (max-width:800px){ .diversion-grid{grid-template-columns:1fr; justify-items:center; text-align:center;} }
+  .donut-wrap{position:relative; width:220px; height:220px;}
+  .donut-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .donut-center .num{font-family:'Sora',sans-serif; font-size:1.8rem;}
+  .donut-center .lbl{font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:var(--text-muted); text-align:center; max-width:100px; margin-top:4px;}
+  .legend-list{display:flex; flex-direction:column; gap:16px;}
+  .legend-item{display:flex; align-items:center; gap:14px;}
+  .legend-dot{width:14px; height:14px; border-radius:4px; flex-shrink:0;}
+  .legend-item h4{font-size:1rem; margin:0;}
+  .legend-item p{font-size:0.85rem; color:var(--text-muted); margin:2px 0 0;}
+  .odo-row{display:flex; align-items:baseline; gap:12px; margin-top:26px; flex-wrap:wrap;}
+  .odometer{display:flex; gap:3px;}
+  .odo-digit{width:32px; height:44px; background:var(--surface); border:1px solid var(--line); border-radius:4px; display:flex; align-items:center; justify-content:center; font-family:'Sora',sans-serif; font-size:1.4rem;}
+  .odo-label{font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;}
+
+  /* ---------- BENTO SERVICES ---------- */
+  .bento{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:140px; gap:14px;}
+  @media (max-width:900px){ .bento{grid-template-columns:repeat(2,1fr); grid-auto-rows:150px;} }
+  .bento-cell{
+    border-radius:var(--radius); padding:22px; display:flex; flex-direction:column; justify-content:flex-end;
+    transition:transform .2s ease; position:relative; overflow:hidden;
+  }
+  .bento-cell:hover{transform:translateY(-4px);}
+  .bento-cell h3{font-size:1.1rem;}
+  .bento-cell p{font-size:0.82rem; margin:4px 0 0; opacity:0.85;}
+  .b-big{grid-column:span 2; grid-row:span 2;}
+  .b-lime{background:var(--lime); color:var(--navy);}
+  .b-navy{background:var(--navy); color:#fff;}
+  .b-coral{background:var(--coral); color:#fff;}
+  .b-sand{background:var(--sand); color:var(--navy);}
+  .b-sky{background:var(--sky); color:var(--navy);}
+  .b-white{background:var(--surface); color:var(--navy); border:1px solid var(--line);}
+  @media (max-width:900px){ .b-big{grid-column:span 2; grid-row:span 1;} }
+
+  /* ---------- PROCESS: HORIZONTAL STRIP ---------- */
+  .strip{display:flex; gap:20px; overflow-x:auto; padding-bottom:16px; scroll-snap-type:x proximity;}
+  .strip-card{
+    flex:0 0 260px; scroll-snap-align:start; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px; position:relative;
+  }
+  .strip-card .snum{font-family:'Sora',sans-serif; font-size:2.6rem; color:var(--line); position:absolute; top:14px; right:20px; opacity:0.5;}
+  .strip-card h3{font-size:1.1rem; margin-top:30px;}
+  .strip-card p{font-size:0.9rem; color:var(--text-muted); margin-top:8px;}
+  .strip-hint{font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:var(--text-muted); margin-top:6px;}
+
+  /* ---------- TESTIMONIAL: BIG PULL QUOTE ---------- */
+  .pullquote{position:relative; max-width:760px; margin:0 auto; text-align:center; padding:20px 20px 0;}
+  .pullquote::before{
+    content:"\201C"; position:absolute; top:-40px; left:50%; transform:translateX(-50%); font-family:'Sora',sans-serif;
+    font-size:9rem; color:var(--lime); opacity:0.4; line-height:1; z-index:0;
+  }
+  .pullquote p{position:relative; z-index:1; font-family:'Sora',sans-serif; font-weight:700; font-size:clamp(1.4rem,3vw,2rem); line-height:1.3;}
+  .pullquote .cite{margin-top:20px; font-family:'IBM Plex Mono',monospace; font-size:0.82rem; color:var(--text-muted);}
+
+  /* ---------- CONTACT: SPLIT DIAGONAL ---------- */
+  .contact-split{display:grid; grid-template-columns:1.1fr 1fr; border-radius:var(--radius); overflow:hidden;}
+  @media (max-width:860px){ .contact-split{grid-template-columns:1fr;} }
+  .contact-slots{background:var(--navy); color:#fff; padding:44px;}
+  .contact-info{background:var(--lime); color:var(--navy); padding:44px;}
+  .day-tabs{display:flex; gap:10px; margin-bottom:20px;}
+  .day-tab{font-family:'IBM Plex Mono',monospace; font-size:0.8rem; padding:9px 16px; border-radius:99px; border:1px solid rgba(255,255,255,0.2); background:transparent; color:#dfe6e4; cursor:pointer; transition:all .2s ease;}
+  .day-tab.active{background:var(--coral); border-color:var(--coral); color:#fff;}
+  .slot-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .slot{font-family:'IBM Plex Mono',monospace; font-size:0.82rem; padding:13px 8px; text-align:center; border-radius:8px; border:1px solid rgba(255,255,255,0.16); background:rgba(255,255,255,0.04); color:#dfe6e4; cursor:pointer; transition:all .2s ease;}
+  .slot:hover{border-color:var(--lime);}
+  .slot.selected{background:var(--lime); border-color:var(--lime); color:var(--navy);}
+  .slot.full{opacity:0.3; cursor:not-allowed; text-decoration:line-through;}
+  .selected-note{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:#9aa6a3; margin-top:14px;}
+  .info-block{margin-bottom:20px;}
+  .info-block .lbl{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; opacity:0.7; text-transform:uppercase; letter-spacing:0.06em;}
+  .info-block .val{margin-top:6px; font-size:1.02rem;}
+  .info-block .val a{color:var(--navy); border-bottom:1px solid rgba(18,38,46,0.3);}
+
+  footer{border-top:1px solid var(--line); padding:40px 0;}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .foot-brand{font-family:'Sora',sans-serif; font-weight:800;}
+  .foot-links{display:flex; gap:22px; font-size:0.85rem; color:var(--text-muted);}
+  .foot-links a:hover{color:var(--coral);}
+  .foot-fine{color:var(--text-muted); font-size:0.78rem; margin-top:18px; font-family:'IBM Plex Mono',monospace;}
+</style>
+</head>
+<body>
+
+<div class="demo-flag">DEMO CONCEPT — FICTIONAL BUSINESS FOR ILLUSTRATION ONLY</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="mark"></span>Load Off</div>
+    <nav class="links">
+      <a href="#calc">Get a Quote</a>
+      <a href="#services">What We Take</a>
+      <a href="#contact">Book</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Same-Day Pickup</a>
+  </div>
+</header>
+
+<div class="side-nav" id="sideNav">
+  <button class="side-dot active" data-target="calc"><span class="tip">Quote</span></button>
+  <button class="side-dot" data-target="impact"><span class="tip">Impact</span></button>
+  <button class="side-dot" data-target="services"><span class="tip">Services</span></button>
+  <button class="side-dot" data-target="process"><span class="tip">Process</span></button>
+  <button class="side-dot" data-target="contact"><span class="tip">Contact</span></button>
+</div>
+
+<section class="hero" id="calc">
+  <div class="hero-split">
+    <div class="hero-left">
+      <div class="eyebrow">Philadelphia &amp; Surrounding Counties</div>
+      <h1 style="margin-top:14px;">We haul it.<br>You forget it.</h1>
+      <p>Furniture, appliances, yard waste, whole cleanouts. Tap what you've got and we'll size the truck and the price before we even show up.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn btn-coral">Book This Load</a>
+        <a href="#services" class="btn btn-navy">See What We Take</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="calculator">
+        <div class="calc-title">Build your load &darr;</div>
+        <div class="item-grid" id="itemGrid">
+          <div class="item-chip" data-w="8"><span>Sofa / Couch</span><span class="plus"></span></div>
+          <div class="item-chip" data-w="4"><span>Mattress</span><span class="plus"></span></div>
+          <div class="item-chip" data-w="6"><span>Refrigerator</span><span class="plus"></span></div>
+          <div class="item-chip" data-w="3"><span>Washer / Dryer</span><span class="plus"></span></div>
+          <div class="item-chip" data-w="10"><span>Yard Waste</span><span class="plus"></span></div>
+          <div class="item-chip" data-w="12"><span>Construction Debris</span><span class="plus"></span></div>
+          <div class="item-chip" data-w="5"><span>Exercise Equipment</span><span class="plus"></span></div>
+          <div class="item-chip" data-w="15"><span>Storage Unit (Full)</span><span class="plus"></span></div>
+        </div>
+        <div class="truck-readout">
+          <div class="truck-wrap">
+            <svg viewBox="0 0 260 130" width="100%">
+              <rect x="10" y="20" width="150" height="70" rx="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+              <clipPath id="truckClip"><rect x="10" y="20" width="150" height="70" rx="4"/></clipPath>
+              <rect id="loadFill" class="load-fill" x="10" y="90" width="150" height="0" fill="var(--lime)" clip-path="url(#truckClip)"/>
+              <path d="M160 45 L200 45 L215 65 L215 90 L160 90 Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+              <circle cx="45" cy="100" r="12" fill="#12262e" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+              <circle cx="185" cy="100" r="12" fill="#12262e" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+            </svg>
+          </div>
+          <div>
+            <div class="fill-pct" id="fillPct">0%</div>
+            <div class="fill-label">Truck Capacity</div>
+            <div class="fill-price" id="fillPrice">Add items to estimate</div>
+            <div class="reset-link" id="resetLoad">Clear selections</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Where It Actually Goes</div>
+      <h2>Not everything's landfill.</h2>
+      <p>We sort every load before anything hits a dumpster.</p>
+    </div>
+    <div class="diversion-grid">
+      <div class="donut-wrap">
+        <svg viewBox="0 0 220 220" width="220" height="220">
+          <circle cx="110" cy="110" r="90" fill="none" stroke="#e2e6e3" stroke-width="26"/>
+          <circle id="arcDonate" cx="110" cy="110" r="90" fill="none" stroke="#6bb233" stroke-width="26" stroke-dasharray="0 565" transform="rotate(-90 110 110)"/>
+          <circle id="arcRecycle" cx="110" cy="110" r="90" fill="none" stroke="#8fd14f" stroke-width="26" stroke-dasharray="0 565" transform="rotate(-90 110 110)"/>
+          <circle id="arcLandfill" cx="110" cy="110" r="90" fill="none" stroke="#c7cdc9" stroke-width="26" stroke-dasharray="0 565" transform="rotate(-90 110 110)"/>
+        </svg>
+        <div class="donut-center">
+          <div class="num">73%</div>
+          <div class="lbl">DIVERTED FROM LANDFILL</div>
+        </div>
+      </div>
+      <div>
+        <div class="legend-list">
+          <div class="legend-item"><div class="legend-dot" style="background:#6bb233;"></div><div><h4>42% Donated</h4><p>Furniture and goods to local charities</p></div></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#8fd14f;"></div><div><h4>31% Recycled</h4><p>Metal, e-waste, and clean wood</p></div></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#c7cdc9;"></div><div><h4>27% Landfill</h4><p>Only what genuinely can't be reused</p></div></div>
+        </div>
+        <div class="odo-row">
+          <div class="odometer" id="odometer"></div>
+          <div class="odo-label">lbs diverted this year</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">What We Take</div>
+      <h2>If you can point at it, we can move it.</h2>
+    </div>
+    <div class="bento">
+      <a href="#calc" style="text-decoration:none; color:inherit; display:block; grid-column:span 2; grid-row:span 2;">
+        <div class="bento-cell b-navy" style="height:100%;"><h3>Estate &amp; Full-Home Cleanouts</h3><p>Handled top to bottom, donation-first sorting, one visit.</p></div>
+      </a>
+      <a href="#calc" style="text-decoration:none; color:inherit; display:block;"><div class="bento-cell b-lime" style="height:100%;"><h3>Furniture</h3><p>Sofas, dressers, tables</p></div></a>
+      <a href="#calc" style="text-decoration:none; color:inherit; display:block;"><div class="bento-cell b-coral" style="height:100%;"><h3>Appliances</h3><p>Fridges, washers, dryers</p></div></a>
+      <a href="#calc" style="text-decoration:none; color:inherit; display:block;"><div class="bento-cell b-sand" style="height:100%;"><h3>Yard Waste</h3><p>Branches, fencing, debris</p></div></a>
+      <a href="#calc" style="text-decoration:none; color:inherit; display:block;"><div class="bento-cell b-sky" style="height:100%;"><h3>Construction Debris</h3><p>Drywall, flooring, cabinets</p></div></a>
+      <a href="#calc" style="text-decoration:none; color:inherit; display:block; grid-column:span 2;"><div class="bento-cell b-white" style="height:100%;"><h3>Storage Units</h3><p>Emptied top to bottom, so you never have to see what's inside</p></div></a>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">How It Works</div>
+      <h2>From point to pickup.</h2>
+      <p class="strip-hint">Scroll sideways &rarr;</p>
+    </div>
+    <div class="strip">
+      <div class="strip-card"><div class="snum">1</div><h3>Book online</h3><p>Use the calculator above or call — get a real price range up front.</p></div>
+      <div class="strip-card"><div class="snum">2</div><h3>We show up &amp; confirm</h3><p>Free on-site estimate before anything gets loaded.</p></div>
+      <div class="strip-card"><div class="snum">3</div><h3>We load everything</h3><p>You point, we carry — no lifting or hauling on your end.</p></div>
+      <div class="strip-card"><div class="snum">4</div><h3>We sort it responsibly</h3><p>Donation and recycling checked first, landfill only as a last resort.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="pullquote">
+      <p>"Quoted me a price before they even pulled up, based on what I told them over the phone. Truck was gone with everything in 20 minutes."</p>
+      <div class="cite">— VERIFIED CUSTOMER, GOOGLE REVIEWS</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Book a Pickup</div>
+      <h2>Pick a time that works.</h2>
+    </div>
+    <div class="contact-split">
+      <div class="contact-slots">
+        <div class="day-tabs">
+          <button class="day-tab active" data-day="today">Today</button>
+          <button class="day-tab" data-day="tomorrow">Tomorrow</button>
+        </div>
+        <div class="slot-grid" id="slotGrid"></div>
+        <div class="selected-note" id="selectedNote">Select a time slot above.</div>
+      </div>
+      <div class="contact-info">
+        <div class="info-block"><div class="lbl">Phone</div><div class="val"><a href="tel:2155550172">215-555-0172</a></div></div>
+        <div class="info-block"><div class="lbl">Service Area</div><div class="val">Philadelphia &amp; surrounding counties</div></div>
+        <div class="info-block"><div class="lbl">Hours</div><div class="val">Mon–Sat, 7 AM – 7 PM</div></div>
+        <div class="info-block"><div class="lbl">Pricing</div><div class="val">Based on truck volume — always quoted before we load anything</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="foot-brand">Load Off Junk Removal</div>
+      <div class="foot-links"><a href="#calc">Get a Quote</a><a href="#services">What We Take</a><a href="#contact">Book</a></div>
+    </div>
+    <p class="foot-fine">Serving Philadelphia &amp; surrounding counties · 215-555-0172 · Demo concept, fictional business, 2026.</p>
+  </div>
+</footer>
+
+<script>
+  // Load calculator
+  const chips = document.querySelectorAll('.item-chip');
+  const loadFill = document.getElementById('loadFill');
+  const fillPct = document.getElementById('fillPct');
+  const fillPrice = document.getElementById('fillPrice');
+  let total = 0;
+  const MAX = 40;
+
+  function updateTruck(){
+    let pct = Math.min(100, Math.round((total / MAX) * 100));
+    const h = (pct/100) * 70;
+    loadFill.setAttribute('height', h);
+    loadFill.setAttribute('y', 90 - h);
+    fillPct.textContent = pct + '%';
+    if(total === 0){
+      fillPrice.textContent = "Add items to estimate";
+    } else {
+      const low = 89 + Math.round(pct * 3.5);
+      const high = low + 60;
+      fillPrice.textContent = `Estimated: $${low}–$${high}`;
+    }
+  }
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      const w = parseInt(chip.dataset.w);
+      total += chip.classList.contains('active') ? w : -w;
+      updateTruck();
+    });
+  });
+  document.getElementById('resetLoad').addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    total = 0;
+    updateTruck();
+  });
+
+  // Odometer count-up
+  const odometer = document.getElementById('odometer');
+  const targetNum = "184620";
+  odometer.innerHTML = [...targetNum].map(() => `<div class="odo-digit">0</div>`).join('');
+  const digits = odometer.querySelectorAll('.odo-digit');
+  let frame = 0;
+  function animateOdo(){
+    frame++;
+    const progress = Math.min(1, frame/40);
+    const current = Math.round(parseInt(targetNum) * progress);
+    const str = String(current).padStart(targetNum.length, '0');
+    [...str].forEach((d, i) => digits[i].textContent = d);
+    if(progress < 1) requestAnimationFrame(animateOdo);
+  }
+  requestAnimationFrame(animateOdo);
+
+  // Donut chart animate on scroll into view
+  const donut = document.querySelector('.donut-wrap');
+  const circumference = 2 * Math.PI * 90;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const donateLen = circumference * 0.42;
+        const recycleLen = circumference * 0.31;
+        const landfillLen = circumference * 0.27;
+        document.getElementById('arcDonate').setAttribute('stroke-dasharray', `${donateLen} ${circumference}`);
+        document.getElementById('arcRecycle').setAttribute('stroke-dasharray', `${recycleLen} ${circumference}`);
+        document.getElementById('arcRecycle').setAttribute('stroke-dashoffset', -donateLen);
+        document.getElementById('arcLandfill').setAttribute('stroke-dasharray', `${landfillLen} ${circumference}`);
+        document.getElementById('arcLandfill').setAttribute('stroke-dashoffset', -(donateLen + recycleLen));
+        io.disconnect();
+      }
+    });
+  }, {threshold:0.4});
+  io.observe(donut);
+
+  // Slot picker
+  const slotsByDay = {
+    today: ["8–10 AM","10–12 PM","12–2 PM","2–4 PM","4–6 PM","6–7 PM"],
+    tomorrow: ["8–10 AM","10–12 PM","12–2 PM","2–4 PM","4–6 PM","6–7 PM"]
+  };
+  const fullSlots = {today:[1,4], tomorrow:[2]};
+  const slotGrid = document.getElementById('slotGrid');
+  const selectedNote = document.getElementById('selectedNote');
+  let currentDay = 'today';
+  function renderSlots(){
+    slotGrid.innerHTML = '';
+    slotsByDay[currentDay].forEach((s, i) => {
+      const el = document.createElement('div');
+      el.className = 'slot' + (fullSlots[currentDay].includes(i) ? ' full' : '');
+      el.textContent = s;
+      if(!fullSlots[currentDay].includes(i)){
+        el.addEventListener('click', () => {
+          document.querySelectorAll('.slot').forEach(x => x.classList.remove('selected'));
+          el.classList.add('selected');
+          selectedNote.textContent = `Selected: ${currentDay === 'today' ? 'Today' : 'Tomorrow'}, ${s}`;
+        });
+      }
+      slotGrid.appendChild(el);
+    });
+  }
+  renderSlots();
+  document.querySelectorAll('.day-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentDay = tab.dataset.day;
+      selectedNote.textContent = "Select a time slot above.";
+      renderSlots();
+    });
+  });
+
+  // Side nav progress tracking
+  const sections = ['calc','impact','services','process','contact'].map(id => document.getElementById(id));
+  const sideDots = document.querySelectorAll('.side-dot');
+  sideDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      document.getElementById(dot.dataset.target).scrollIntoView({behavior:'smooth'});
+    });
+  });
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        sideDots.forEach(d => d.classList.remove('active'));
+        const match = document.querySelector(`.side-dot[data-target="${entry.target.id}"]`);
+        if(match) match.classList.add('active');
+      }
+    });
+  }, {threshold:0.5});
+  sections.forEach(s => s && sectionObserver.observe(s));
+</script>
+
+</body>
+</html>

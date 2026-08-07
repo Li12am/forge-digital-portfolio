@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ridgeline Remodeling Co. | Bucks County Kitchen, Bath & Deck Renovations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal: #f2ece0;
+    --charcoal-2: #241f18;
+    --cream: #120f0b;
+    --cream-2: #1a150f;
+    --panel: #1e1810;
+    --panel-2: #29221a;
+    --copper: #d98a5c;
+    --copper-light: #e8a679;
+    --moss: #8fa377;
+    --moss-light: #aab892;
+    --stone: #8f8577;
+    --warmgray: #b3a793;
+    --line: rgba(242,236,224,0.10);
+    --line-light: rgba(242,236,224,0.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    background:var(--cream);
+    color:var(--charcoal);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.08;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  ::selection{background:var(--copper);color:var(--cream);}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:34px;left:0;right:0;z-index:100;
+    background:rgba(18,15,11,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:background .3s;
+  }
+  .nav-inner{
+    max-width:1240px;margin:0 auto;padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:22px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{color:var(--copper);}
+  .nav-links{display:flex;gap:36px;align-items:center;}
+  .nav-links a{
+    font-size:14px;font-weight:500;color:var(--charcoal);
+    position:relative;padding:4px 0;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:0;left:0;width:0;height:1px;
+    background:var(--copper);transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--copper);color:var(--cream);
+    padding:11px 22px;border-radius:2px;font-size:13.5px;font-weight:600;
+    letter-spacing:.02em;
+    transition:background .2s;
+  }
+  .nav-cta:hover{background:var(--copper-light);}
+  .nav-toggle{display:none;}
+
+  /* HERO */
+  .hero{
+    padding:200px 0 90px;
+    position:relative;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(217,138,92,0.10), transparent),
+      var(--cream);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:start;
+  }
+  .eyebrow{
+    display:flex;align-items:center;gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--copper);margin-bottom:22px;font-weight:500;
+  }
+  .eyebrow::before{content:'';width:28px;height:1px;background:var(--copper);}
+  .hero h1{
+    font-size:clamp(38px, 4.6vw, 60px);
+    color:var(--charcoal);
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--copper);
+  }
+  .hero p.lead{
+    font-size:17.5px;color:var(--warmgray);max-width:460px;margin-bottom:34px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:46px;}
+  .btn-primary{
+    background:var(--copper);color:var(--cream);
+    padding:15px 28px;border-radius:2px;font-size:14.5px;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .2s ease, background .2s;
+  }
+  .btn-primary:hover{background:var(--copper-light);transform:translateY(-2px);}
+  .btn-secondary{
+    border:1px solid var(--charcoal);color:var(--charcoal);
+    padding:15px 28px;border-radius:2px;font-size:14.5px;font-weight:600;
+    transition:all .2s;
+  }
+  .btn-secondary:hover{background:var(--charcoal);color:var(--cream);}
+  .hero-stats{display:flex;gap:40px;}
+  .hero-stat b{
+    display:block;font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--charcoal);
+  }
+  .hero-stat span{font-size:12.5px;color:var(--warmgray);}
+
+  /* MATERIAL SWATCH MOCKUP - signature element */
+  .swatch-panel{
+    background:var(--panel-2);
+    border:1px solid var(--line-light);
+    border-radius:4px;
+    padding:28px;
+    position:relative;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+  }
+  .swatch-label{
+    color:var(--stone);font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    margin-bottom:16px;display:flex;justify-content:space-between;
+  }
+  .swatch-viewport{
+    aspect-ratio:4/3.1;
+    border-radius:3px;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:20px;
+    transition:background 0.5s ease;
+  }
+  .swatch-viewport-inner{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:22px;
+  }
+  .swatch-cab{
+    position:absolute;bottom:0;left:0;right:0;height:44%;
+    transition:background .5s ease, border-color .5s ease;
+    border-top:2px solid rgba(0,0,0,0.15);
+  }
+  .swatch-counter{
+    position:absolute;bottom:44%;left:0;right:0;height:8%;
+    transition:background .5s ease;
+  }
+  .swatch-wall{
+    position:absolute;top:0;left:0;right:0;bottom:52%;
+    transition:background .5s ease;
+  }
+  .swatch-hw{
+    position:absolute;bottom:8%;right:8%;width:34px;height:34px;border-radius:50%;
+    transition:background .5s ease;
+    box-shadow:0 2px 6px rgba(0,0,0,0.25);
+  }
+  .swatch-tag{
+    position:relative;z-index:2;
+    color:#fff;font-family:'Fraunces',serif;font-size:15px;font-weight:600;
+    text-shadow:0 2px 8px rgba(0,0,0,0.4);
+  }
+  .swatch-row{display:flex;gap:10px;margin-bottom:14px;}
+  .swatch-group-label{color:var(--stone);font-size:11px;font-family:'IBM Plex Mono',monospace;margin-bottom:8px;letter-spacing:.06em;}
+  .swatch-chip{
+    width:38px;height:38px;border-radius:50%;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform .2s, border-color .2s;
+    flex-shrink:0;
+  }
+  .swatch-chip:hover{transform:translateY(-3px);}
+  .swatch-chip.active{border-color:var(--copper-light);transform:scale(1.08);}
+  .swatch-price{
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--line-light);padding-top:16px;margin-top:4px;
+  }
+  .swatch-price span{color:var(--stone);font-size:12px;font-family:'IBM Plex Mono',monospace;}
+  .swatch-price b{color:var(--charcoal);font-family:'Fraunces',serif;font-size:22px;font-weight:700;}
+  .swatch-selection{
+    font-size:12.5px;color:var(--warmgray);margin-top:14px;line-height:1.6;
+    border-top:1px solid var(--line-light);padding-top:14px;
+  }
+  .swatch-selection b{color:var(--charcoal);font-weight:600;}
+  .swatch-cta{
+    display:block;text-align:center;margin-top:16px;
+    background:var(--copper);color:var(--cream);
+    padding:13px 20px;border-radius:2px;font-size:13.5px;font-weight:600;
+    transition:background .2s;
+  }
+  .swatch-cta:hover{background:var(--copper-light);}
+
+  /* SECTION SCAFFOLDING */
+  section{padding:110px 0;}
+  .section-head{max-width:620px;margin-bottom:60px;}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .section-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--copper);margin-bottom:14px;font-weight:500;
+  }
+  .section-head h2{font-size:clamp(28px,3.4vw,42px);color:var(--charcoal);margin-bottom:16px;}
+  .section-head p{color:var(--warmgray);font-size:16px;}
+
+  /* SERVICES */
+  .services{background:var(--cream-2);}
+  .services-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .service-card{
+    background:var(--cream-2);
+    padding:36px 28px;
+    min-height:280px;
+    position:relative;
+    perspective:1200px;
+    cursor:pointer;
+  }
+  .service-inner{
+    position:relative;width:100%;height:100%;
+    transition:transform .6s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+    min-height:210px;
+  }
+  .service-card.flipped .service-inner{transform:rotateY(180deg);}
+  .service-face{
+    position:absolute;inset:0;backface-visibility:hidden;
+    display:flex;flex-direction:column;
+  }
+  .service-face.front{justify-content:space-between;}
+  .service-face.back{
+    transform:rotateY(180deg);
+    background:var(--panel-2);color:var(--charcoal);
+    padding:22px;border-radius:2px;
+    justify-content:center;
+  }
+  .service-num{font-family:'IBM Plex Mono',monospace;color:var(--copper);font-size:12.5px;margin-bottom:24px;}
+  .service-face.front h3{font-size:22px;color:var(--charcoal);margin-bottom:10px;}
+  .service-face.front p{color:var(--warmgray);font-size:14px;}
+  .service-flip-hint{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--stone);
+    display:flex;align-items:center;gap:6px;margin-top:20px;
+  }
+  .service-face.back .b-label{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--stone);margin-bottom:8px;
+  }
+  .service-face.back .b-value{font-family:'Fraunces',serif;font-size:24px;margin-bottom:16px;font-weight:600;}
+  .service-face.back .b-range{font-size:13px;color:var(--stone);}
+
+  /* ESTIMATOR */
+  .estimator{background:var(--panel);color:var(--charcoal);}
+  .estimator .section-eyebrow{color:var(--copper-light);}
+  .estimator .section-head h2{color:var(--charcoal);}
+  .estimator .section-head p{color:var(--stone);}
+  .estimator-box{
+    background:var(--charcoal-2);border:1px solid var(--line-light);border-radius:4px;
+    padding:44px;display:grid;grid-template-columns:1.2fr 0.8fr;gap:48px;
+  }
+  .estim-group{margin-bottom:32px;}
+  .estim-group:last-child{margin-bottom:0;}
+  .estim-label{
+    display:flex;justify-content:space-between;margin-bottom:14px;
+    font-size:14px;font-weight:600;
+  }
+  .estim-label .val{font-family:'IBM Plex Mono',monospace;color:var(--copper-light);font-weight:500;}
+  .pill-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .pill{
+    padding:10px 18px;border:1px solid var(--line-light);border-radius:20px;
+    font-size:13px;color:var(--stone);transition:all .2s;
+  }
+  .pill.active{background:var(--copper);border-color:var(--copper);color:#fff;}
+  .pill:hover{border-color:var(--copper-light);}
+  input[type="range"]{
+    -webkit-appearance:none;width:100%;height:4px;border-radius:2px;outline:none;
+    background:var(--line-light);
+    transition:background .15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+    background:var(--copper);cursor:pointer;border:3px solid var(--charcoal-2);
+    box-shadow:0 0 0 1px var(--copper);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+  input[type="range"]::-webkit-slider-thumb:active{transform:scale(1.25);box-shadow:0 0 0 5px rgba(217,138,92,0.25);}
+  input[type="range"]::-moz-range-thumb{
+    width:18px;height:18px;border-radius:50%;
+    background:var(--copper);cursor:pointer;border:3px solid var(--charcoal-2);
+    box-shadow:0 0 0 1px var(--copper);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  input[type="range"]::-moz-range-thumb:hover{transform:scale(1.15);}
+  .estim-result{
+    background:var(--panel-2);border-radius:3px;padding:32px;
+    display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+    border:1px solid var(--line-light);
+  }
+  .estim-result .r-label{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;}
+  .estim-result .r-value{font-family:'Fraunces',serif;font-size:44px;font-weight:700;color:var(--charcoal);line-height:1;margin-bottom:6px;transition:transform .18s ease;}
+  .estim-result .r-value.pulse{transform:scale(1.06);}
+  .estim-result .r-sub{font-size:13px;color:var(--stone);margin-bottom:24px;}
+  .estim-result .r-note{font-size:12.5px;color:var(--stone);border-top:1px solid var(--line-light);padding-top:18px;}
+
+  /* GALLERY */
+  .gallery-filters{display:flex;gap:10px;margin-bottom:40px;flex-wrap:wrap;}
+  .filter-btn{
+    padding:9px 20px;border:1px solid var(--line);border-radius:20px;
+    font-size:13.5px;font-weight:500;color:var(--warmgray);transition:all .2s;
+  }
+  .filter-btn.active{background:var(--copper);border-color:var(--copper);color:var(--cream);}
+  .filter-btn:hover:not(.active){border-color:var(--copper);color:var(--copper);}
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  .gallery-item{
+    aspect-ratio:4/3.2;border-radius:3px;overflow:hidden;position:relative;cursor:pointer;
+    transition:transform .3s;
+  }
+  .gallery-item:hover{transform:translateY(-4px);}
+  .gallery-item.hidden{display:none;}
+  .gallery-visual{position:absolute;inset:0;}
+  .gallery-overlay{
+    position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(33,29,26,0.85) 100%);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:20px;color:#fff;
+  }
+  .gallery-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--copper-light);margin-bottom:6px;
+  }
+  .gallery-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;}
+
+  /* LIGHTBOX */
+  .lightbox{
+    position:fixed;inset:0;background:rgba(33,29,26,0.92);z-index:1000;
+    display:none;align-items:center;justify-content:center;padding:40px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox-content{
+    background:var(--panel-2);border:1px solid var(--line-light);border-radius:4px;max-width:720px;width:100%;overflow:hidden;
+  }
+  .lightbox-visual{height:300px;position:relative;}
+  .lightbox-body{padding:32px;}
+  .lightbox-body .l-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--copper);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+  .lightbox-body h3{font-size:26px;margin-bottom:14px;}
+  .lightbox-meta{display:flex;gap:28px;margin-bottom:16px;flex-wrap:wrap;}
+  .lightbox-meta div span{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--warmgray);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+  .lightbox-meta div b{font-family:'Fraunces',serif;font-size:16px;}
+  .lightbox-body p.desc{color:var(--warmgray);font-size:14.5px;}
+  .lightbox-close{
+    position:absolute;top:20px;right:20px;width:38px;height:38px;border-radius:50%;
+    background:rgba(242,236,224,0.92);color:var(--cream);display:flex;align-items:center;justify-content:center;
+    font-size:18px;z-index:2;
+  }
+
+  /* TRUST BAR */
+  .trust{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .trust-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .trust-item{
+    padding:50px 20px;text-align:center;border-right:1px solid var(--line);
+  }
+  .trust-item:last-child{border-right:none;}
+  .trust-item b{
+    display:block;font-family:'Fraunces',serif;font-size:38px;font-weight:700;color:var(--copper);margin-bottom:8px;
+  }
+  .trust-item span{font-size:13px;color:var(--warmgray);}
+
+  /* PROCESS TIMELINE */
+  .process-list{border-top:1px solid var(--line);}
+  .process-item{
+    border-bottom:1px solid var(--line);
+    padding:28px 0;cursor:pointer;
+  }
+  .process-head{display:flex;align-items:center;gap:24px;}
+  .process-step{
+    font-family:'IBM Plex Mono',monospace;color:var(--copper);font-size:13px;flex-shrink:0;width:52px;
+  }
+  .process-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;flex:1;}
+  .process-arrow{
+    font-size:18px;color:var(--warmgray);transition:transform .3s;flex-shrink:0;
+  }
+  .process-item.open .process-arrow{transform:rotate(45deg);color:var(--copper);}
+  .process-detail{
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+    padding-left:76px;
+  }
+  .process-item.open .process-detail{max-height:120px;}
+  .process-detail p{color:var(--warmgray);font-size:14.5px;padding-top:14px;max-width:640px;}
+
+  /* TESTIMONIALS */
+  .testimonials{background:var(--panel);color:var(--charcoal);}
+  .testimonials .section-head h2{color:var(--charcoal);}
+  .testimonials .section-eyebrow{color:var(--copper-light);}
+  .test-carousel{position:relative;max-width:760px;margin:0 auto;}
+  .test-track{overflow:hidden;}
+  .test-slides{display:flex;transition:transform .5s ease;}
+  .test-slide{min-width:100%;padding:0 10px;}
+  .test-quote{
+    font-family:'Fraunces',serif;font-size:24px;font-weight:500;line-height:1.4;
+    margin-bottom:28px;color:var(--charcoal);
+  }
+  .test-author{display:flex;align-items:center;gap:14px;}
+  .test-avatar{
+    width:44px;height:44px;border-radius:50%;background:var(--copper);
+    display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;
+  }
+  .test-author-name{font-weight:600;font-size:14.5px;}
+  .test-author-tag{font-size:12.5px;color:var(--stone);font-family:'IBM Plex Mono',monospace;}
+  .test-nav{display:flex;gap:10px;margin-top:36px;justify-content:center;}
+  .test-dot{width:8px;height:8px;border-radius:50%;background:var(--line-light);transition:background .2s;}
+  .test-dot.active{background:var(--copper);}
+
+  /* CTA FOOTER */
+  .cta-final{text-align:center;padding:130px 0 100px;}
+  .cta-final h2{font-size:clamp(30px,4vw,48px);margin-bottom:20px;}
+  .cta-final p{color:var(--warmgray);font-size:17px;margin-bottom:38px;max-width:480px;margin-left:auto;margin-right:auto;}
+
+  footer{background:var(--panel);color:var(--stone);padding:60px 0 30px;}
+  .footer-grid{display:flex;justify-content:space-between;padding-bottom:40px;border-bottom:1px solid var(--line-light);flex-wrap:wrap;gap:30px;}
+  .footer-logo{font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:var(--charcoal);margin-bottom:12px;}
+  .footer-col span{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+  .footer-col a{display:block;color:var(--charcoal);font-size:14px;margin-bottom:8px;opacity:.85;}
+  .footer-col a:hover{color:var(--copper-light);}
+  .footer-bottom{padding-top:24px;display:flex;justify-content:space-between;font-size:12.5px;flex-wrap:wrap;gap:10px;}
+
+  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease;}
+  [data-reveal].in{opacity:1;transform:translateY(0);}
+
+  .demo-flag{background:var(--copper); color:#171310; text-align:center; padding:8px 16px; font-family:'IBM Plex Mono',monospace; font-size:0.75rem; letter-spacing:0.04em; position:fixed; top:0; left:0; right:0; z-index:101;}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .estimator-box{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-item{border-bottom:1px solid var(--line);}
+    .nav-links{display:none;}
+  }
+  @media (max-width:560px){
+    .services-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .trust-grid{grid-template-columns:1fr;}
+    .trust-item{border-right:none;}
+    .hero-stats{gap:24px;flex-wrap:wrap;}
+    .wrap{padding:0 20px;}
+    .estimator-box{padding:28px;}
+  }
+</style>
+</head>
+<body>
+<div class="demo-flag">DEMO CONCEPT — FICTIONAL BUSINESS FOR ILLUSTRATION ONLY</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Ridgeline<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#estimate">Estimate</a>
+      <a href="#work">Our Work</a>
+      <a href="#process">Process</a>
+      <a href="#" class="nav-cta">Get a Free Estimate</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Bucks County &amp; Greater Philadelphia</div>
+      <h1>Renovations built to last, <em>not just to look good.</em></h1>
+      <p class="lead">Kitchens, bathrooms, decks, and additions — designed and built by a licensed local crew who shows up when they say they will.</p>
+      <div class="hero-actions">
+        <a href="#estimate" class="btn-primary">Get a Free Estimate →</a>
+        <a href="#work" class="btn-secondary">See Our Work</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b data-count="14">0</b><span>Years in business</span></div>
+        <div class="hero-stat"><b data-count="230">0</b><span>Projects completed</span></div>
+        <div class="hero-stat"><b data-count="100">0</b><span>% licensed &amp; insured</span></div>
+      </div>
+    </div>
+
+    <div class="swatch-panel">
+      <div class="swatch-label"><span>Kitchen Preview</span><span id="swatchTagTop">Shaker / Walnut</span></div>
+      <div class="swatch-viewport" id="swatchViewport">
+        <div class="swatch-wall" id="swWall" style="background:#dcd3c2;"></div>
+        <div class="swatch-counter" id="swCounter" style="background:#8a8378;"></div>
+        <div class="swatch-cab" id="swCab" style="background:#5b4632;">
+          <div class="swatch-hw" id="swHw" style="background:#c9a227;"></div>
+        </div>
+        <div class="swatch-viewport-inner"><span class="swatch-tag">Ridgeline Custom Build</span></div>
+      </div>
+
+      <div class="swatch-group-label">Cabinet Finish</div>
+      <div class="swatch-row">
+        <div class="swatch-chip active" style="background:#5b4632;" data-cab="#5b4632" data-name="Walnut"></div>
+        <div class="swatch-chip" style="background:#e8e4dc;" data-cab="#e8e4dc" data-name="Alpine White"></div>
+        <div class="swatch-chip" style="background:#2b2f33;" data-cab="#2b2f33" data-name="Slate Black"></div>
+        <div class="swatch-chip" style="background:#7c8d6a;" data-cab="#7c8d6a" data-name="Sage Green"></div>
+      </div>
+
+      <div class="swatch-group-label">Countertop</div>
+      <div class="swatch-row">
+        <div class="swatch-chip active" style="background:#8a8378;" data-counter="#8a8378" data-name="Honed Granite"></div>
+        <div class="swatch-chip" style="background:#f1ede6;" data-counter="#f1ede6" data-name="Carrara Marble"></div>
+        <div class="swatch-chip" style="background:#2c2825;" data-counter="#2c2825" data-name="Black Quartz"></div>
+      </div>
+
+      <div class="swatch-group-label">Hardware</div>
+      <div class="swatch-row">
+        <div class="swatch-chip active" style="background:#c9a227;" data-hw="#c9a227" data-name="Brass"></div>
+        <div class="swatch-chip" style="background:#4a4d4f;" data-hw="#4a4d4f" data-name="Matte Black"></div>
+        <div class="swatch-chip" style="background:#b8bcc0;" data-hw="#b8bcc0" data-name="Brushed Nickel"></div>
+      </div>
+
+      <div class="swatch-group-label">Backsplash</div>
+      <div class="swatch-row">
+        <div class="swatch-chip active" style="background:#dcd3c2;" data-wall="#dcd3c2" data-name="Warm Ivory"></div>
+        <div class="swatch-chip" style="background:#c3d0c4;" data-wall="#c3d0c4" data-name="Sage Subway"></div>
+        <div class="swatch-chip" style="background:#33302b;" data-wall="#33302b" data-name="Charcoal Slate"></div>
+      </div>
+
+      <div class="swatch-price">
+        <span>Estimated finish upgrade</span>
+        <b id="swatchPrice">Included</b>
+      </div>
+      <div class="swatch-selection" id="swatchSelection">
+        Your build: <b>Walnut</b> cabinets, <b>Honed Granite</b> counters, <b>Brass</b> hardware, <b>Warm Ivory</b> backsplash
+      </div>
+      <a href="#estimate" class="swatch-cta">Get This Look Estimated →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">What We Build</div>
+      <h2>Four project types. One standard of work.</h2>
+      <p>Click a card to see typical timeline and starting price.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="services-grid">
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-num">01</div><h3>Kitchen Remodeling</h3><p>Full gut renovations to layout-only refreshes.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div>
+            <div class="b-value">4–7 weeks</div>
+            <div class="b-range">Starting at $28,000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-num">02</div><h3>Bathroom Remodeling</h3><p>Primary suites, guest baths, full accessibility retrofits.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div>
+            <div class="b-value">2–4 weeks</div>
+            <div class="b-range">Starting at $14,000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-num">03</div><h3>Decks &amp; Outdoor Living</h3><p>Composite and cedar decks, pergolas, outdoor kitchens.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div>
+            <div class="b-value">1–3 weeks</div>
+            <div class="b-range">Starting at $9,500</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip>
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-num">04</div><h3>Home Additions</h3><p>Extra bedrooms, in-law suites, second-story additions.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div>
+            <div class="b-value">8–14 weeks</div>
+            <div class="b-range">Starting at $65,000</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ESTIMATOR -->
+<section class="estimator" id="estimate">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Project Cost Estimator</div>
+      <h2>Get a ballpark before you call.</h2>
+      <p>Adjust the sliders below — this is a starting estimate, your free consultation will nail down the real number.</p>
+    </div>
+
+    <div class="estimator-box">
+      <div>
+        <div class="estim-group">
+          <div class="estim-label"><span>Project Type</span></div>
+          <div class="pill-row" id="projType">
+            <div class="pill active" data-val="kitchen" data-base="28000">Kitchen</div>
+            <div class="pill" data-val="bath" data-base="14000">Bathroom</div>
+            <div class="pill" data-val="deck" data-base="9500">Deck</div>
+            <div class="pill" data-val="addition" data-base="65000">Addition</div>
+          </div>
+        </div>
+
+        <div class="estim-group">
+          <div class="estim-label"><span>Project Size</span><span class="val" id="sizeVal">Medium</span></div>
+          <input type="range" min="0" max="2" step="1" value="1" id="sizeSlider">
+        </div>
+
+        <div class="estim-group">
+          <div class="estim-label"><span>Finish Level</span><span class="val" id="finishVal">Standard</span></div>
+          <input type="range" min="0" max="2" step="1" value="0" id="finishSlider">
+        </div>
+      </div>
+
+      <div class="estim-result">
+        <div class="r-label">Estimated Range</div>
+        <div class="r-value" id="estResult">$24k – $32k</div>
+        <div class="r-sub">Based on similar Bucks County projects</div>
+        <div class="r-note">Final pricing depends on materials, permits, and site condition — confirmed during your free walkthrough.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Recent Work</div>
+      <h2>Projects from around the county.</h2>
+      <p>Filter by category, click any project for the full story.</p>
+    </div>
+
+    <div class="gallery-filters" id="galleryFilters">
+      <div class="filter-btn active" data-filter="all">All Projects</div>
+      <div class="filter-btn" data-filter="kitchen">Kitchen</div>
+      <div class="filter-btn" data-filter="bath">Bathroom</div>
+      <div class="filter-btn" data-filter="deck">Deck</div>
+      <div class="filter-btn" data-filter="addition">Addition</div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <div class="gallery-item" data-cat="kitchen" data-lightbox="0">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#5b4632,#8a8378);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Kitchen · Churchville</div><div class="gallery-title">Walnut &amp; Marble Full Gut</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="bath" data-lightbox="1">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#e8e4dc,#beb6a6);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Bath · Southampton</div><div class="gallery-title">Primary Suite Retreat</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="deck" data-lightbox="2">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#7c8d6a,#5c6b4f);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Deck · Warminster</div><div class="gallery-title">Composite Deck + Pergola</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="addition" data-lightbox="3">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#2b2f33,#6b6259);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Addition · Richboro</div><div class="gallery-title">Second-Story In-Law Suite</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="kitchen" data-lightbox="4">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#2c2825,#c9a227);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Kitchen · Feasterville</div><div class="gallery-title">Black Quartz &amp; Brass</div></div>
+      </div>
+
+      <div class="gallery-item" data-cat="bath" data-lightbox="5">
+        <div class="gallery-visual" style="background:linear-gradient(135deg,#a8532a,#dcd3c2);"></div>
+        <div class="gallery-overlay"><div class="gallery-tag">Bath · Newtown</div><div class="gallery-title">Terracotta Tile Guest Bath</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="trust" style="padding:0;">
+  <div class="wrap" style="padding:0;">
+    <div class="trust-grid">
+      <div class="trust-item"><b data-count="14">0</b><span>Years in Business</span></div>
+      <div class="trust-item"><b data-count="230">0</b><span>Projects Completed</span></div>
+      <div class="trust-item"><b data-count="100" data-suffix="%">0</b><span>Licensed &amp; Insured</span></div>
+      <div class="trust-item"><b data-count="4" data-decimal=".9">0</b><span>Average Client Rating</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>From first call to final walkthrough.</h2>
+      <p>Every project follows the same five steps — no surprises.</p>
+    </div>
+
+    <div class="process-list" id="processList">
+      <div class="process-item open">
+        <div class="process-head"><div class="process-step">01</div><div class="process-title">Free Consultation</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>We walk the space with you, talk through your goals and budget, and take initial measurements. No obligation, no pressure.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">02</div><div class="process-title">Design &amp; Estimate</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>We put together a design direction and a detailed, itemized estimate — you'll know exactly what you're paying for before signing anything.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">03</div><div class="process-title">Permits &amp; Materials</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>We pull all required permits and order materials, so there's zero delay once the crew shows up on day one.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">04</div><div class="process-title">Build</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>Our crew works your project start to finish — we send daily photo updates so you always know where things stand.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">05</div><div class="process-title">Final Walkthrough</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>We walk the finished space with you, handle any punch-list items on the spot, and hand over care instructions and warranty info.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-eyebrow">Client Stories</div>
+      <h2>What it's like to work with us.</h2>
+    </div>
+
+    <div class="test-carousel">
+      <div class="test-track">
+        <div class="test-slides" id="testSlides">
+          <div class="test-slide">
+            <p class="test-quote">"They finished our kitchen two days early and the crew cleaned up every single day. Didn't feel like living in a construction zone."</p>
+            <div class="test-author"><div class="test-avatar">M</div><div><div class="test-author-name">Maria D.</div><div class="test-author-tag">Kitchen Remodel · Churchville</div></div></div>
+          </div>
+          <div class="test-slide">
+            <p class="test-quote">"Every price we were quoted, we paid. No change orders, no surprise fees. That alone is worth choosing Ridgeline."</p>
+            <div class="test-author"><div class="test-avatar">R</div><div><div class="test-author-name">Rob T.</div><div class="test-author-tag">Home Addition · Richboro</div></div></div>
+          </div>
+          <div class="test-slide">
+            <p class="test-quote">"Our deck went from a rough sketch to done in under two weeks. Neighbors keep asking who built it."</p>
+            <div class="test-author"><div class="test-avatar">K</div><div><div class="test-author-name">Kevin S.</div><div class="test-author-tag">Deck &amp; Pergola · Warminster</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="test-nav" id="testNav">
+        <div class="test-dot active"></div>
+        <div class="test-dot"></div>
+        <div class="test-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Ready to talk about your project?</h2>
+    <p>Tell us what you're picturing — we'll put together a plan and a real number within 48 hours.</p>
+    <a href="#" class="btn-primary">Get a Free Estimate →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Ridgeline<span style="color:var(--copper-light);">.</span></div>
+        <p style="max-width:260px;font-size:13.5px;opacity:.75;">Kitchen, bath, deck, and addition remodeling across Bucks County &amp; Greater Philadelphia.</p>
+      </div>
+      <div class="footer-col">
+        <span>Contact</span>
+        <a href="tel:2158020007">(215) 802-0007</a>
+        <a href="mailto:info@ridgelineremodeling.com">info@ridgelineremodeling.com</a>
+      </div>
+      <div class="footer-col">
+        <span>Services</span>
+        <a href="#services">Kitchens</a>
+        <a href="#services">Bathrooms</a>
+        <a href="#services">Decks</a>
+        <a href="#services">Additions</a>
+      </div>
+      <div class="footer-col">
+        <span>Company</span>
+        <a href="#work">Our Work</a>
+        <a href="#process">Our Process</a>
+        <a href="#estimate">Get an Estimate</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Ridgeline Remodeling Co. Licensed &amp; Insured — PA HIC #999999</span>
+      <span>Demo site built by Forge Digital</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <div class="lightbox-visual" id="lbVisual"><div class="lightbox-close" id="lbClose">×</div></div>
+    <div class="lightbox-body">
+      <div class="l-tag" id="lbTag">Kitchen · Churchville</div>
+      <h3 id="lbTitle">Walnut &amp; Marble Full Gut</h3>
+      <div class="lightbox-meta">
+        <div><span>Timeline</span><b id="lbTimeline">5 weeks</b></div>
+        <div><span>Budget</span><b id="lbBudget">$34,000</b></div>
+        <div><span>Materials</span><b id="lbMaterials">Walnut, Marble</b></div>
+      </div>
+      <p class="desc" id="lbDesc">Full gut renovation opening the kitchen into the dining room, with custom walnut cabinetry, honed marble counters, and a brass hardware package.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Reveal on scroll — applied to section content blocks
+  const revealTargets = document.querySelectorAll('.section-head, .service-card, .gallery-item, .process-item, .estimator-box, .swatch-panel, .trust-item, .test-carousel');
+  revealTargets.forEach(el=>el.setAttribute('data-reveal',''));
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('in'), i%3*80);
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Counter animation
+  const counters = document.querySelectorAll('[data-count]');
+  const counterIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-count'));
+        const decimal = el.getAttribute('data-decimal');
+        const suffix = el.getAttribute('data-suffix') || '';
+        let current = 0;
+        const duration = 1400;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now-start)/duration, 1);
+          const eased = 1 - Math.pow(1-p, 3);
+          current = target * eased;
+          el.textContent = (decimal ? current.toFixed(1) : Math.round(current)) + suffix;
+          if(p<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      }
+    });
+  },{threshold:0.4});
+  counters.forEach(c=>counterIO.observe(c));
+
+  // Material swatch interactivity
+  const swWall = document.getElementById('swWall');
+  const swCounter = document.getElementById('swCounter');
+  const swCab = document.getElementById('swCab');
+  const swHw = document.getElementById('swHw');
+  const swatchPrice = document.getElementById('swatchPrice');
+  const swatchTagTop = document.getElementById('swatchTagTop');
+
+  const swatchSelection = document.getElementById('swatchSelection');
+
+  let selected = {cab:'Walnut', counter:'Honed Granite', hw:'Brass', wall:'Warm Ivory'};
+  const upgradePricing = {
+    'Alpine White':0, 'Walnut':0, 'Slate Black':800, 'Sage Green':600,
+    'Honed Granite':0, 'Carrara Marble':2200, 'Black Quartz':1400,
+    'Brass':0, 'Matte Black':350, 'Brushed Nickel':150,
+    'Warm Ivory':0, 'Sage Subway':450, 'Charcoal Slate':900
+  };
+
+  function updatePrice(){
+    const total = upgradePricing[selected.cab] + upgradePricing[selected.counter] + upgradePricing[selected.hw] + upgradePricing[selected.wall];
+    swatchPrice.textContent = total === 0 ? 'Included' : '+$' + total.toLocaleString();
+    swatchTagTop.textContent = selected.cab.split(' ')[0] + ' / ' + selected.counter.split(' ')[0];
+    swatchSelection.innerHTML = `Your build: <b>${selected.cab}</b> cabinets, <b>${selected.counter}</b> counters, <b>${selected.hw}</b> hardware, <b>${selected.wall}</b> backsplash`;
+  }
+
+  document.querySelectorAll('[data-cab]').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('[data-cab]').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      swCab.style.background = chip.getAttribute('data-cab');
+      selected.cab = chip.getAttribute('data-name');
+      updatePrice();
+    });
+  });
+  document.querySelectorAll('[data-counter]').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('[data-counter]').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      swCounter.style.background = chip.getAttribute('data-counter');
+      selected.counter = chip.getAttribute('data-name');
+      updatePrice();
+    });
+  });
+  document.querySelectorAll('[data-hw]').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('[data-hw]').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      swHw.style.background = chip.getAttribute('data-hw');
+      selected.hw = chip.getAttribute('data-name');
+      updatePrice();
+    });
+  });
+  document.querySelectorAll('[data-wall]').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('[data-wall]').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      swWall.style.background = chip.getAttribute('data-wall');
+      selected.wall = chip.getAttribute('data-name');
+      updatePrice();
+    });
+  });
+
+  // Service card flip
+  document.querySelectorAll('[data-flip]').forEach(card=>{
+    card.addEventListener('click', ()=>card.classList.toggle('flipped'));
+  });
+
+  // Estimator logic
+  const projTypeEl = document.getElementById('projType');
+  const sizeSlider = document.getElementById('sizeSlider');
+  const finishSlider = document.getElementById('finishSlider');
+  const sizeVal = document.getElementById('sizeVal');
+  const finishVal = document.getElementById('finishVal');
+  const estResult = document.getElementById('estResult');
+
+  const sizeLabels = ['Small','Medium','Large'];
+  const sizeMult = [0.7, 1, 1.5];
+  const finishLabels = ['Standard','Premium','Luxury'];
+  const finishMult = [1, 1.35, 1.9];
+
+  let currentBase = 28000;
+
+  projTypeEl.querySelectorAll('.pill').forEach(pill=>{
+    pill.addEventListener('click', ()=>{
+      projTypeEl.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+      pill.classList.add('active');
+      currentBase = parseFloat(pill.getAttribute('data-base'));
+      calcEstimate();
+    });
+  });
+
+  function calcEstimate(){
+    const sIdx = parseInt(sizeSlider.value);
+    const fIdx = parseInt(finishSlider.value);
+    sizeVal.textContent = sizeLabels[sIdx];
+    finishVal.textContent = finishLabels[fIdx];
+    sizeSlider.style.background = `linear-gradient(90deg, var(--copper) ${sIdx/2*100}%, var(--line-light) ${sIdx/2*100}%)`;
+    finishSlider.style.background = `linear-gradient(90deg, var(--copper) ${fIdx/2*100}%, var(--line-light) ${fIdx/2*100}%)`;
+    const mid = currentBase * sizeMult[sIdx] * finishMult[fIdx];
+    const low = Math.round(mid*0.85/500)*500;
+    const high = Math.round(mid*1.18/500)*500;
+    estResult.textContent = '$' + Math.round(low/1000) + 'k – $' + Math.round(high/1000) + 'k';
+    estResult.classList.add('pulse');
+    setTimeout(()=>estResult.classList.remove('pulse'), 180);
+  }
+  sizeSlider.addEventListener('input', calcEstimate);
+  finishSlider.addEventListener('input', calcEstimate);
+  calcEstimate();
+
+  // Gallery filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter');
+      galleryItems.forEach(item=>{
+        if(f==='all' || item.getAttribute('data-cat')===f){
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Lightbox
+  const lightboxData = [
+    {tag:'Kitchen · Churchville', title:'Walnut &amp; Marble Full Gut', timeline:'5 weeks', budget:'$34,000', materials:'Walnut, Marble', desc:'Full gut renovation opening the kitchen into the dining room, with custom walnut cabinetry, honed marble counters, and a brass hardware package.', bg:'linear-gradient(135deg,#5b4632,#8a8378)'},
+    {tag:'Bath · Southampton', title:'Primary Suite Retreat', timeline:'3 weeks', budget:'$18,500', materials:'Porcelain, Nickel', desc:'Converted a cramped primary bath into a spa-style retreat with a curbless shower, freestanding tub, and heated tile floors.', bg:'linear-gradient(135deg,#e8e4dc,#beb6a6)'},
+    {tag:'Deck · Warminster', title:'Composite Deck + Pergola', timeline:'2 weeks', budget:'$16,200', materials:'Composite, Cedar', desc:'A 400 sq ft composite deck with a cedar pergola and built-in bench seating, designed for weekend entertaining.', bg:'linear-gradient(135deg,#7c8d6a,#5c6b4f)'},
+    {tag:'Addition · Richboro', title:'Second-Story In-Law Suite', timeline:'11 weeks', budget:'$88,000', materials:'Full framing, HVAC', desc:"Added a full second-story suite with private bath and kitchenette, matched seamlessly to the home's existing roofline.", bg:'linear-gradient(135deg,#2b2f33,#6b6259)'},
+    {tag:'Kitchen · Feasterville', title:'Black Quartz &amp; Brass', timeline:'6 weeks', budget:'$41,000', materials:'Quartz, Brass', desc:'Bold, moody kitchen redesign with matte black cabinetry, black quartz counters, and warm brass accents throughout.', bg:'linear-gradient(135deg,#2c2825,#c9a227)'},
+    {tag:'Bath · Newtown', title:'Terracotta Tile Guest Bath', timeline:'2 weeks', budget:'$12,800', materials:'Terracotta, Brass', desc:'A compact guest bath refresh built around handmade terracotta zellige tile and warm brass fixtures.', bg:'linear-gradient(135deg,#a8532a,#dcd3c2)'}
+  ];
+
+  const lightbox = document.getElementById('lightbox');
+  const lbVisual = document.getElementById('lbVisual');
+  const lbTag = document.getElementById('lbTag');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbTimeline = document.getElementById('lbTimeline');
+  const lbBudget = document.getElementById('lbBudget');
+  const lbMaterials = document.getElementById('lbMaterials');
+  const lbDesc = document.getElementById('lbDesc');
+
+  document.querySelectorAll('[data-lightbox]').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      const d = lightboxData[parseInt(item.getAttribute('data-lightbox'))];
+      lbVisual.style.background = d.bg;
+      lbTag.innerHTML = d.tag;
+      lbTitle.innerHTML = d.title;
+      lbTimeline.textContent = d.timeline;
+      lbBudget.textContent = d.budget;
+      lbMaterials.textContent = d.materials;
+      lbDesc.textContent = d.desc;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', ()=>lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
+
+  // Process accordion
+  document.querySelectorAll('.process-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.process-item').forEach(p=>p.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Testimonial carousel
+  const testSlides = document.getElementById('testSlides');
+  const testDots = document.querySelectorAll('.test-dot');
+  let testIndex = 0;
+  function showTest(i){
+    testIndex = i;
+    testSlides.style.transform = `translateX(-${i*100}%)`;
+    testDots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
+  }
+  testDots.forEach((dot,idx)=>dot.addEventListener('click', ()=>showTest(idx)));
+  setInterval(()=>{ showTest((testIndex+1)%testDots.length); }, 6000);
+</script>
+
+</body>
+</html>
