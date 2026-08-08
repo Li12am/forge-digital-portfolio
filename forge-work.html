@@ -16,6 +16,8 @@
   --footer-bg:#1a2942; --footer-text:rgba(255,255,255,0.75); --shadow:rgba(26,41,66,0.14);
   --blob-a:rgba(37,99,235,0.42); --blob-b:rgba(26,41,66,0.30);
   --container-w:1560px;
+  /* Theme-aware scrim keeps photo-backed sections readable in BOTH themes. */
+  --photo-scrim: linear-gradient(100deg, rgba(243,244,246,0.985) 0%, rgba(243,244,246,0.965) 38%, rgba(243,244,246,0.86) 72%, rgba(243,244,246,0.80) 100%);
 }
 [data-theme="dark"]{
   --bg:#0d1420; --surface:#141d30; --border:rgba(255,255,255,0.08);
@@ -23,6 +25,7 @@
   --blue:#3b82f6; --blue-dark:#2563eb; --blue-light:#93c5fd; --blue-tint:rgba(59,130,246,0.1);
   --footer-bg:#080d17; --footer-text:rgba(255,255,255,0.65); --shadow:rgba(0,0,0,0.5);
   --blob-a:rgba(59,130,246,0.30); --blob-b:rgba(99,102,241,0.22);
+  --photo-scrim: linear-gradient(100deg, rgba(13,20,32,0.975) 0%, rgba(13,20,32,0.94) 38%, rgba(13,20,32,0.78) 72%, rgba(13,20,32,0.70) 100%);
 }
 html{ scroll-behavior:smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-body); line-height: 1.6; transition: background-color .4s ease, color .4s ease; }
@@ -103,7 +106,10 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pos
 body.menu-open { overflow: hidden; }
 
 /* PAGE HERO */
-.page-hero { position: relative; overflow: hidden; padding: 80px 0 60px; }
+.page-hero { position: relative; overflow: hidden; padding: 80px 0 60px;
+  background: var(--photo-scrim),
+    url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=72') center 40%/cover no-repeat,
+    var(--bg); }
 .bg-blob{ position: fixed; border-radius: 50%; filter: blur(50px); pointer-events: none; z-index: -1; }
 .blob-1{ width: 460px; height: 460px; background: radial-gradient(circle, var(--blob-a) 0%, transparent 72%); top: 0; right: 0; animation: blobFloatTR 18s ease-in-out infinite; }
 .blob-2{ width: 360px; height: 360px; background: radial-gradient(circle, var(--blob-b) 0%, transparent 72%); bottom: 0; left: 0; animation: blobFloatBL 18s ease-in-out infinite; animation-delay: -6s; }
@@ -119,16 +125,18 @@ body.menu-open { overflow: hidden; }
 .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .demo-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.35s ease; display: flex; flex-direction: column; }
 .demo-card:hover { transform: translateY(-8px); box-shadow: 0 24px 44px -22px var(--shadow); border-color: var(--blue); }
-.demo-thumb { height: 150px; display: flex; align-items: center; justify-content: center; position: relative; background-size: 220% 220%; background-position: 0% 50%; transition: background-position .6s ease; }
-.demo-card:hover .demo-thumb{ background-position: 100% 50%; }
-.demo-thumb .demo-tag { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.25rem; color: white; letter-spacing: -0.5px; text-align: center; padding: 0 20px; transition: transform .4s ease; }
+/* Each .thumb-* sets background-IMAGE only (never the `background` shorthand) so
+   these size/position rules survive and the hover pan actually moves the photo. */
+.demo-thumb { height: 150px; display: flex; align-items: center; justify-content: center; position: relative; background-color: #1a2942; background-size: 128% 128%; background-position: 20% 50%; transition: background-position .6s ease; }
+.demo-card:hover .demo-thumb{ background-position: 80% 50%; }
+.demo-thumb .demo-tag { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.25rem; color: white; letter-spacing: -0.5px; text-align: center; padding: 0 20px; transition: transform .4s ease; text-shadow: 0 2px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.7); position: relative; z-index: 1; }
 .demo-card:hover .demo-tag{ transform: scale(1.04); }
-.thumb-ridgeline { background: linear-gradient(120deg, #d98a5c, #241f18, #d98a5c); }
-.thumb-sparkline { background: linear-gradient(120deg, #f2c94c, #0a0d13, #f2c94c); }
-.thumb-groundwork { background: linear-gradient(120deg, #ff5a1f, #1b1a18, #ff5a1f); }
-.thumb-loadoff { background: linear-gradient(120deg, #8fd14f, #12262e, #8fd14f); }
-.thumb-potbound { background: linear-gradient(120deg, #e8447a, #2f5741, #e8447a); }
-.thumb-torque { background: linear-gradient(120deg, #ffb703, #15171a, #ffb703); }
+.thumb-ridgeline { background-image: linear-gradient(120deg, rgba(217,138,92,.62), rgba(36,31,24,.82)), url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=700&q=70'); }
+.thumb-sparkline { background-image: linear-gradient(120deg, rgba(242,201,76,.52), rgba(10,13,19,.85)), url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=700&q=70'); }
+.thumb-groundwork { background-image: linear-gradient(120deg, rgba(255,90,31,.55), rgba(27,26,24,.84)), url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=700&q=70'); }
+.thumb-loadoff { background-image: linear-gradient(120deg, rgba(143,209,79,.55), rgba(18,38,46,.84)), url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=700&q=70'); }
+.thumb-apex { background-image: linear-gradient(120deg, rgba(34,211,238,.52), rgba(10,20,32,.85)), url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=700&q=70'); }
+.thumb-torque { background-image: linear-gradient(120deg, rgba(255,183,3,.52), rgba(21,23,26,.85)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=700&q=70'); }
 .demo-body { padding: 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .demo-category { font-family: 'Sora', sans-serif; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); font-weight: 700; }
 .demo-body h3 { font-family: 'Sora', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--text-heading); }
@@ -271,12 +279,12 @@ footer { background: var(--footer-bg); color: white; padding: 80px 0 40px; trans
           </div>
         </a>
 
-        <a href="potbound-plant-shop-demo.html" class="demo-card reveal reveal-d4">
-          <div class="demo-thumb thumb-potbound"><div class="demo-tag">Potbound Plant Shop</div></div>
+        <a href="apex-pressure-pros-demo.html" class="demo-card reveal reveal-d4">
+          <div class="demo-thumb thumb-apex"><div class="demo-tag">💧 Apex Pressure Pros</div></div>
           <div class="demo-body">
-            <div class="demo-category">Plant Shop</div>
-            <h3>Potbound Plant Shop</h3>
-            <p>A plant matcher quiz recommends the right plant based on light, care level, and pet safety, using a couple of slider taps. Shoppers can also filter the shop by vibe and browse an FAQ on plant care.</p>
+            <div class="demo-category">Pressure Washing</div>
+            <h3>Apex Pressure Pros</h3>
+            <p>Drag-to-reveal before/after sliders show exactly what pressure washing does to a driveway or siding, next to an instant quote calculator that prices jobs live as visitors pick service, size, and soil level.</p>
             <div class="demo-link">View live demo <span class="arrow">→</span></div>
           </div>
         </a>
