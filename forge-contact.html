@@ -16,6 +16,8 @@
   --footer-bg:#1a2942; --footer-text:rgba(255,255,255,0.75); --shadow:rgba(26,41,66,0.14);
   --blob-a:rgba(37,99,235,0.42); --blob-b:rgba(26,41,66,0.30);
   --container-w:1560px;
+  /* Theme-aware scrim keeps photo-backed sections readable in BOTH themes. */
+  --photo-scrim: linear-gradient(100deg, rgba(243,244,246,0.985) 0%, rgba(243,244,246,0.965) 38%, rgba(243,244,246,0.86) 72%, rgba(243,244,246,0.80) 100%);
 }
 [data-theme="dark"]{
   --bg:#0d1420; --surface:#141d30; --surface-2:#101828; --border:rgba(255,255,255,0.08);
@@ -23,6 +25,7 @@
   --blue:#3b82f6; --blue-dark:#2563eb; --blue-light:#93c5fd; --blue-tint:rgba(59,130,246,0.1);
   --footer-bg:#080d17; --footer-text:rgba(255,255,255,0.65); --shadow:rgba(0,0,0,0.5);
   --blob-a:rgba(59,130,246,0.30); --blob-b:rgba(99,102,241,0.22);
+  --photo-scrim: linear-gradient(100deg, rgba(13,20,32,0.975) 0%, rgba(13,20,32,0.94) 38%, rgba(13,20,32,0.78) 72%, rgba(13,20,32,0.70) 100%);
 }
 html{ scroll-behavior:smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-body); line-height: 1.6; transition: background-color .4s ease, color .4s ease; }
@@ -103,7 +106,10 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pos
 body.menu-open { overflow: hidden; }
 
 /* PAGE HERO */
-.page-hero { position: relative; overflow: hidden; padding: 80px 0 60px; }
+.page-hero { position: relative; overflow: hidden; padding: 80px 0 60px;
+  background: var(--photo-scrim),
+    url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=72') center 40%/cover no-repeat,
+    var(--bg); }
 .bg-blob{ position: fixed; border-radius: 50%; filter: blur(50px); pointer-events: none; z-index: -1; }
 .blob-1{ width: 460px; height: 460px; background: radial-gradient(circle, var(--blob-a) 0%, transparent 72%); top: 0; right: 0; animation: blobFloatTR 18s ease-in-out infinite; }
 .blob-2{ width: 360px; height: 360px; background: radial-gradient(circle, var(--blob-b) 0%, transparent 72%); bottom: 0; left: 0; animation: blobFloatBL 18s ease-in-out infinite; animation-delay: -6s; }
@@ -217,7 +223,7 @@ body.modal-open { overflow: hidden; }
 <header>
   <div class="header-inner">
     <div class="logo-wrap">
-      <a href="forge-home.html" class="logo-link" aria-label="Forge Digital home">
+      <a href="index.html" class="logo-link" aria-label="Forge Digital home">
         <img src="forge-logo-light.png" alt="Forge Digital" class="logo-img logo-light">
         <img src="forge-logo-dark.png" alt="Forge Digital" class="logo-img logo-dark">
       </a>
@@ -227,7 +233,7 @@ body.modal-open { overflow: hidden; }
       </button>
     </div>
     <nav class="nav-links">
-      <a href="forge-home.html">Home</a>
+      <a href="index.html">Home</a>
       <a href="forge-work.html">Work</a>
       <a href="forge-services.html">Services</a>
       <a href="forge-about.html">About</a>
@@ -244,7 +250,7 @@ body.modal-open { overflow: hidden; }
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
   <nav class="mobile-menu-links">
-    <a href="forge-home.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="forge-work.html">Work</a>
     <a href="forge-services.html">Services</a>
     <a href="forge-about.html">About</a>
@@ -307,7 +313,7 @@ body.modal-open { overflow: hidden; }
       <p class="reveal in-view reveal-d1">Tell us about your business and what you're looking for. We'll get back to you shortly.</p>
       <div class="hero-btn-row reveal in-view reveal-d1">
         <a href="https://calendly.com/liam-coughlin/30min?back=1&month=2026-07" target="_blank" rel="noopener" class="cta-secondary">Book a Call →</a>
-        <button type="button" class="cta-tertiary" data-qe-open>Request a Quick Example <span class="arrow">→</span></button>
+        <a href="mailto:liam.coughlin1@gmail.com?subject=Quick%20Example%20Request%20%E2%80%93%20Forge%20Digital&amp;body=Hi%20Liam%2C%0D%0A%0D%0AI'd%20like%20a%20quick%20example%20website%20for%20my%20business.%0D%0A%0D%0ABusiness%20name%3A%20%0D%0APhone%20or%20email%3A%20%0D%0AType%20of%20business%3A%20%0D%0A%0D%0AThanks" class="cta-tertiary">Request a Quick Example <span class="arrow">→</span></a>
       </div>
     </div>
   </section>

@@ -59,9 +59,13 @@
   @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(76,175,125,0.5);}50%{box-shadow:0 0 0 6px rgba(76,175,125,0);}}
 
   /* HERO */
+  /* Layered so a failed image degrades to the original gradient, never a blank box:
+     accent glow -> dark scrim -> photo -> base colour. */
   .hero{padding:182px 0 90px;position:relative;background:
     radial-gradient(ellipse 900px 500px at 90% -10%, rgba(59,126,246,0.14), transparent),
     radial-gradient(ellipse 700px 400px at 5% 20%, rgba(242,201,76,0.06), transparent),
+    linear-gradient(180deg, rgba(10,13,19,0.90) 0%, rgba(10,13,19,0.93) 55%, var(--bg) 100%),
+    url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1800&q=72') center 35%/cover no-repeat,
     var(--bg);}
   .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:start;}
   .eyebrow{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--volt);margin-bottom:20px;font-weight:500;}
@@ -240,7 +244,10 @@
   .test-dot.active{background:var(--volt);}
 
   /* CTA */
-  .cta-final{text-align:center;padding:120px 0 96px;}
+  .cta-final{text-align:center;padding:120px 0 96px;background:
+    linear-gradient(180deg, rgba(10,13,19,0.92), rgba(10,13,19,0.96)),
+    url('https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&w=1600&q=72') center/cover no-repeat,
+    var(--bg);}
   .cta-final h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:18px;}
   .cta-final p{color:var(--ink-dim);font-size:16.5px;margin-bottom:34px;max-width:460px;margin-left:auto;margin-right:auto;}
 
@@ -277,7 +284,11 @@
     .trust-item{border-right:none;}
     .hero-stats{gap:22px;flex-wrap:wrap;}
     .wrap{padding:0 20px;}
-    .breaker-grid{grid-template-columns:repeat(4,1fr);}
+    /* minmax(0,1fr) lets columns shrink below their label's min-content width;
+       without it the longest label ("EV CHRGR") blew the grid past the viewport. */
+    .breaker-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;}
+    .breaker{padding:10px 4px;}
+    .breaker-label{font-size:8px;letter-spacing:0;}
   }
 </style>
 </head>
@@ -488,27 +499,27 @@
 
     <div class="gallery-grid" id="galleryGrid">
       <div class="gallery-item" data-cat="panel" data-lightbox="0">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#1c222d,#3b7ef6);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(10,13,19,.28),rgba(10,13,19,.28)),url('https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Panel · Warminster</div><div class="gallery-title">100A → 200A Upgrade</div></div>
       </div>
       <div class="gallery-item" data-cat="wiring" data-lightbox="1">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#2b2f1a,#8a8378);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(10,13,19,.28),rgba(10,13,19,.28)),url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Wiring · Feasterville</div><div class="gallery-title">Full Knob-&amp;-Tube Replacement</div></div>
       </div>
       <div class="gallery-item" data-cat="ev" data-lightbox="2">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#101820,#f2c94c);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(10,13,19,.30),rgba(10,13,19,.30)),url('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">EV Charger · Richboro</div><div class="gallery-title">Tesla Wall Connector Install</div></div>
       </div>
       <div class="gallery-item" data-cat="lighting" data-lightbox="3">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#1a1e2b,#6ea0ff);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(10,13,19,.30),rgba(10,13,19,.30)),url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Lighting · Newtown</div><div class="gallery-title">Whole-Home Recessed Retrofit</div></div>
       </div>
       <div class="gallery-item" data-cat="panel" data-lightbox="4">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#151a23,#ef5350);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(10,13,19,.32),rgba(10,13,19,.32)),url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Panel · Churchville</div><div class="gallery-title">Emergency Fuse Box Replacement</div></div>
       </div>
       <div class="gallery-item" data-cat="wiring" data-lightbox="5">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#12161f,#4caf7d);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(10,13,19,.30),rgba(10,13,19,.30)),url('https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Wiring · Southampton</div><div class="gallery-title">Finished Basement Rough-In</div></div>
       </div>
     </div>
@@ -821,12 +832,12 @@
 
   // Lightbox
   const lightboxData = [
-    {tag:'Panel · Warminster', title:'100A → 200A Upgrade', timeline:'1 day', budget:'$2,600', materials:'Panel, Meter', desc:'Replaced an aging 100A panel with a 200A service to support a new kitchen renovation and future EV charger.', bg:'linear-gradient(135deg,#1c222d,#3b7ef6)'},
-    {tag:'Wiring · Feasterville', title:'Full Knob-&amp;-Tube Replacement', timeline:'4 days', budget:'$5,200', materials:'Whole-home rewire', desc:'Removed all remaining knob-and-tube wiring in a 1940s home and replaced with modern copper wiring throughout.', bg:'linear-gradient(135deg,#2b2f1a,#8a8378)'},
-    {tag:'EV Charger · Richboro', title:'Tesla Wall Connector Install', timeline:'Half day', budget:'$950', materials:'240V circuit, charger', desc:'Ran a dedicated 240V circuit to the garage and mounted a Tesla Wall Connector for fast home charging.', bg:'linear-gradient(135deg,#101820,#f2c94c)'},
-    {tag:'Lighting · Newtown', title:'Whole-Home Recessed Retrofit', timeline:'2 days', budget:'$3,100', materials:'22 recessed fixtures', desc:'Replaced dated ceiling fixtures throughout the home with dimmable recessed LED lighting on smart switches.', bg:'linear-gradient(135deg,#1a1e2b,#6ea0ff)'},
-    {tag:'Panel · Churchville', title:'Emergency Fuse Box Replacement', timeline:'Same day', budget:'$2,900', materials:'Panel, breakers', desc:'After-hours emergency call for a failing fuse box with visible scorching — replaced with a modern breaker panel same day.', bg:'linear-gradient(135deg,#151a23,#ef5350)'},
-    {tag:'Wiring · Southampton', title:'Finished Basement Rough-In', timeline:'3 days', budget:'$4,400', materials:'12 new circuits', desc:'Complete electrical rough-in for a finished basement, including new circuits for a home theater and wet bar.', bg:'linear-gradient(135deg,#12161f,#4caf7d)'}
+    {tag:'Panel · Warminster', title:'100A → 200A Upgrade', timeline:'1 day', budget:'$2,600', materials:'Panel, Meter', desc:'Replaced an aging 100A panel with a 200A service to support a new kitchen renovation and future EV charger.', bg:"linear-gradient(rgba(10,13,19,.25),rgba(10,13,19,.25)),url('https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Wiring · Feasterville', title:'Full Knob-&amp;-Tube Replacement', timeline:'4 days', budget:'$5,200', materials:'Whole-home rewire', desc:'Removed all remaining knob-and-tube wiring in a 1940s home and replaced with modern copper wiring throughout.', bg:"linear-gradient(rgba(10,13,19,.25),rgba(10,13,19,.25)),url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'EV Charger · Richboro', title:'Tesla Wall Connector Install', timeline:'Half day', budget:'$950', materials:'240V circuit, charger', desc:'Ran a dedicated 240V circuit to the garage and mounted a Tesla Wall Connector for fast home charging.', bg:"linear-gradient(rgba(10,13,19,.28),rgba(10,13,19,.28)),url('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Lighting · Newtown', title:'Whole-Home Recessed Retrofit', timeline:'2 days', budget:'$3,100', materials:'22 recessed fixtures', desc:'Replaced dated ceiling fixtures throughout the home with dimmable recessed LED lighting on smart switches.', bg:"linear-gradient(rgba(10,13,19,.28),rgba(10,13,19,.28)),url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Panel · Churchville', title:'Emergency Fuse Box Replacement', timeline:'Same day', budget:'$2,900', materials:'Panel, breakers', desc:'After-hours emergency call for a failing fuse box with visible scorching — replaced with a modern breaker panel same day.', bg:"linear-gradient(rgba(10,13,19,.30),rgba(10,13,19,.30)),url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Wiring · Southampton', title:'Finished Basement Rough-In', timeline:'3 days', budget:'$4,400', materials:'12 new circuits', desc:'Complete electrical rough-in for a finished basement, including new circuits for a home theater and wet bar.', bg:"linear-gradient(rgba(10,13,19,.28),rgba(10,13,19,.28)),url('https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?auto=format&fit=crop&w=900&q=72') center/cover"}
   ];
   const lightbox = document.getElementById('lightbox');
   const lbVisual = document.getElementById('lbVisual');

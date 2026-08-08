@@ -88,11 +88,15 @@
   .nav-toggle{display:none;}
 
   /* HERO */
+  /* Layered so a failed image degrades to the original gradient, never a blank box:
+     accent glow -> dark scrim -> photo -> base colour. */
   .hero{
     padding:200px 0 90px;
     position:relative;
     background:
       radial-gradient(ellipse 900px 500px at 85% -10%, rgba(217,138,92,0.10), transparent),
+      linear-gradient(180deg, rgba(18,15,11,0.90) 0%, rgba(18,15,11,0.93) 55%, var(--cream) 100%),
+      url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1800&q=72') center 40%/cover no-repeat,
       var(--cream);
   }
   .hero-grid{
@@ -438,7 +442,10 @@
   .test-dot.active{background:var(--copper);}
 
   /* CTA FOOTER */
-  .cta-final{text-align:center;padding:130px 0 100px;}
+  .cta-final{text-align:center;padding:130px 0 100px;background:
+    linear-gradient(180deg, rgba(18,15,11,0.92), rgba(18,15,11,0.96)),
+    url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=72') center/cover no-repeat,
+    var(--cream);}
   .cta-final h2{font-size:clamp(30px,4vw,48px);margin-bottom:20px;}
   .cta-final p{color:var(--warmgray);font-size:17px;margin-bottom:38px;max-width:480px;margin-left:auto;margin-right:auto;}
 
@@ -695,32 +702,32 @@
     <div class="gallery-grid" id="galleryGrid">
 
       <div class="gallery-item" data-cat="kitchen" data-lightbox="0">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#5b4632,#8a8378);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(18,15,11,.26),rgba(18,15,11,.26)),url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Kitchen · Churchville</div><div class="gallery-title">Walnut &amp; Marble Full Gut</div></div>
       </div>
 
       <div class="gallery-item" data-cat="bath" data-lightbox="1">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#e8e4dc,#beb6a6);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(18,15,11,.26),rgba(18,15,11,.26)),url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Bath · Southampton</div><div class="gallery-title">Primary Suite Retreat</div></div>
       </div>
 
       <div class="gallery-item" data-cat="deck" data-lightbox="2">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#7c8d6a,#5c6b4f);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(18,15,11,.28),rgba(18,15,11,.28)),url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Deck · Warminster</div><div class="gallery-title">Composite Deck + Pergola</div></div>
       </div>
 
       <div class="gallery-item" data-cat="addition" data-lightbox="3">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#2b2f33,#6b6259);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(18,15,11,.30),rgba(18,15,11,.30)),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Addition · Richboro</div><div class="gallery-title">Second-Story In-Law Suite</div></div>
       </div>
 
       <div class="gallery-item" data-cat="kitchen" data-lightbox="4">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#2c2825,#c9a227);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(18,15,11,.28),rgba(18,15,11,.28)),url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Kitchen · Feasterville</div><div class="gallery-title">Black Quartz &amp; Brass</div></div>
       </div>
 
       <div class="gallery-item" data-cat="bath" data-lightbox="5">
-        <div class="gallery-visual" style="background:linear-gradient(135deg,#a8532a,#dcd3c2);"></div>
+        <div class="gallery-visual" style="background:linear-gradient(rgba(18,15,11,.28),rgba(18,15,11,.28)),url('https://images.unsplash.com/photo-1591825729269-caeb344f6df2?auto=format&amp;fit=crop&amp;w=700&amp;q=70') center/cover;"></div>
         <div class="gallery-overlay"><div class="gallery-tag">Bath · Newtown</div><div class="gallery-title">Terracotta Tile Guest Bath</div></div>
       </div>
 
@@ -1037,12 +1044,12 @@
 
   // Lightbox
   const lightboxData = [
-    {tag:'Kitchen · Churchville', title:'Walnut &amp; Marble Full Gut', timeline:'5 weeks', budget:'$34,000', materials:'Walnut, Marble', desc:'Full gut renovation opening the kitchen into the dining room, with custom walnut cabinetry, honed marble counters, and a brass hardware package.', bg:'linear-gradient(135deg,#5b4632,#8a8378)'},
-    {tag:'Bath · Southampton', title:'Primary Suite Retreat', timeline:'3 weeks', budget:'$18,500', materials:'Porcelain, Nickel', desc:'Converted a cramped primary bath into a spa-style retreat with a curbless shower, freestanding tub, and heated tile floors.', bg:'linear-gradient(135deg,#e8e4dc,#beb6a6)'},
-    {tag:'Deck · Warminster', title:'Composite Deck + Pergola', timeline:'2 weeks', budget:'$16,200', materials:'Composite, Cedar', desc:'A 400 sq ft composite deck with a cedar pergola and built-in bench seating, designed for weekend entertaining.', bg:'linear-gradient(135deg,#7c8d6a,#5c6b4f)'},
-    {tag:'Addition · Richboro', title:'Second-Story In-Law Suite', timeline:'11 weeks', budget:'$88,000', materials:'Full framing, HVAC', desc:"Added a full second-story suite with private bath and kitchenette, matched seamlessly to the home's existing roofline.", bg:'linear-gradient(135deg,#2b2f33,#6b6259)'},
-    {tag:'Kitchen · Feasterville', title:'Black Quartz &amp; Brass', timeline:'6 weeks', budget:'$41,000', materials:'Quartz, Brass', desc:'Bold, moody kitchen redesign with matte black cabinetry, black quartz counters, and warm brass accents throughout.', bg:'linear-gradient(135deg,#2c2825,#c9a227)'},
-    {tag:'Bath · Newtown', title:'Terracotta Tile Guest Bath', timeline:'2 weeks', budget:'$12,800', materials:'Terracotta, Brass', desc:'A compact guest bath refresh built around handmade terracotta zellige tile and warm brass fixtures.', bg:'linear-gradient(135deg,#a8532a,#dcd3c2)'}
+    {tag:'Kitchen · Churchville', title:'Walnut &amp; Marble Full Gut', timeline:'5 weeks', budget:'$34,000', materials:'Walnut, Marble', desc:'Full gut renovation opening the kitchen into the dining room, with custom walnut cabinetry, honed marble counters, and a brass hardware package.', bg:"linear-gradient(rgba(18,15,11,.24),rgba(18,15,11,.24)),url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Bath · Southampton', title:'Primary Suite Retreat', timeline:'3 weeks', budget:'$18,500', materials:'Porcelain, Nickel', desc:'Converted a cramped primary bath into a spa-style retreat with a curbless shower, freestanding tub, and heated tile floors.', bg:"linear-gradient(rgba(18,15,11,.24),rgba(18,15,11,.24)),url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Deck · Warminster', title:'Composite Deck + Pergola', timeline:'2 weeks', budget:'$16,200', materials:'Composite, Cedar', desc:'A 400 sq ft composite deck with a cedar pergola and built-in bench seating, designed for weekend entertaining.', bg:"linear-gradient(rgba(18,15,11,.26),rgba(18,15,11,.26)),url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Addition · Richboro', title:'Second-Story In-Law Suite', timeline:'11 weeks', budget:'$88,000', materials:'Full framing, HVAC', desc:"Added a full second-story suite with private bath and kitchenette, matched seamlessly to the home's existing roofline.", bg:"linear-gradient(rgba(18,15,11,.28),rgba(18,15,11,.28)),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Kitchen · Feasterville', title:'Black Quartz &amp; Brass', timeline:'6 weeks', budget:'$41,000', materials:'Quartz, Brass', desc:'Bold, moody kitchen redesign with matte black cabinetry, black quartz counters, and warm brass accents throughout.', bg:"linear-gradient(rgba(18,15,11,.26),rgba(18,15,11,.26)),url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=72') center/cover"},
+    {tag:'Bath · Newtown', title:'Terracotta Tile Guest Bath', timeline:'2 weeks', budget:'$12,800', materials:'Terracotta, Brass', desc:'A compact guest bath refresh built around handmade terracotta zellige tile and warm brass fixtures.', bg:"linear-gradient(rgba(18,15,11,.26),rgba(18,15,11,.26)),url('https://images.unsplash.com/photo-1591825729269-caeb344f6df2?auto=format&fit=crop&w=900&q=72') center/cover"}
   ];
 
   const lightbox = document.getElementById('lightbox');
