@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Pressure Pros | Pressure Washing — Bucks County & Philadelphia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a1420;
+    --bg-alt:#0e1c2c;
+    --panel:#122336;
+    --panel-2:#183149;
+    --ink:#eef4fb;
+    --ink-dim:#9bb0c7;
+    --stone:#5f7690;
+    --blue:#2f6fed;
+    --blue-light:#6ea3ff;
+    --cyan:#22d3ee;
+    --cyan-light:#7de6f7;
+    --safe:#34d399;
+    --danger:#f87171;
+    --line:rgba(238,244,251,0.08);
+    --line-strong:rgba(238,244,251,0.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--bg);
+    color:var(--ink-dim);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  h1,h2,h3,h4{ font-family:'Outfit', sans-serif; font-weight:700; letter-spacing:-0.01em; line-height:1.1; color:var(--ink); }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  ::selection{background:var(--cyan);color:#04222b;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  nav{position:fixed;top:34px;left:0;right:0;z-index:100;background:rgba(10,20,32,0.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .demo-flag{background:var(--cyan); color:#04222b; text-align:center; padding:8px 16px; font-family:'JetBrains Mono',monospace; font-size:0.75rem; letter-spacing:0.04em; position:fixed; top:0; left:0; right:0; z-index:101;}
+  .nav-inner{max-width:1240px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Outfit', sans-serif;font-weight:800;font-size:21px;display:flex;align-items:center;gap:8px;color:var(--ink);}
+  .logo .drop{color:var(--cyan);}
+  .nav-links{display:flex;gap:32px;align-items:center;}
+  .nav-links a{font-size:14px;font-weight:500;color:var(--ink-dim);position:relative;padding:4px 0;transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{background:var(--cyan);color:#04222b;padding:11px 22px;border-radius:3px;font-size:13.5px;font-weight:700;transition:background .2s, transform .2s;display:flex;align-items:center;gap:8px;}
+  .nav-cta:hover{background:var(--cyan-light);transform:translateY(-1px);}
+  .nav-avail{
+    display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--safe);
+  }
+  .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--safe);animation:pulseDot 1.8s infinite;}
+  @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.5);}50%{box-shadow:0 0 0 6px rgba(52,211,153,0);}}
+
+  /* HERO */
+  /* Layered so a failed image degrades to the original gradient, never a blank box:
+     accent glow -> dark scrim -> photo -> base colour. */
+  .hero{padding:182px 0 90px;position:relative;background:
+    radial-gradient(ellipse 900px 500px at 90% -10%, rgba(34,211,238,0.14), transparent),
+    radial-gradient(ellipse 700px 400px at 5% 20%, rgba(47,111,237,0.10), transparent),
+    linear-gradient(180deg, rgba(10,20,32,0.90) 0%, rgba(10,20,32,0.93) 55%, var(--bg) 100%),
+    url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1800&q=72') center 30%/cover no-repeat,
+    var(--bg);}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:start;}
+  .eyebrow{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px;font-weight:500;}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--cyan);}
+  .hero h1{font-size:clamp(36px,4.4vw,56px);margin-bottom:20px;}
+  .hero h1 em{font-style:normal;color:var(--cyan-light);background:linear-gradient(90deg,var(--blue-light),var(--cyan-light));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero p.lead{font-size:17px;color:var(--ink-dim);max-width:460px;margin-bottom:30px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+  .btn-primary{background:var(--cyan);color:#04222b;padding:15px 26px;border-radius:3px;font-size:14.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:transform .2s ease, background .2s;}
+  .btn-primary:hover{background:var(--cyan-light);transform:translateY(-2px);}
+  .btn-secondary{border:1px solid var(--line-strong);color:var(--ink);padding:15px 26px;border-radius:3px;font-size:14.5px;font-weight:600;transition:all .2s;}
+  .btn-secondary:hover{border-color:var(--cyan-light);color:var(--cyan-light);}
+  .hero-stats{display:flex;gap:36px;}
+  .hero-stat b{display:block;font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;color:var(--ink);}
+  .hero-stat span{font-size:12px;color:var(--stone);}
+
+  /* SIGNATURE HERO WIDGET */
+  .panel-box{background:var(--panel);border:1px solid var(--line-strong);border-radius:6px;padding:26px;position:relative;box-shadow:0 30px 70px -25px rgba(0,0,0,0.6);}
+  .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .panel-head .p-title{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);}
+  .panel-status{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan-light);}
+
+  /* BEFORE/AFTER SLIDER */
+  .ba-wrap{position:relative;aspect-ratio:16/10;border-radius:6px;overflow:hidden;cursor:ew-resize;user-select:none;touch-action:none;border:1px solid var(--line);background:#0e1c2c;}
+  /* Both layers use the SAME photo so the wipe lines up exactly; the "before"
+     layer is filtered to look weathered and grimy. */
+  .ba-layer{position:absolute;inset:0;background-size:cover;background-position:center;}
+  .ba-layer.ba-before{filter:saturate(.4) brightness(.58) contrast(1.05) sepia(.42);}
+  .ba-handle{position:absolute;top:0;bottom:0;width:0;transform:translateX(-50%);pointer-events:none;z-index:2;}
+  .ba-handle-line{position:absolute;top:0;bottom:0;left:0;width:3px;background:var(--cyan);box-shadow:0 0 14px rgba(34,211,238,.7);}
+  .ba-handle-grip{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:var(--cyan);color:#04222b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;box-shadow:0 6px 18px rgba(0,0,0,.45);}
+  .ba-label{position:absolute;top:12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:rgba(6,12,20,.68);color:#fff;padding:5px 10px;border-radius:20px;z-index:2;}
+  .ba-label-before{left:12px;}
+  .ba-label-after{right:12px;}
+  .ba-caption{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--stone);text-align:center;}
+
+  /* SECTION SCAFFOLDING */
+  section{padding:104px 0;}
+  .section-head{max-width:600px;margin-bottom:56px;}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;font-weight:500;}
+  .section-head h2{font-size:clamp(27px,3.2vw,40px);margin-bottom:16px;}
+  .section-head p{color:var(--ink-dim);font-size:15.5px;}
+
+  /* SERVICES */
+  .services{background:var(--bg-alt);}
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service-card{background:var(--bg-alt);padding:34px 26px;min-height:260px;position:relative;perspective:1200px;cursor:pointer;overflow:hidden;}
+  .service-card::before{content:'';position:absolute;inset:0;background-image:var(--photo);background-size:cover;background-position:center;opacity:.15;transition:opacity .4s ease, transform .7s ease;pointer-events:none;}
+  .service-card:hover::before{opacity:.3;transform:scale(1.06);}
+  .service-inner{position:relative;z-index:1;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;min-height:192px;}
+  .service-card.flipped .service-inner{transform:rotateY(180deg);}
+  .service-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;}
+  .service-face.front{justify-content:space-between;}
+  .service-face.back{transform:rotateY(180deg);background:var(--panel-2);padding:22px;border-radius:3px;justify-content:center;}
+  .service-icon{width:38px;height:38px;border-radius:8px;background:rgba(34,211,238,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:18px;}
+  .service-face.front h3{font-size:19px;margin-bottom:9px;}
+  .service-face.front p{color:var(--ink-dim);font-size:13.5px;}
+  .service-flip-hint{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--stone);display:flex;align-items:center;gap:6px;margin-top:18px;}
+  .service-face.back .b-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);margin-bottom:8px;}
+  .service-face.back .b-value{font-family:'Outfit',sans-serif;font-size:21px;margin-bottom:14px;font-weight:700;color:var(--ink);}
+  .service-face.back .b-range{font-size:12.5px;color:var(--stone);}
+
+  /* BEFORE/AFTER GALLERY */
+  .ba-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .ba-item-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);margin-top:12px;}
+  .ba-item-title{font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:var(--ink);margin-top:4px;}
+
+  /* QUOTE CALCULATOR */
+  .quote{background:var(--panel);}
+  .quote .section-eyebrow{color:var(--cyan-light);}
+  .quote-box{display:grid;grid-template-columns:1.2fr 0.8fr;gap:48px;align-items:center;background:var(--panel-2);border:1px solid var(--line-strong);border-radius:8px;padding:40px;}
+  .quote-group{margin-bottom:26px;}
+  .quote-group:last-child{margin-bottom:0;}
+  .quote-label{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+  .quote-label .val{color:var(--cyan-light);font-weight:600;}
+  .pill-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .pill{padding:10px 18px;border:1px solid var(--line-strong);border-radius:20px;font-size:13.5px;font-weight:500;color:var(--ink-dim);transition:all .2s;cursor:pointer;}
+  .pill.active{background:var(--cyan);border-color:var(--cyan);color:#04222b;font-weight:700;}
+  .pill:hover:not(.active){border-color:var(--cyan-light);color:var(--cyan-light);}
+  input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:3px;background:var(--line-strong);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--cyan);cursor:pointer;border:3px solid var(--panel-2);box-shadow:0 2px 8px rgba(0,0,0,.4);}
+  input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--cyan);cursor:pointer;border:3px solid var(--panel-2);}
+  .quote-result{text-align:center;background:var(--panel);border:1px solid var(--line-strong);border-radius:6px;padding:34px 24px;}
+  .qr-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);margin-bottom:14px;}
+  .qr-value{font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:800;color:var(--ink);margin-bottom:10px;transition:transform .15s ease;}
+  .qr-value.pulse{transform:scale(1.05);}
+  .qr-sub{font-size:13px;color:var(--stone);margin-bottom:22px;}
+  .qr-cta{display:inline-block;width:100%;background:var(--cyan);color:#04222b;padding:14px 0;border-radius:6px;font-family:'Outfit',sans-serif;font-weight:700;font-size:14.5px;transition:background .2s, transform .2s;}
+  .qr-cta:hover{background:var(--cyan-light);transform:translateY(-2px);}
+
+  /* TRUST */
+  .trust{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .trust-item{padding:48px 20px;text-align:center;border-right:1px solid var(--line);}
+  .trust-item:last-child{border-right:none;}
+  .trust-item b{display:block;font-family:'Outfit',sans-serif;font-size:36px;font-weight:800;color:var(--cyan);margin-bottom:8px;}
+  .trust-item span{font-size:12.5px;color:var(--ink-dim);}
+
+  /* PROCESS */
+  .process-list{border-top:1px solid var(--line);}
+  .process-item{border-bottom:1px solid var(--line);padding:26px 0;cursor:pointer;}
+  .process-head{display:flex;align-items:center;gap:22px;}
+  .process-step{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:13px;flex-shrink:0;width:48px;}
+  .process-title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;flex:1;color:var(--ink);}
+  .process-arrow{font-size:18px;color:var(--ink-dim);transition:transform .3s;flex-shrink:0;}
+  .process-item.open .process-arrow{transform:rotate(45deg);color:var(--cyan);}
+  .process-detail{max-height:0;overflow:hidden;transition:max-height .35s ease;padding-left:70px;}
+  .process-item.open .process-detail{max-height:110px;}
+  .process-detail p{color:var(--ink-dim);font-size:14px;padding-top:12px;max-width:620px;}
+
+  /* TESTIMONIALS */
+  .testimonials{background:var(--panel);}
+  .test-carousel{position:relative;max-width:740px;margin:0 auto;}
+  .test-track{overflow:hidden;}
+  .test-slides{display:flex;transition:transform .5s ease;}
+  .test-slide{min-width:100%;padding:0 10px;}
+  .test-quote{font-family:'Outfit',sans-serif;font-size:22px;font-weight:600;line-height:1.4;margin-bottom:26px;color:var(--ink);}
+  .test-author{display:flex;align-items:center;gap:14px;}
+  .test-avatar{width:42px;height:42px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:700;color:var(--ink);}
+  .test-author-name{font-weight:600;font-size:14px;color:var(--ink);}
+  .test-author-tag{font-size:12px;color:var(--stone);font-family:'JetBrains Mono',monospace;}
+  .test-nav{display:flex;gap:10px;margin-top:32px;justify-content:center;}
+  .test-dot{width:8px;height:8px;border-radius:50%;background:var(--line-strong);transition:background .2s;cursor:pointer;}
+  .test-dot.active{background:var(--cyan);}
+
+  /* CTA */
+  .cta-final{text-align:center;padding:120px 0 96px;position:relative;background:
+    linear-gradient(180deg, rgba(10,20,32,0.92), rgba(10,20,32,0.96)),
+    url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1600&q=72') center/cover no-repeat,
+    var(--bg);}
+  .cta-final h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:18px;}
+  .cta-final p{color:var(--ink-dim);font-size:16.5px;margin-bottom:34px;max-width:460px;margin-left:auto;margin-right:auto;}
+
+  footer{background:var(--panel);color:var(--stone);padding:56px 0 28px;}
+  .footer-grid{display:flex;justify-content:space-between;padding-bottom:38px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:28px;}
+  .footer-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:19px;color:var(--ink);margin-bottom:12px;}
+  .footer-col span{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;}
+  .footer-col a{display:block;color:var(--ink);font-size:13.5px;margin-bottom:8px;opacity:.85;}
+  .footer-col a:hover{color:var(--cyan-light);}
+  .footer-bottom{padding-top:22px;display:flex;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:10px;}
+
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .55s ease, transform .55s ease;}
+  [data-reveal].in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .quote-box{grid-template-columns:1fr;}
+    .ba-gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-item{border-bottom:1px solid var(--line);}
+    .nav-links{display:none;}
+  }
+  @media (max-width:560px){
+    .services-grid{grid-template-columns:1fr;}
+    .ba-gallery-grid{grid-template-columns:1fr;}
+    .trust-grid{grid-template-columns:1fr;}
+    .trust-item{border-right:none;}
+    .hero-stats{gap:22px;flex-wrap:wrap;}
+    .wrap{padding:0 20px;}
+    .quote-box{padding:28px;}
+  }
+</style>
+</head>
+<body>
+<div class="demo-flag">DEMO CONCEPT — FICTIONAL BUSINESS FOR ILLUSTRATION ONLY</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Apex<span class="drop">💧</span></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#before-after">Before &amp; After</a>
+      <a href="#quote">Get a Quote</a>
+      <a href="#process">Process</a>
+      <div class="nav-avail"><span class="pulse-dot"></span>Booking This Week</div>
+      <a href="#quote" class="nav-cta">💧 Get Instant Quote</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Bucks County &amp; Greater Philadelphia</div>
+      <h1>Filthy surfaces, <em>gone</em> in one visit.</h1>
+      <p class="lead">Driveways, siding, decks, and storefronts — soft-washed and pressure-washed by a fully insured local crew. Get a price online before we ever show up.</p>
+      <div class="hero-actions">
+        <a href="#quote" class="btn-primary">💧 Get Instant Quote →</a>
+        <a href="#before-after" class="btn-secondary">See Before &amp; After</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b data-count="9">0</b><span>Years in business</span></div>
+        <div class="hero-stat"><b data-count="2300" data-suffix="+">0</b><span>Properties cleaned</span></div>
+        <div class="hero-stat"><b data-count="100" data-suffix="%">0</b><span>Fully insured</span></div>
+      </div>
+    </div>
+
+    <div class="panel-box">
+      <div class="panel-head">
+        <div class="p-title">Live Before / After Demo</div>
+        <div class="panel-status">💧 Driveway Cleaning</div>
+      </div>
+      <div class="ba-wrap" data-ba>
+        <div class="ba-layer ba-after" style="background-image:url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&amp;fit=crop&amp;w=1000&amp;q=72');"></div>
+        <div class="ba-layer ba-before" style="background-image:url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&amp;fit=crop&amp;w=1000&amp;q=72');clip-path:inset(0 50% 0 0);"></div>
+        <div class="ba-handle" style="left:50%;"><div class="ba-handle-line"></div><div class="ba-handle-grip">↔</div></div>
+        <div class="ba-label ba-label-before">Before</div>
+        <div class="ba-label ba-label-after">After</div>
+      </div>
+      <div class="ba-caption">Drag the slider to compare →</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">What We Clean</div>
+      <h2>Four services. Zero guesswork.</h2>
+      <p>Tap a card to see typical timeline and starting price.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0;">
+    <div class="services-grid">
+
+      <div class="service-card" data-flip style="--photo:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&amp;fit=crop&amp;w=600&amp;q=65');">
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">🧽</div><h3>House Wash</h3><p>Soft-wash siding, brick, and stucco without damaging paint, plants, or trim.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">Half day</div><div class="b-range">Starting at $280</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip style="--photo:url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&amp;fit=crop&amp;w=600&amp;q=65');">
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">🚿</div><h3>Driveway &amp; Sidewalk</h3><p>Blast away oil stains, mildew, and years of buildup from concrete and pavers.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">2–3 hrs</div><div class="b-range">Starting at $180</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip style="--photo:url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&amp;fit=crop&amp;w=600&amp;q=65');">
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">🪵</div><h3>Deck &amp; Fence</h3><p>Strip gray, grimy wood back to its natural color and ready for staining or sealing.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">Half day</div><div class="b-range">Starting at $220</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" data-flip style="--photo:url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=600&amp;q=65');">
+        <div class="service-inner">
+          <div class="service-face front">
+            <div><div class="service-icon">🏢</div><h3>Commercial</h3><p>Storefronts, walkways, and parking lots kept spotless on a schedule that works for your business.</p></div>
+            <div class="service-flip-hint">Tap for details →</div>
+          </div>
+          <div class="service-face back">
+            <div class="b-label">Typical Timeline</div><div class="b-value">Varies</div><div class="b-range">Custom Quote</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER GALLERY -->
+<section id="before-after">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">See The Difference</div>
+      <h2>Drag to compare, side by side.</h2>
+      <p>Real results from real jobs around the county. Drag any slider left or right.</p>
+    </div>
+
+    <div class="ba-gallery-grid">
+      <div>
+        <div class="ba-wrap" data-ba>
+          <div class="ba-layer ba-after" style="background-image:url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&amp;fit=crop&amp;w=800&amp;q=70');"></div>
+          <div class="ba-layer ba-before" style="background-image:url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&amp;fit=crop&amp;w=800&amp;q=70');clip-path:inset(0 50% 0 0);"></div>
+          <div class="ba-handle" style="left:50%;"><div class="ba-handle-line"></div><div class="ba-handle-grip">↔</div></div>
+          <div class="ba-label ba-label-before">Before</div>
+          <div class="ba-label ba-label-after">After</div>
+        </div>
+        <div class="ba-item-tag">Driveway · Warminster</div>
+        <div class="ba-item-title">5 Years of Oil Stains, Gone</div>
+      </div>
+
+      <div>
+        <div class="ba-wrap" data-ba>
+          <div class="ba-layer ba-after" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&amp;fit=crop&amp;w=800&amp;q=70');"></div>
+          <div class="ba-layer ba-before" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&amp;fit=crop&amp;w=800&amp;q=70');clip-path:inset(0 50% 0 0);"></div>
+          <div class="ba-handle" style="left:50%;"><div class="ba-handle-line"></div><div class="ba-handle-grip">↔</div></div>
+          <div class="ba-label ba-label-before">Before</div>
+          <div class="ba-label ba-label-after">After</div>
+        </div>
+        <div class="ba-item-tag">House Siding · Newtown</div>
+        <div class="ba-item-title">Green Algae Fully Removed</div>
+      </div>
+
+      <div>
+        <div class="ba-wrap" data-ba>
+          <div class="ba-layer ba-after" style="background-image:url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&amp;fit=crop&amp;w=800&amp;q=70');"></div>
+          <div class="ba-layer ba-before" style="background-image:url('https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&amp;fit=crop&amp;w=800&amp;q=70');clip-path:inset(0 50% 0 0);"></div>
+          <div class="ba-handle" style="left:50%;"><div class="ba-handle-line"></div><div class="ba-handle-grip">↔</div></div>
+          <div class="ba-label ba-label-before">Before</div>
+          <div class="ba-label ba-label-after">After</div>
+        </div>
+        <div class="ba-item-tag">Deck Restoration · Richboro</div>
+        <div class="ba-item-title">Ready for Stain the Same Week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE CALCULATOR -->
+<section class="quote" id="quote">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Instant Quote</div>
+      <h2>Get a price before we knock on your door.</h2>
+      <p>Pick your service and property size — this is a real-time estimate, not a bait-and-switch number.</p>
+    </div>
+
+    <div class="quote-box">
+      <div>
+        <div class="quote-group">
+          <div class="quote-label"><span>Service</span></div>
+          <div class="pill-row" id="serviceType">
+            <div class="pill active" data-val="house" data-base="280">House Wash</div>
+            <div class="pill" data-val="drive" data-base="180">Driveway &amp; Sidewalk</div>
+            <div class="pill" data-val="deck" data-base="220">Deck &amp; Fence</div>
+            <div class="pill" data-val="commercial" data-base="450">Commercial</div>
+          </div>
+        </div>
+
+        <div class="quote-group">
+          <div class="quote-label"><span>Property Size</span><span class="val" id="sizeVal">Medium</span></div>
+          <input type="range" min="0" max="2" step="1" value="1" id="sizeSlider">
+        </div>
+
+        <div class="quote-group">
+          <div class="quote-label"><span>Soil Level</span><span class="val" id="soilVal">Moderate</span></div>
+          <input type="range" min="0" max="2" step="1" value="1" id="soilSlider">
+        </div>
+      </div>
+
+      <div class="quote-result">
+        <div class="qr-label">Estimated Price</div>
+        <div class="qr-value" id="qrValue">$220 – $290</div>
+        <div class="qr-sub">Based on similar Bucks County jobs</div>
+        <a href="#" class="qr-cta">Book This Quote →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust" style="padding:0;">
+  <div class="wrap" style="padding:0;">
+    <div class="trust-grid">
+      <div class="trust-item"><b data-count="9">0</b><span>Years Serving Bucks County</span></div>
+      <div class="trust-item"><b data-count="2300" data-suffix="+">0</b><span>Properties Cleaned</span></div>
+      <div class="trust-item"><b data-count="100" data-suffix="%">0</b><span>Fully Insured</span></div>
+      <div class="trust-item"><b data-count="4" data-decimal=".9">0</b><span>Average Rating</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>From filthy to finished.</h2>
+      <p>Every job — big or small — follows the same process.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-item open">
+        <div class="process-head"><div class="process-step">01</div><div class="process-title">Request Your Quote</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>Answer a few quick questions online or by phone and get a price before we ever show up.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">02</div><div class="process-title">Schedule Your Visit</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>Pick a day that works for you — most jobs get booked within the week.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">03</div><div class="process-title">We Pressure Wash</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>Our crew shows up on time, protects your landscaping and property, and gets to work.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="process-head"><div class="process-step">04</div><div class="process-title">Final Walkthrough</div><div class="process-arrow">+</div></div>
+        <div class="process-detail"><p>We walk the property with you before we leave — if something's missed, we fix it on the spot.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-eyebrow">Client Stories</div>
+      <h2>What it's like to call Apex.</h2>
+    </div>
+    <div class="test-carousel">
+      <div class="test-track">
+        <div class="test-slides" id="testSlides">
+          <div class="test-slide">
+            <p class="test-quote">"Our driveway looked brand new when they were done. Showed up on time and cleaned up after themselves."</p>
+            <div class="test-author"><div class="test-avatar">K</div><div><div class="test-author-name">Karen T.</div><div class="test-author-tag">Driveway · Warminster</div></div></div>
+          </div>
+          <div class="test-slide">
+            <p class="test-quote">"Got a quote online in two minutes and the price didn't change on the day of service."</p>
+            <div class="test-author"><div class="test-avatar">M</div><div><div class="test-author-name">Marcus D.</div><div class="test-author-tag">House Wash · Newtown</div></div></div>
+          </div>
+          <div class="test-slide">
+            <p class="test-quote">"They power wash our storefront and sidewalk monthly and it's made a real difference for foot traffic."</p>
+            <div class="test-author"><div class="test-avatar">D</div><div><div class="test-author-name">Denise R.</div><div class="test-author-tag">Commercial · Doylestown</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="test-nav" id="testNav">
+        <div class="test-dot active"></div><div class="test-dot"></div><div class="test-dot"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Ready to see your property transformed?</h2>
+    <p>Get an instant quote online or call now — most jobs are booked within the week.</p>
+    <a href="#quote" class="btn-primary">💧 Get Instant Quote →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Apex<span style="color:var(--cyan-light);">💧</span></div>
+        <p style="max-width:250px;font-size:13px;opacity:.75;">Professional pressure washing for homes and businesses across Bucks County &amp; Greater Philadelphia.</p>
+      </div>
+      <div class="footer-col">
+        <span>Contact</span>
+        <a href="tel:2155550142">(215) 555-0142</a>
+        <a href="mailto:hello@apexpressurepros.com">hello@apexpressurepros.com</a>
+      </div>
+      <div class="footer-col">
+        <span>Services</span>
+        <a href="#services">House Wash</a>
+        <a href="#services">Driveway &amp; Sidewalk</a>
+        <a href="#services">Deck &amp; Fence</a>
+        <a href="#services">Commercial</a>
+      </div>
+      <div class="footer-col">
+        <span>Company</span>
+        <a href="#before-after">Before &amp; After</a>
+        <a href="#quote">Get a Quote</a>
+        <a href="#process">Our Process</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Apex Pressure Pros. Fully Insured — PA Home Improvement Contractor #PA123456</span>
+      <span>Demo site built by Forge Digital</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const revealTargets = document.querySelectorAll('.section-head, .service-card, .ba-gallery-grid > div, .process-item, .trust-item, .quote-box, .test-carousel, .panel-box');
+  revealTargets.forEach(el=>el.setAttribute('data-reveal',''));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), (i%3)*80); io.unobserve(e.target); }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+
+  // Counters
+  const counters = document.querySelectorAll('[data-count]');
+  const counterIO = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-count'));
+        const decimal = el.getAttribute('data-decimal');
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1300; const start = performance.now();
+        function tick(now){
+          const p = Math.min((now-start)/duration,1);
+          const eased = 1-Math.pow(1-p,3);
+          const current = target*eased;
+          el.textContent = (decimal ? current.toFixed(1) : Math.round(current)) + suffix;
+          if(p<1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      }
+    });
+  },{threshold:0.4});
+  counters.forEach(c=>counterIO.observe(c));
+
+  // Service card flip
+  document.querySelectorAll('[data-flip]').forEach(card=>{
+    card.addEventListener('click', ()=>card.classList.toggle('flipped'));
+  });
+
+  // Before / After sliders
+  document.querySelectorAll('[data-ba]').forEach(wrap=>{
+    const before = wrap.querySelector('.ba-before');
+    const handle = wrap.querySelector('.ba-handle');
+    let dragging = false;
+    function setPct(clientX){
+      const rect = wrap.getBoundingClientRect();
+      let pct = ((clientX-rect.left)/rect.width)*100;
+      pct = Math.max(0,Math.min(100,pct));
+      before.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
+      handle.style.left = pct+'%';
+    }
+    wrap.addEventListener('pointerdown', e=>{ dragging=true; wrap.setPointerCapture(e.pointerId); setPct(e.clientX); });
+    wrap.addEventListener('pointermove', e=>{ if(dragging) setPct(e.clientX); });
+    wrap.addEventListener('pointerup', ()=>{ dragging=false; });
+    wrap.addEventListener('pointerleave', ()=>{ dragging=false; });
+  });
+
+  // Instant quote calculator
+  const serviceTypeEl = document.getElementById('serviceType');
+  const sizeSlider = document.getElementById('sizeSlider');
+  const soilSlider = document.getElementById('soilSlider');
+  const sizeVal = document.getElementById('sizeVal');
+  const soilVal = document.getElementById('soilVal');
+  const qrValue = document.getElementById('qrValue');
+
+  const sizeLabels = ['Small','Medium','Large'];
+  const sizeMult = [0.75, 1, 1.5];
+  const soilLabels = ['Light','Moderate','Heavy'];
+  const soilMult = [0.9, 1, 1.25];
+
+  let currentBase = 280;
+
+  serviceTypeEl.querySelectorAll('.pill').forEach(pill=>{
+    pill.addEventListener('click', ()=>{
+      serviceTypeEl.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+      pill.classList.add('active');
+      currentBase = parseFloat(pill.getAttribute('data-base'));
+      calcQuote();
+    });
+  });
+
+  function calcQuote(){
+    const sIdx = parseInt(sizeSlider.value);
+    const soIdx = parseInt(soilSlider.value);
+    sizeVal.textContent = sizeLabels[sIdx];
+    soilVal.textContent = soilLabels[soIdx];
+    sizeSlider.style.background = `linear-gradient(90deg, var(--cyan) ${sIdx/2*100}%, var(--line-strong) ${sIdx/2*100}%)`;
+    soilSlider.style.background = `linear-gradient(90deg, var(--cyan) ${soIdx/2*100}%, var(--line-strong) ${soIdx/2*100}%)`;
+    const mid = currentBase * sizeMult[sIdx] * soilMult[soIdx];
+    const low = Math.round(mid*0.88/10)*10;
+    const high = Math.round(mid*1.2/10)*10;
+    qrValue.textContent = '$' + low + ' – $' + high;
+    qrValue.classList.add('pulse');
+    setTimeout(()=>qrValue.classList.remove('pulse'), 180);
+  }
+  sizeSlider.addEventListener('input', calcQuote);
+  soilSlider.addEventListener('input', calcQuote);
+  calcQuote();
+
+  // Process accordion
+  document.querySelectorAll('.process-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.process-item').forEach(p=>p.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Testimonial carousel
+  const testSlides = document.getElementById('testSlides');
+  const testDots = document.querySelectorAll('.test-dot');
+  let testIndex = 0;
+  function showTest(i){
+    testIndex = i;
+    testSlides.style.transform = `translateX(-${i*100}%)`;
+    testDots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
+  }
+  testDots.forEach((dot,idx)=>dot.addEventListener('click', ()=>showTest(idx)));
+  setInterval(()=>{ showTest((testIndex+1)%testDots.length); }, 6000);
+</script>
+
+</body>
+</html>
